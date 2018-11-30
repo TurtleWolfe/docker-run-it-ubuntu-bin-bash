@@ -2,4 +2,4 @@
 detached interactive terminal on port 8080 named u1804  
   
 ### $`docker attach u1804`
-__dfb3e__ represents __containerID__
+__u1804__ represents __containerID__
