@@ -2,47 +2,31 @@
 ```
 $ docker info
 ```
-### List running containers
-```
-$ docker container ls
-```
-### List all containers (Even if not running)
+##### List all containers (Even if not running)
 ```
 $ docker container ls -a
 ```
-### Stop container
+##### Stop all running containers
 ```
-$ docker container stop [ID]
+$ docker container stop $(docker ps -aq)
 ```
-### Stop all running containers
-```
-$ docker stop $(docker ps -aq)
-```
-### Remove container (Can not remove running containers, must stop first)
-```
-$ docker container rm [ID]
-```
-### To remove a running container use force(-f)
+##### To remove a running container use force(-f)
 ```
 $ docker container rm -f [ID]
 ```
-### Remove multiple containers
-```
-$ docker container rm [ID] [ID] [ID]
-```
-### Remove all containers
+##### Remove all containers
 ```
 $ docker rm $(docker ps -aq)
 ```
-### Get logs (Use name or ID)
+##### Get logs (Use name or ID)
 ```
 $ docker container logs [NAME]
 ```
-### List the images we have pulled
+##### List the images we have pulled
 ```
 $ docker image ls
 ```
-### Remove all images
+##### Remove all images
 ```
 $ docker rmi $(docker images -a -q)
 ```
