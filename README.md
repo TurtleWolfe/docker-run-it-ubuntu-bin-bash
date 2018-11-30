@@ -1,4 +1,4 @@
-### Show info like number of containers, etc
+##### Show info like number of containers, etc
 ```
 $ docker info
 ```
