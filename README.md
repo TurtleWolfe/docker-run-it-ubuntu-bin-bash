@@ -5,3 +5,4 @@ detached interactive terminal on port 8080 named u1804
 ### $`docker start u1804`  
 ### $`docker attach u1804`  
 __u1804__ represents __containerID__  
+### $`exit`  
