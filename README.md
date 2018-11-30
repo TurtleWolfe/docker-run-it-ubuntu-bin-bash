@@ -22,10 +22,6 @@ $ docker rm $(docker ps -aq)
 ```
 $ docker container logs [NAME]
 ```
-##### List the images we have pulled
-```
-$ docker image ls
-```
 ##### Remove all images
 ```
 $ docker rmi $(docker images -a -q)
