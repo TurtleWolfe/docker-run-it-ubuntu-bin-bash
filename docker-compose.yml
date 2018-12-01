@@ -1,10 +1,9 @@
 version: "3.2"
 services:
   bionic:
-    image: ubuntu:18.04
-    # image: ubuntu:${DISTRO:-bionic}
+    image: ubuntu:${DISTRO:-bionic}
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - ./usr_local/:/usr/local/
     container_name: u1804
