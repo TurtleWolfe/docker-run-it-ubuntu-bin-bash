@@ -28,5 +28,8 @@ detached interactive terminal on port 8080 named u1804
 ### $`docker attach u1804`  
 __u1804__ represents __containerID__  
 ### root@u1804:/# `ls -l`  
+### root@u1804:/# `apt-get update`  
+### root@u1804:/# `apt-get install -y curl`  
+### root@u1804:/# `curl https://www.google.com`  
 ### root@u1804:/# `exit`  
 ### $`docker build -t ubuntu:1804 .`
