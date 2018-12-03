@@ -31,10 +31,11 @@ __u1804__ represents __containerID__
 ### root@u1804:/# `apt-get update`  
 ### root@u1804:/# `adduser jonDOE`  
 ### root@u1804:/# `cat /etc/shadow | grep root`  
-# insert picture here  
 `!` lockout login  
 `x` encrypted password  
-`*` any password?  
+`*` any password? 
+![alt text](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/CaptureETCshadow.PNG?raw=true "Logo Title Text 1")  
+ 
 ### root@u1804:/# `apt-get install -y curl`  
 ### root@u1804:/# `curl https://www.google.com`  
 ### root@u1804:/# `exit`  
