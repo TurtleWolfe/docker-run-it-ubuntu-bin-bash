@@ -32,4 +32,7 @@ __u1804__ represents __containerID__
 ### root@u1804:/# `apt-get install -y curl`  
 ### root@u1804:/# `curl https://www.google.com`  
 ### root@u1804:/# `exit`  
+
+### root@u1804:/# [`echo 'export PS1="[\u@\h \w]\$ "' >> ~/.bash_profile`](https://www.packtpub.com/mapt/video/application_development/9781789802610/79474/79509/customizing-the-shell-prompt "Customizing the Shell Prompt")
+### root@u1804:/# [`nano ~/.bash_profile`](https://vitux.com/how-to-customize-ubuntu-bash-prompt/ "How to Customize your Ubuntu Terminal Prompt")
 ### $`docker build -t ubuntu:1804 .`
