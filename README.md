@@ -31,11 +31,11 @@ __u1804__ represents __containerID__
 ### root@u1804:/# `apt-get update`  
 ### root@u1804:/# `apt-get install -y curl`  
 ### root@u1804:/# `curl https://www.google.com`  
-[![Mastering Ubuntu Server book cover](\captured_Images\B10288.png?raw=true "Mastering Ubuntu Server - Second Edition
+[![Mastering Ubuntu Server book cover](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/B10288.png?raw=true "Mastering Ubuntu Server - Second Edition
 By Jay LaCroix
 May 2018
 Get up-to-date with the finer points of Ubuntu Server using this comprehensive guide")](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560)
-[![Mastering Ubuntu Server book cover](\captured_Images\V12701_Low.png?raw=true "Linux Administration Bootcamp: Go from Beginner to Advanced [ Video ]
+[![Mastering Ubuntu Server book cover](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/V12701_Low.png?raw=true "Linux Administration Bootcamp: Go from Beginner to Advanced [ Video ]
 By Jason Cannon
 November 2018
 Learn Red Hat Linux and CentOS: Use these in-demand skills to start a career as a Linux Server Admin or Linux Administrator!")](https://www.packtpub.com/mapt/video/application_development/9781789612189/87094/87095/the-linux-directory-structure)
