@@ -1,4 +1,4 @@
-[![leg lamp from A Christmas Story](captured_Images\xmasLAMP.jpg?raw=true "Linux Administration Bootcamp: Go from Beginner to Advanced [ Video ]
+[![leg lamp from A Christmas Story](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/xmasLAMP.jpg?raw=true?raw=true "Linux Administration Bootcamp: Go from Beginner to Advanced [ Video ]
 By Jason Cannon
 November 2018
 Learn Red Hat Linux and CentOS: Use these in-demand skills to start a career as a Linux Server Admin or Linux Administrator!")](https://www.packtpub.com/mapt/video/application_development/9781789612189/87094/87095/the-linux-directory-structure)
@@ -73,8 +73,8 @@ __modify secondary group to include user__
 jane_doe@u1804:~$ `sudo usermod -aG admins jane_doe`  
 
 __lock password__ - will not affect SSH (see ch 15)   
-jane_doe@u1804:~$ `sudo passwd -l root`  
-jane_doe@u1804:~$ `sudo cat /etc/shadow | grep root`  
+jane_doe@u1804:\~$ `sudo passwd -l root`  
+jane_doe@u1804:\~$ `sudo cat /etc/shadow | grep root`  
 root@u1804:/# `su - root`  
 
 __unlock password__  
@@ -115,16 +115,16 @@ __remove `read` from file permissions for `other's`__
 jane_doe@u1804:~$ `sudo chmod o-r /home/sue/budget.txt`  
 
 __octal permission patterns__  
-jane_doe@u1804:~$ `chmod 600 filename.txt` (would be the same as) `chmod -rw------- filename.txt`  
-jane_doe@u1804:~$ `chmod 740 filename.txt` (would be the same as) `chmod -rwxr----- filename.txt`  
-jane_doe@u1804:~$ `chmod 770 filename.txt` (would be the same as) `chmod -rwxrwx--- filename.txt`  
-jane_doe@u1804:~$ `chmod 770 -R dir_name` (recursive directories)  
+jane_doe@u1804:\~$ `chmod 600 filename.txt` (would be the same as) `chmod -rw------- filename.txt`  
+jane_doe@u1804:\~$ `chmod 740 filename.txt` (would be the same as) `chmod -rwxr----- filename.txt`  
+jane_doe@u1804:\~$ `chmod 770 filename.txt` (would be the same as) `chmod -rwxrwx--- filename.txt`  
+jane_doe@u1804:\~$ `chmod 770 -R dir_name` (recursive directories)  
 
 __change ownership of directory recursively__  
-jane_doe@u1804:~$ `sudo chown -R sue:sales dir_name`  
+jane_doe@u1804:\~$ `sudo chown -R sue:sales dir_name`  
 
 __change group ownership__  
-jane_doe@u1804:~$ `sudo chgrp sales myfile.txt`  
+jane_doe@u1804:\~$ `sudo chgrp sales myfile.txt`  
 
 __Q&A__
 1. $ `sudo`  
@@ -243,15 +243,15 @@ __disk function__ ( utility again )
 jane_doe@u1804:~$ `sudo fdisk -l`  
 _review added disk partion_  
 __( _or to try again_ )__  
-jane_doe@u1804:~$ `sudo fdisk`  
+jane_doe@u1804:\~$ `sudo fdisk`  
 `g` _new __GPT__ layout_  
 `o` _new MBR layout_  
 
 __disk format__  _(partition `ext4`)_  
-jane_doe@u1804:~$ `sudo mkfs.ext4 /dev/sdb1` (volume path)   
+jane_doe@u1804:\~$ `sudo mkfs.ext4 /dev/sdb1` (volume path)   
 _or_  
 __disk format__  _(partition `xfs`)_  
-jane_doe@u1804:~$ `sudo mfs.xfs /dev/sdb1` (volume path)   
+jane_doe@u1804:\~$ `sudo mfs.xfs /dev/sdb1` (volume path)   
  
 __Q&A__
 1. $ `sudo`  
