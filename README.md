@@ -231,7 +231,7 @@ __adding a new volume__
 to `/etc/fstab` file  
 
 __disk functions__  
-jane_doe@u1804:~$ `sudo fdisk /dev/sdb` (volume path)  
+jane_doe@u1804:~$ `sudo fdisk /dev/sdb` _..(volume path)_  
 __`m`__ _for menu_  
 __`n`__ _new partition_  
 __`enter`__ _default partion number_  
@@ -239,7 +239,7 @@ __`1G`__ _partion size_
 __`w`__ _write changes_  
 __`enter`__ _save changes_  
 
-__disk function__ ( utility again )   
+__disk function__ _..( utility again )_   
 jane_doe@u1804:~$ `sudo fdisk -l`  
 _review added disk partion_  
 __( _or to try again_ )__  
@@ -248,12 +248,165 @@ jane_doe@u1804:~$ `sudo fdisk`
 `o` _new MBR layout_  
 
 __disk format__  _(partition `ext4`)_  
-jane_doe@u1804:~$ `sudo mkfs.ext4 /dev/sdb1` (volume path)   
+jane_doe@u1804:~$ `sudo mkfs.ext4 /dev/sdb1` _..(volume path)_  
 _or_  
 __disk format__  _(partition `xfs`)_  
-jane_doe@u1804:~$ `sudo mfs.xfs /dev/sdb1` (volume path)   
- 
-__Q&A__
+jane_doe@u1804:~$ `sudo mfs.xfs /dev/sdb1` _..(volume path)_  
+
+__disk function__  _(review)_   
+jane_doe@u1804:~$ `sudo fdisk -l`  
+__make directory__  
+jane_doe@u1804:~$ `sudo mkdir /mnt/vol1` _..(volume path)_  
+__mount device to directory__  
+jane_doe@u1804:~$ `sudo mount /dev/sdb1 /mnt/vol1` _..(volume path)_  
+__mount device to directory with `type` option__  _..(usually un-necessary)_  
+jane_doe@u1804:~$ `sudo mount /dev/sdb1 -t ext4 /mnt/vol1` _..(volume path)_  
+...  
+__unmount device__  
+jane_doe@u1804:~$ `sudo umount /mnt/vol1`  
+__disk filesystem in human readable__  _..(confirm unmounted)_  
+jane_doe@u1804:~$ `df -h`  
+
+__block identification, UUID__  _..( __/__ etc __/__ f stab )_  
+jane_doe@u1804:~$ `blkid`  
+...  
+__make new directory for extra storage__  _..( __/__ mnt __/__ extra_storage )_  
+jane_doe@u1804:~$ `sudo mkdir /mnt/extra_storage`  
+...  
+__edit `/etc/fstab`__  
+jane_doe@u1804:~$ `sudo nano /etc/fstab`  
+...  
+`UUID=e51bcc9e-45dd-45c7 /mnt/extra_storage  ext4  rw,auto 0 0`  
+...  
+__mounting volume (__ with __`auto` )__  
+jane_doe@u1804:~$ `sudo mount -a`  
+...  
+`UUID=e51bcc9e-45dd-45c7 /mnt/ext_disk  ext4  rw,noauto 0 0`  
+...  
+__mounting an external disk__ (with __`noauto`__ ) perhaps per back-up  
+jane_doe@u1804:~$ `sudo mount /mnt/ext_disk`  
+...  
+__list everything that is mounted__  
+jane_doe@u1804:~$ `mount`  
+
+__swap volume (__ with __`auto` )__  
+jane_doe@u1804:~$ `sudo swapon -a`  
+don't forget to edit `fstab`  
+...  
+`/swapfile   none   swap   sw   0 0`  
+...  
+__check memory__  
+jane_doe@u1804:~$ `free -m`  
+...  
+__file allocate__  
+jane_doe@u1804:~$ `sudo fallocate -l 4G /swapfile`  
+_creates a 4 gigabyte file_  
+...  
+__make swap__  
+jane_doe@u1804:~$ `sudo mkswap /swapfile`  
+_makes it the swap file_  
+...  
+_don't forget to edit_  __/__ `etc` __/__ `f stab`  
+```
+/swapfile   none   swap   sw   0 0
+```  
+__Activate SwapFile__ (__ with __`auto` )__  
+jane_doe@u1804:~$ `sudo swapon -a`  
+
+_check if_ __lvm2__  _is installed_  
+jane_doe@u1804:~$ `dpkg -s lvm2 | grep status`  
+_should return_ `install ok installed` _if it is installed already_  
+...  
+__install lvm2__  _( if it is not already installed )_  
+jane_doe@u1804:~$ `sudo apt install lvm2`  
+...  
+__disk functions__  
+jane_doe@u1804:~$ `sudo fdisk -l`  
+_should list partions_  
+...  
+__pvcreate__ _( create physical volumes )_  
+jane_doe@u1804:~$  
+```  
+    sudo pvcreate /dev/sdb  
+    sudo pvcreate /dev/sdc  
+    sudo pvcreate /dev/sdd  
+    sudo pvcreate /dev/sde  
+```   
+__display Physical Volumes__  
+jane_doe@u1804:~$ `sudo pvdisplay`  
+...  
+__create Volume Group__  
+jane_doe@u1804:~$ `sudo vgcreate vg-test /dev/sdb1` _..(volume path)_   
+...  
+__display Volume Groups__  
+jane_doe@u1804:~$ `vgdisplay`  
+...  
+__create Logical Volume__  
+jane_doe@u1804:~$ `sudo lvcreate -n myvol1 -L 10g vg-test`  
+...  
+__display Logical Volumes__  
+jane_doe@u1804:~$ `sudo lvdisplay`  
+...  
+__xxxChange This__  
+jane_doe@u1804:~$ `sudo mkfs.ext4 /dev/vg-test/myvol1`  
+...  
+__xxxChange This__  
+jane_doe@u1804:~$ `sudo mount /dev/vg-test/myvol1 /mnt/lvm/myvol1`  
+...  
+__xxxChange This__  
+jane_doe@u1804:~$ `sudo lvextend -n /dev/vg-test/myvol1 -l +100%FREE`  
+...  
+__xxxChange This__  
+`Logical volume vg-test/myvol1 successfully resized.`  
+...  
+__xxxChange This__  
+jane_doe@u1804:~$ `df -h`  
+...  
+__xxxChange This__  
+jane_doe@u1804:~$ `sudo resize2fs /dev/mapper/vg--test-myvol1`  
+...  
+__xxxChange This__  
+`The filesystem on /dev/mapper/vg--test-myvol1 is now 5241856 (4k) blocks long.`  
+...  
+__xxxChange This__  
+jane_doe@u1804:~$ 
+```
+sudo vgextend vg-test /dev/sdc
+sudo vgextend vg-test /dev/sdd
+sudo vgextend vg-test /dev/sde
+```  
+__xxxChange This__  
+`Volume group "vg-test" successfully extended`  
+...  
+__xxxChange This__  
+jane_doe@u1804:~$ `sudo lvextend -L+10g /dev/vg-test/myvol1`  
+...  
+__xxxChange This__  
+jane_doe@u1804:~$ `sudo resize2fs /dev/vg-test/myvol1`  
+...  
+__xxxChange This__  
+jane_doe@u1804:~$ `sudo lvcreate -s -n mysnapshot -L 4g vg-test/myvol1`  
+...  
+__xxxChange This__  
+jane_doe@u1804:~$ `Logical volume "mysnapshot" created.`  
+...  
+__xxxChange This__  
+jane_doe@u1804:~$ `sudo lvconvert --merge vg-test/mysnapshot`  
+
+```
+Merging of volume mysnapshot started.
+myvol1: Merged: 100.0%`
+```    
+__xxxChange This__  
+jane_doe@u1804:~$ `sudo lvremove vg-test/myvol1`  
+...  
+__xxxChange This__  
+jane_doe@u1804:~$ `sudo vgremove vg-test`  
+...  
+__xxxChange This__  
+jane_doe@u1804:~$ `sudo `  
+
+__Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
 1. $ `rm jane_doe`  
