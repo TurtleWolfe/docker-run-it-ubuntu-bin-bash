@@ -248,7 +248,6 @@ jane_doe@u1804:\~$ `sudo fdisk`
 `o` _new MBR layout_  
 
 __disk format__  _(partition `ext4`)_  
-<<<<<<< HEAD
 jane_doe@u1804:~$ `sudo mkfs.ext4 /dev/sdb1` _..(volume path)_  
 _or_  
 __disk format__  _(partition `xfs`)_  
@@ -408,14 +407,6 @@ __xxxChange This__
 jane_doe@u1804:~$ `sudo `  
 
 __Q__ & __A__
-=======
-jane_doe@u1804:\~$ `sudo mkfs.ext4 /dev/sdb1` (volume path)   
-_or_  
-__disk format__  _(partition `xfs`)_  
-jane_doe@u1804:\~$ `sudo mfs.xfs /dev/sdb1` (volume path)   
- 
-__Q&A__
->>>>>>> e54e6d8b89bf22261b5ed3c54664176344780a22
 1. $ `sudo`  
 1. $ `adduser, useradd`  
 1. $ `rm jane_doe`  
