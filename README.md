@@ -240,7 +240,7 @@ __`w`__ _write changes_
 __`enter`__ _save changes_  
 
 __disk function__ _..( utility again )_   
-jane_doe@u1804:~$ `sudo fdisk -l`  
+jane_doe@u1804:\~$ `sudo fdisk -l`  
 _review added disk partion_  
 __( _or to try again_ )__  
 jane_doe@u1804:\~$ `sudo fdisk`  
@@ -248,62 +248,62 @@ jane_doe@u1804:\~$ `sudo fdisk`
 `o` _new MBR layout_  
 
 __disk format__  _(partition `ext4`)_  
-jane_doe@u1804:~$ `sudo mkfs.ext4 /dev/sdb1` _..(volume path)_  
+jane_doe@u1804:\~$ `sudo mkfs.ext4 /dev/sdb1` _..(volume path)_  
 _or_  
 __disk format__  _(partition `xfs`)_  
-jane_doe@u1804:~$ `sudo mfs.xfs /dev/sdb1` _..(volume path)_  
+jane_doe@u1804:\~$ `sudo mfs.xfs /dev/sdb1` _..(volume path)_  
 
 __disk function__  _(review)_   
-jane_doe@u1804:~$ `sudo fdisk -l`  
+jane_doe@u1804:\~$ `sudo fdisk -l`  
 __make directory__  
-jane_doe@u1804:~$ `sudo mkdir /mnt/vol1` _..(volume path)_  
+jane_doe@u1804:\~$ `sudo mkdir /mnt/vol1` _..(volume path)_  
 __mount device to directory__  
-jane_doe@u1804:~$ `sudo mount /dev/sdb1 /mnt/vol1` _..(volume path)_  
+jane_doe@u1804:\~$ `sudo mount /dev/sdb1 /mnt/vol1` _..(volume path)_  
 __mount device to directory with `type` option__  _..(usually un-necessary)_  
-jane_doe@u1804:~$ `sudo mount /dev/sdb1 -t ext4 /mnt/vol1` _..(volume path)_  
+jane_doe@u1804:\~$ `sudo mount /dev/sdb1 -t ext4 /mnt/vol1` _..(volume path)_  
 ...  
 __unmount device__  
-jane_doe@u1804:~$ `sudo umount /mnt/vol1`  
+jane_doe@u1804:\~$ `sudo umount /mnt/vol1`  
 __disk filesystem in human readable__  _..(confirm unmounted)_  
-jane_doe@u1804:~$ `df -h`  
+jane_doe@u1804:\~$ `df -h`  
 
 __block identification, UUID__  _..( __/__ etc __/__ f stab )_  
-jane_doe@u1804:~$ `blkid`  
+jane_doe@u1804:\~$ `blkid`  
 ...  
 __make new directory for extra storage__  _..( __/__ mnt __/__ extra_storage )_  
-jane_doe@u1804:~$ `sudo mkdir /mnt/extra_storage`  
+jane_doe@u1804:\~$ `sudo mkdir /mnt/extra_storage`  
 ...  
 __edit `/etc/fstab`__  
-jane_doe@u1804:~$ `sudo nano /etc/fstab`  
+jane_doe@u1804:\~$ `sudo nano /etc/fstab`  
 ...  
 `UUID=e51bcc9e-45dd-45c7 /mnt/extra_storage  ext4  rw,auto 0 0`  
 ...  
 __mounting volume (__ with __`auto` )__  
-jane_doe@u1804:~$ `sudo mount -a`  
+jane_doe@u1804:\~$ `sudo mount -a`  
 ...  
 `UUID=e51bcc9e-45dd-45c7 /mnt/ext_disk  ext4  rw,noauto 0 0`  
 ...  
 __mounting an external disk__ (with __`noauto`__ ) perhaps per back-up  
-jane_doe@u1804:~$ `sudo mount /mnt/ext_disk`  
+jane_doe@u1804:\~$ `sudo mount /mnt/ext_disk`  
 ...  
 __list everything that is mounted__  
-jane_doe@u1804:~$ `mount`  
+jane_doe@u1804:\~$ `mount`  
 
 __swap volume (__ with __`auto` )__  
-jane_doe@u1804:~$ `sudo swapon -a`  
+jane_doe@u1804:\~$ `sudo swapon -a`  
 don't forget to edit `fstab`  
 ...  
 `/swapfile   none   swap   sw   0 0`  
 ...  
 __check memory__  
-jane_doe@u1804:~$ `free -m`  
+jane_doe@u1804:\~$ `free -m`  
 ...  
 __file allocate__  
-jane_doe@u1804:~$ `sudo fallocate -l 4G /swapfile`  
+jane_doe@u1804:\~$ `sudo fallocate -l 4G /swapfile`  
 _creates a 4 gigabyte file_  
 ...  
 __make swap__  
-jane_doe@u1804:~$ `sudo mkswap /swapfile`  
+jane_doe@u1804:\~$ `sudo mkswap /swapfile`  
 _makes it the swap file_  
 ...  
 _don't forget to edit_  __/__ `etc` __/__ `f stab`  
@@ -311,21 +311,21 @@ _don't forget to edit_  __/__ `etc` __/__ `f stab`
 /swapfile   none   swap   sw   0 0
 ```  
 __Activate SwapFile__ (__ with __`auto` )__  
-jane_doe@u1804:~$ `sudo swapon -a`  
+jane_doe@u1804:\~$ `sudo swapon -a`  
 
 _check if_ __lvm2__  _is installed_  
-jane_doe@u1804:~$ `dpkg -s lvm2 | grep status`  
+jane_doe@u1804:\~$ `dpkg -s lvm2 | grep status`  
 _should return_ `install ok installed` _if it is installed already_  
 ...  
 __install lvm2__  _( if it is not already installed )_  
-jane_doe@u1804:~$ `sudo apt install lvm2`  
+jane_doe@u1804:\~$ `sudo apt install lvm2`  
 ...  
 __disk functions__  
-jane_doe@u1804:~$ `sudo fdisk -l`  
+jane_doe@u1804:\~$ `sudo fdisk -l`  
 _should list partions_  
 ...  
 __pvcreate__ _( create physical volumes )_  
-jane_doe@u1804:~$  
+jane_doe@u1804:\~$  
 ```  
     sudo pvcreate /dev/sdb  
     sudo pvcreate /dev/sdc  
@@ -333,43 +333,43 @@ jane_doe@u1804:~$
     sudo pvcreate /dev/sde  
 ```   
 __display Physical Volumes__  
-jane_doe@u1804:~$ `sudo pvdisplay`  
+jane_doe@u1804:\~$ `sudo pvdisplay`  
 ...  
 __create Volume Group__  
-jane_doe@u1804:~$ `sudo vgcreate vg-test /dev/sdb1` _..(volume path)_   
+jane_doe@u1804:\~$ `sudo vgcreate vg-test /dev/sdb1` _..(volume path)_   
 ...  
 __display Volume Groups__  
-jane_doe@u1804:~$ `vgdisplay`  
+jane_doe@u1804:\~$ `vgdisplay`  
 ...  
 __create Logical Volume__  
-jane_doe@u1804:~$ `sudo lvcreate -n myvol1 -L 10g vg-test`  
+jane_doe@u1804:\~$ `sudo lvcreate -n myvol1 -L 10g vg-test`  
 ...  
 __display Logical Volumes__  
-jane_doe@u1804:~$ `sudo lvdisplay`  
+jane_doe@u1804:\~$ `sudo lvdisplay`  
 ...  
 __xxxChange This__  
-jane_doe@u1804:~$ `sudo mkfs.ext4 /dev/vg-test/myvol1`  
+jane_doe@u1804:\~$ `sudo mkfs.ext4 /dev/vg-test/myvol1`  
 ...  
 __xxxChange This__  
-jane_doe@u1804:~$ `sudo mount /dev/vg-test/myvol1 /mnt/lvm/myvol1`  
+jane_doe@u1804:\~$ `sudo mount /dev/vg-test/myvol1 /mnt/lvm/myvol1`  
 ...  
 __xxxChange This__  
-jane_doe@u1804:~$ `sudo lvextend -n /dev/vg-test/myvol1 -l +100%FREE`  
+jane_doe@u1804:\~$ `sudo lvextend -n /dev/vg-test/myvol1 -l +100%FREE`  
 ...  
 __xxxChange This__  
 `Logical volume vg-test/myvol1 successfully resized.`  
 ...  
 __xxxChange This__  
-jane_doe@u1804:~$ `df -h`  
+jane_doe@u1804:\~$ `df -h`  
 ...  
 __xxxChange This__  
-jane_doe@u1804:~$ `sudo resize2fs /dev/mapper/vg--test-myvol1`  
+jane_doe@u1804:\~$ `sudo resize2fs /dev/mapper/vg--test-myvol1`  
 ...  
 __xxxChange This__  
 `The filesystem on /dev/mapper/vg--test-myvol1 is now 5241856 (4k) blocks long.`  
 ...  
 __xxxChange This__  
-jane_doe@u1804:~$ 
+jane_doe@u1804:\~$ 
 ```
 sudo vgextend vg-test /dev/sdc
 sudo vgextend vg-test /dev/sdd
@@ -379,32 +379,32 @@ __xxxChange This__
 `Volume group "vg-test" successfully extended`  
 ...  
 __xxxChange This__  
-jane_doe@u1804:~$ `sudo lvextend -L+10g /dev/vg-test/myvol1`  
+jane_doe@u1804:\~$ `sudo lvextend -L+10g /dev/vg-test/myvol1`  
 ...  
 __xxxChange This__  
-jane_doe@u1804:~$ `sudo resize2fs /dev/vg-test/myvol1`  
+jane_doe@u1804:\~$ `sudo resize2fs /dev/vg-test/myvol1`  
 ...  
 __xxxChange This__  
-jane_doe@u1804:~$ `sudo lvcreate -s -n mysnapshot -L 4g vg-test/myvol1`  
+jane_doe@u1804:\~$ `sudo lvcreate -s -n mysnapshot -L 4g vg-test/myvol1`  
 ...  
 __xxxChange This__  
-jane_doe@u1804:~$ `Logical volume "mysnapshot" created.`  
+jane_doe@u1804:\~$ `Logical volume "mysnapshot" created.`  
 ...  
 __xxxChange This__  
-jane_doe@u1804:~$ `sudo lvconvert --merge vg-test/mysnapshot`  
+jane_doe@u1804:\~$ `sudo lvconvert --merge vg-test/mysnapshot`  
 
 ```
 Merging of volume mysnapshot started.
 myvol1: Merged: 100.0%`
 ```    
 __xxxChange This__  
-jane_doe@u1804:~$ `sudo lvremove vg-test/myvol1`  
+jane_doe@u1804:\~$ `sudo lvremove vg-test/myvol1`  
 ...  
 __xxxChange This__  
-jane_doe@u1804:~$ `sudo vgremove vg-test`  
+jane_doe@u1804:\~$ `sudo vgremove vg-test`  
 ...  
 __xxxChange This__  
-jane_doe@u1804:~$ `sudo `  
+jane_doe@u1804:\~$ `sudo `  
 
 __Q__ & __A__
 1. $ `sudo`  
@@ -445,7 +445,7 @@ Since the mainline release (currently 1.11.19) has all of the latest features, y
 
 #  [`Chapter 11. Shell Techniques`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ### TTY# `code samples...`
-
+    
 #  [`Chapter 12. Virtualization`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ### TTY# `code samples...`
 
