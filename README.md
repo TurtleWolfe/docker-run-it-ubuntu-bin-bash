@@ -420,11 +420,11 @@ jane_doe@u1804:\~$ `sudo vgremove vg-test`
 
 ## RAID - Redundant Array of Inexpensive Disks
 __disk functions__ _-list_  
-jane_doe@u1804:~$ `sudo fdisk -l`  
+jane_doe@u1804:\~$ `sudo fdisk -l`  
 _( one is hardware, multilple is software )_  
 ...  
 __Multiple Disk And Disk Administration__  
-jane_doe@u1804:~$ `mdadm`  
+jane_doe@u1804:\~$ `mdadm`  
 
 
 __Q__ & __A__
