@@ -193,7 +193,7 @@ jane_doe@u1804:~$ `rm file3`
 __symlink file1 to file3__  
 jane_doe@u1804:~$ `ln -s file1 file3`  
 
-__disk filesystem in human readable__  
+__disk filesystem__ in __human readable__  
 jane_doe@u1804:~$ `df -h`  
 will show available `cyber` space  
 
@@ -213,7 +213,7 @@ jane_doe@u1804:~$ `ncu -x`
 `-x` limit to the current filesystem  
 _during interface;_ `d` would delete 
 
-__disk functions__  
+__disk functions__ _-list_ 
 jane_doe@u1804:~$ `sudo fdisk -l`  
 utility for `listing`, `creating` or `deleting` disk partions 
 
@@ -264,7 +264,7 @@ jane_doe@u1804:\~$ `sudo mount /dev/sdb1 -t ext4 /mnt/vol1` _..(volume path)_
 ...  
 __unmount device__  
 jane_doe@u1804:\~$ `sudo umount /mnt/vol1`  
-__disk filesystem in human readable__  _..(confirm unmounted)_  
+__disk filesystem__ in __human readable__  _..(confirm unmounted)_  
 jane_doe@u1804:\~$ `df -h`  
 
 __block identification, UUID__  _..( __/__ etc __/__ f stab )_  
@@ -289,7 +289,8 @@ jane_doe@u1804:\~$ `sudo mount /mnt/ext_disk`
 __list everything that is mounted__  
 jane_doe@u1804:\~$ `mount`  
 
-__swap volume (__ with __`auto` )__  
+## SWAP-file
+__swap volume__ (  with __`auto`__ )  
 jane_doe@u1804:\~$ `sudo swapon -a`  
 don't forget to edit `fstab`  
 ...  
@@ -313,11 +314,12 @@ _don't forget to edit_  __/__ `etc` __/__ `f stab`
 __Activate SwapFile__ (__ with __`auto` )__  
 jane_doe@u1804:\~$ `sudo swapon -a`  
 
+## LVM
 _check if_ __lvm2__  _is installed_  
 jane_doe@u1804:\~$ `dpkg -s lvm2 | grep status`  
 _should return_ `install ok installed` _if it is installed already_  
 ...  
-__install lvm2__  _( if it is not already installed )_  
+__install lvm2__  _( Logical Volume Management )_  
 jane_doe@u1804:\~$ `sudo apt install lvm2`  
 ...  
 __disk functions__  
@@ -341,70 +343,89 @@ jane_doe@u1804:\~$ `sudo vgcreate vg-test /dev/sdb1` _..(volume path)_
 __display Volume Groups__  
 jane_doe@u1804:\~$ `vgdisplay`  
 ...  
-__create Logical Volume__  
+__create Logical Volume__  `-n` _name_ , `-L` _size ?_ , _group name_ ,  
 jane_doe@u1804:\~$ `sudo lvcreate -n myvol1 -L 10g vg-test`  
 ...  
 __display Logical Volumes__  
 jane_doe@u1804:\~$ `sudo lvdisplay`  
 ...  
-__xxxChange This__  
+__make file system__ , _( format logical volume )_   
 jane_doe@u1804:\~$ `sudo mkfs.ext4 /dev/vg-test/myvol1`  
 ...  
-__xxxChange This__  
+__mount device__ _to_ __directory__  
 jane_doe@u1804:\~$ `sudo mount /dev/vg-test/myvol1 /mnt/lvm/myvol1`  
 ...  
-__xxxChange This__  
-jane_doe@u1804:\~$ `sudo lvextend -n /dev/vg-test/myvol1 -l +100%FREE`  
-...  
-__xxxChange This__  
-`Logical volume vg-test/myvol1 successfully resized.`  
-...  
-__xxxChange This__  
+__disk filesystem__ in __human readable__  _..( confirm volume is mounted & it's size )_  
 jane_doe@u1804:\~$ `df -h`  
 ...  
-__xxxChange This__  
-jane_doe@u1804:\~$ `sudo resize2fs /dev/mapper/vg--test-myvol1`  
+__Extend Logical Volume__  _( use the remaining space )_  
+jane_doe@u1804:\~$ `sudo lvextend -n /dev/vg-test/myvol1 -l +100%FREE`  
+  _( should return )_  
+`Logical volume vg-test/myvol1 successfully resized.`  
 ...  
-__xxxChange This__  
+__disk filesystem__ in __human readable__  _..( confirm, still need to resize file system )_  
+jane_doe@u1804:\~$ `df -h`  
+...  
+__Resize File-System__  _..( ext4 )_  
+jane_doe@u1804:\~$ `sudo resize2fs /dev/mapper/vg--test-myvol1`  
+_( should return )_  
 `The filesystem on /dev/mapper/vg--test-myvol1 is now 5241856 (4k) blocks long.`  
 ...  
-__xxxChange This__  
-jane_doe@u1804:\~$ 
+__disk filesystem__ in __human readable__  _..( added space now usable )_  
+jane_doe@u1804:\~$ `df -h`  
+...  
+__Extend Volume Group__  _( add additonal volumes to group )_  
+jane_doe@u1804:\~$
 ```
 sudo vgextend vg-test /dev/sdc
 sudo vgextend vg-test /dev/sdd
 sudo vgextend vg-test /dev/sde
 ```  
-__xxxChange This__  
+_( should return )_  
 `Volume group "vg-test" successfully extended`  
 ...  
-__xxxChange This__  
+__display Physical Volumes__ _( confirm additional physical volumes attached )_  
+jane_doe@u1804:\~$ `sudo pvdisplay`  
+...  
+__Extend Logical Volume__ _( extend logical volume 10 gigabytes )_  
 jane_doe@u1804:\~$ `sudo lvextend -L+10g /dev/vg-test/myvol1`  
 ...  
-__xxxChange This__  
+__resize file-system__ _( make free space available to filesystem )_  
 jane_doe@u1804:\~$ `sudo resize2fs /dev/vg-test/myvol1`  
-...  
-__xxxChange This__  
-jane_doe@u1804:\~$ `sudo lvcreate -s -n mysnapshot -L 4g vg-test/myvol1`  
-...  
-__xxxChange This__  
-jane_doe@u1804:\~$ `Logical volume "mysnapshot" created.`  
-...  
-__xxxChange This__  
-jane_doe@u1804:\~$ `sudo lvconvert --merge vg-test/mysnapshot`  
 
+__create Logical Volume__  `-s` _snapshot_ , `-n` _name_ , `-L` _maximu size ?_ , _group name_ __/__ _volume_ ,  
+jane_doe@u1804:\~$ `sudo lvcreate -s -n mysnapshot -L 4g vg-test/myvol1`  
+_( should return )_  
+ `Logical volume "mysnapshot" created.`  
+...  
+__logical volume size__ _( monitor it's size )_  
+jane_doe@u1804:\~$ `lvs`  
+...  
+__logical volume convert__  
+jane_doe@u1804:\~$ `sudo lvconvert --merge vg-test/mysnapshot`  
+_( should return )_
 ```
 Merging of volume mysnapshot started.
 myvol1: Merged: 100.0%`
 ```    
-__xxxChange This__  
+...  
+__logical volume size__ _( recheck )_  
+jane_doe@u1804:\~$ `lvs`  
+...  
+__remove logical volume__  
 jane_doe@u1804:\~$ `sudo lvremove vg-test/myvol1`  
 ...  
-__xxxChange This__  
+__remove logical group__  
 jane_doe@u1804:\~$ `sudo vgremove vg-test`  
+
+## RAID - Redundant Array of Inexpensive Disks
+__disk functions__ _-list_  
+jane_doe@u1804:~$ `sudo fdisk -l`  
+_( one is hardware, multilple is software )_  
 ...  
-__xxxChange This__  
-jane_doe@u1804:\~$ `sudo `  
+__Multiple Disk And Disk Administration__  
+jane_doe@u1804:~$ `mdadm`  
+
 
 __Q__ & __A__
 1. $ `sudo`  
