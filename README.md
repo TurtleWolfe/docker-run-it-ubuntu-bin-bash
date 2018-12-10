@@ -28,12 +28,12 @@ $ `docker rm $(docker ps -aq)`
 ##### Remove all images
 $ `docker rmi $(docker images -a -q)`  
   
-# $ [`docker run --name u1804 -dit -p 8080:80 ubuntu:18.04 //bin/bash`](https://stackoverflow.com/questions/39858121/how-can-i-resolve-the-error-oci-runtime-error-exec-no-such-file-or-directory-w "you might see this if you have installed Git for Windows with MSYS2 for example")
+## $ [`docker run --name u1804 -dit -p 8080:80 ubuntu:18.04 //bin/bash`](https://stackoverflow.com/questions/39858121/how-can-i-resolve-the-error-oci-runtime-error-exec-no-such-file-or-directory-w "you might see this if you have installed Git for Windows with MSYS2 for example")
 detached interactive terminal on port 8080 named u1804  
 
 $ `docker stop u1804`  
 $ `docker start u1804`  
-# $ `docker attach u1804`  
+## $ `docker attach u1804`  
 __u1804__ represents __containerID__  
 root@u1804:/# `ls -l`  
 root@u1804:/# `apt-get update`  
@@ -426,7 +426,6 @@ _( one is hardware, multilple is software )_
 __Multiple Disk And Disk Administration__  
 jane_doe@u1804:\~$ `mdadm`  
 
-
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -440,7 +439,239 @@ __Q__ & __A__
 1. $ `chmod, chown`
 
 #  [`Chapter 4. Networks`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-### TTY# `code samples...`
+
+## Host Name
+__hostname__  
+jane_doe@u1804:\~$ `hostname`    
+...  
+__Host Name Control__ _- set host name_  
+jane_doe@u1804:\~$ `sudo hostnamectl set-hostname dev2.mynetwork.org`  
+...  
+__concatenate__ __/__ `etc` __/__ `hostname` )_  
+jane_doe@u1804:\~$ `cat /etc/hostname`  
+...  
+__edit__ __/__ `etc` __/__ `hostname` )   _- ( previous to 15.04, edit maunually )_  
+jane_doe@u1804:\~$ `edit /etc/hostname`  
+...  
+`unable to resolve host dev.mynetwork.org`  
+...  
+__edit__ __/__ `etc` __/__ `hosts` )   _- ( edit maunually )_  
+jane_doe@u1804:\~$ `edit /etc/hosts`  
+
+## managing Network Interfaces
+__currently assigned IP address__  
+jane_doe@u1804:\~$ `ip addr show`  
+_( or shortened to )_  
+jane_doe@u1804:\~$ `ip a`    
+...  
+__state of interface__ _( toggling up & down )_  
+jane_doe@u1804:\~$ 
+```
+sudo ip link set enp0s3 down 
+sudo ip link set enp0s3 up
+```  
+_older systems would _
+__edit__ __/__ `etc` __/__ `udev` __/__ `rules.d` __/__ `70-persistent-net-rules`  
+jane_doe@u1804:\~$ `cat /etc/udev/rules.d/70-persistent-net-rules`  
+...  
+`en` _- Ethernet_  
+`wl` _- Wireless_  
+`p` _- Bus Number_  
+`s` _- Slot_  
+`enp0s3` _( wired network, first bus in PCI slot 3 )_  
+...  
+~~__InterFace Configuration__  
+jane_doe@u1804:\~$ `ifconfig`  
+_( or )_ jane_doe@u1804:\~$ `/sbin/ifconfig`  
+_( deprecated, replace with `ip` )_~~   
+...  
+__Internet Protocol__  
+jane_doe@u1804:\~$ `ip`  
+_( iproute2 replaces net-tools )_  
+...  
+__Interface Down__  
+jane_doe@u1804:\~$ `sudo ifconfig enp0s3 down`  
+_( ~~iproute2 replaces~~ net-tools )_  
+...  
+__Interface Up__  
+jane_doe@u1804:\~$ `sudo ifconfig enp0s3 up`  
+_( ~~iproute2 replaces~~ net-tools )_  
+...  
+
+## Assigning static IP addresses
+__concatenate__ __/__ `etc` __/__ `netplan` )  
+jane_doe@u1804:\~$ `cat /etc/netplan`  
+_( something.yaml )_
+```
+# This file describes the network interfaces available on your system 
+# For more information, see netplan(5). 
+network: 
+  version: 2 
+  renderer: networkd 
+  ethernets: 
+    enp0s3: 
+      dhcp4: no 
+     addresses: [192.168.0.101/24, '2002:2::4/64']
+     gateway4: 192.168.1.1 
+     nameservers: 
+       addresses: [192.168.1.1,8.8.8.8]
+```
+__Apply NetPlan__  
+jane_doe@u1804:\~$ `sudo netplan apply`  
+  
+__legacy variant__  _( basically, any version of Ubuntu older than 17.10 )_  
+__concatenate__ __/__ `etc` __/__ `network`  __/__ `interfaces` )  
+jane_doe@u1804:\~$ `cat /network/interfaces`  
+```
+# The primary network interface 
+auto enp0s3 
+iface enp0s3 inet static 
+    address 10.10.96.1 
+    netmask 255.255.255.0 
+    broadcast 10.10.96.255 
+    dns-search local.lan 
+    dns-nameservers 10.10.96.1
+```
+__restart networking__  
+jane_doe@u1804:\~$ `sudo systemctl restart networking.service`  
+_( legacy variant , before systemD )_  
+jane_doe@u1804:\~$ `sudo /etc/init.d/networking restart`  
+
+__install tmux__  - _terminal multiplexer_  
+jane_doe@u1804:\~$ `sudo apt install tmux`  
+_( activate )_  
+jane_doe@u1804:\~$ `tmux`  
+_( demo )_  
+jane_doe@u1804:\~$ `top`  
+`Ctrl + B`  
+`D` _( should exit )_  
+...  
+__reattach__  - _terminal multiplexer_  
+jane_doe@u1804:\~$ `tmux a`  
+...  
+__!__ _use_ `tmux` _before_ ___either___ `restarting` _technique_  
+...  
+_show_ __IP addresses__  
+jane_doe@u1804:\~$ `ip a`  
+
+## NetworkManager
+___NetworkManager___ _is a utility for managing network connectivity on your server, though it's largely been replaced with_ ___Netplan___.  
+
+## Linux name resolution
+__concatenate__ __/__ `etc` __/__ `nsswitch.conf` )    
+`hosts:          files dns`  
+...  
+__concatenate__ __/__ `etc` __/__ `hosts` )    
+`10.10.96.124 minecraftserver`  
+...  
+_On legacy __Ubuntu__ servers , there was a file ,_ __/__ `etc` __/__ `resolv.conf`  
+jane_doe@u1804:\~$ `cat /network/resolv.conf`  
+...  
+__DNS nameservers__ _that the server is currently pointing to_  
+jane_doe@u1804:\~$ `systemd-resolve --status |grep DNS\ Servers`  
+
+## OpenSSH  
+_( confirm_ __SSH Daemon__  _installation )_  
+jane_doe@u1804:\~$ `which sshd`  
+_( should return )_ 
+`/usr/sbin/sshd`  
+...  
+__install OpenSSH-Server__  
+jane_doe@u1804:\~$ `sudo apt install openssh-server`  
+...  
+_( confirm_ __SSH Client__  _installation )_  
+jane_doe@u1804:\~$ `which ssh`  
+_( should return )_ 
+`/usr/sbin/ssh`  
+...  
+__install OpenSSH-Client__  
+jane_doe@u1804:\~$ `sudo apt install openssh-client`  
+...  
+__SSH__ _status_  
+jane_doe@u1804:\~$ `systemctl status ssh`  
+...  
+__SSH__ _start_  
+jane_doe@u1804:\~$ `sudo systemctl start ssh`  
+...  
+__SSH__ _enable_  
+jane_doe@u1804:\~$ `sudo systemctl enable ssh`  
+...  
+__legacy variant__  _( 14.04 & 12.04 )_  
+jane_doe@u1804:\~$ `sudo service ssh start`  
+jane_doe@u1804:\~$ `sudo update-rc.d ssh defaults`  
+...  
+__listening ports ,__ _restrict output to SSH_  
+jane_doe@u1804:\~$ `sudo netstat -tulpn |grep ssh`  
+...  
+__SSH__ _connect via_  __IP address__  
+jane_doe@u1804:\~$ `ssh 10.10.96.10`  
+...  
+__SSH__ _connect_ __user @__ _, via_  __IP address__  
+jane_doe@u1804:\~$ `ssh fmulder@10.10.96.10`  
+...  
+__SSH__ _, port , user @ , IP address_  
+jane_doe@u1804:\~$ `ssh -p 2242 fmulder@10.10.96.10`  
+...  
+__exit__  
+jane_doe@u1804:\~$ `exit`  
+_or_ __`Ctrl+D`__  _, especially if you have processes to leave running in the background_
+
+## SSH key management
+__Generate SSH Key__  
+jane_doe@u1804:\~$ `ssh-keygen`  
+_( default location )_ 
+`/home/<user>/.ssh`  
+_( passphrase , optional )_  
+...  
+__id_rsa__ _&_ __id_rsa.pub__  
+jane_doe@u1804:\~$ `ls -l /home/<user>/.ssh`  
+jane_doe@u1804:\~$ `ls -l /home/jane_doe/.ssh`  
+...  
+__SSH__ _transmit __public__ key to a target server,_  
+jane_doe@u1804:\~$ `ssh-copy-id -i ~/.ssh/id_rsa.pub unicorn`  
+_( default location )_  
+`~/.ssh/authorized_keys`  
+...  
+_start_ __SSH__ _agent_  
+jane_doe@u1804:\~$ `eval $(ssh-agent)`  
+...  
+__unlock key__  _( via agent )_  
+jane_doe@u1804:\~$ `ssh-add ~/.ssh/id_rsa`  
+...  
+__change pass-phrase__  
+jane_doe@u1804:\~$ `ssh-keygen -p`  
+`Enter` _accepts default file_ `id_rsa`
+
+## simplifying SSH connections with a `config file
+__edit__ __/__ `home` __/__ `<user>` __/__ `.ssh` __/__ `config` )    
+jane_doe@u1804:\~$ `nano /home/jane_doe/.ssh/config`  
+```
+host myserver 
+    Hostname 192.168.1.23 
+    Port 22 
+    User jdoe 
+ 
+Host nagios 
+    Hostname nagios.local.lan 
+    Port 2222 
+    User nagiosuser 
+```    
+__SSH__ _( with `config` )_  
+jane_doe@u1804:\~$ `ssh nagios`  
+ ( same as.. )_  
+jane_doe@u1804:\~$ `ssh -p 2222 nagiosuser@nagios.local.lan`  
+
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`
 
 #  [`Chapter 5. Packages`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ### TTY# `code samples...`
