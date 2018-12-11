@@ -37,6 +37,7 @@ $ `docker start u1804`
 __u1804__ represents __containerID__  
 root@u1804:/# `ls -l`  
 root@u1804:/# `apt-get update`  
+root@u1804:/# `apt-get install sudo`    
 root@u1804:/# `apt-get install -y curl`  
 root@u1804:/# `curl https://www.google.com`  
 [![Mastering Ubuntu Server book cover](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/B10288.png?raw=true "Mastering Ubuntu Server - Second Edition
