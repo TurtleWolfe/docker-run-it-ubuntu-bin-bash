@@ -440,7 +440,6 @@ __Q__ & __A__
 1. $ `chmod, chown`
 
 #  [`Chapter 4. Networks`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-
 ## Host Name
 __hostname__  
 jane_doe@u1804:\~$ `hostname`    
@@ -675,37 +674,197 @@ __Q__ & __A__
 1. $ `chmod, chown`
 
 #  [`Chapter 5. Packages`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-### TTY# `code samples...`
+## package management  
+## hardware enablement updates  
+## Debian vs Snap   
+## Installing & removing software  
+## Searching for packages  
+## managing repositories  
+## Backing up & restoring Debian packages  
+## Cleaning up orphaned apt packages  
+## Making use of Aptitude  
+## package management  
+## package management  
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`
 
 #  [`Chapter 6. Processes`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-### TTY# `code samples...`
+## Monitor & Controll Processes  
+## `PS` Command  
+## Managing jobs  
+## misbehaving processes  
+## htop  
+## system processes  
+## Monitoring memory usage  
+## scheduling Tasks with Cron  
+## load average  
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`
 
 #  [`Chapter 7. Services`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-### TTY# `code samples...`
+## Setting Up Network Services  
+## Planning an IP address scheme  
+## Serving IP addresses with isc-dhcp-server  
+## Setting up DNS with bind  
+## Creating a secondary (slave) DNS server  
+## Setting up an internet gateway  
+## Keeping your clock in sync with NTP  
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`
 
 #  [`Chapter 8. Files`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-### TTY# `code samples...`
+## Sharing & Transferring Files  
+## File server considerations  
+## Sharing files with Windows users via Samba  
+## Setting up NFS shares  
+## Transferring files with `Rsync`  
+## Transferring files with `SCP`  
+## Mounting remote directories with SSHFS  
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`
 
 #  [`Chapter 9. Databases`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-### TTY# `code samples...`
+## DataBase Management  
+## Preparations for setting up a database server  
+## Installing MariaDB  
+## MariaDB configuration  
+## Managing MariaDB databases  
+## Setting up a slave database server  
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`  
 
 #  [`Chapter 10. Serving Web Content`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/10 "In this chapter, we'll take a look at Apache and NGINX, as well as securing it with SSL.")
-### TTY# `code samples...`
+## Installing and configuring Apache  
+## Installing additional Apache modules  
+## Securing Apache with SSL  
+## Installing and configuring NGINX  
+## Setting up failover with keepalived  
+## Setting up and configuring Nextcloud    
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`  
+
 [![Nginx HTTP Server book cover](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/nginxHTTPserver.png?raw=true "
 How Nginx and Apache benefit from each other")](https://www.packtpub.com/mapt/book/virtualization_and_cloud/9781788623551/7/ch07lvl1sec42/how-nginx-and-apache-benefit-from-each-other)
 [![NGINX Cookbook cover](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/nginxCOOKbook.png?raw=true "
 Since the mainline release (currently 1.11.19) has all of the latest features, you'll need to install it directly from the NGINX repositories. Thankfully, NGINX is kind enough to provide Red Hat Enterprise Linux (RHEL), CentOS, SUSE Linux Enterprise Server (SLES), Debian, and Ubuntu repositories, as well as OS X and Windows binaries.")](https://www.packtpub.com/mapt/book/networking_and_servers/9781786466174/1/01lvl1sec10/a-quick-installation-guide)
 
 #  [`Chapter 11. Shell Techniques`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-### TTY# `code samples...`
-    
+## Learning Advanced Shell Techniques  
+## Understanding the Linux shell  
+## Bash history  
+## some useful command-line tricks  
+## Redirecting output  
+## Understanding variables  
+## Writing simple scripts  
+## Putting it all together: Writing an rsync backup script    
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`  
+
 #  [`Chapter 12. Virtualization`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-### TTY# `code samples...`
+## Chapter 12. Virtualization  
+## Setting up a virtual machine server  
+## Creating virtual machines  
+## Bridging the virtual machine network  
+## Simplifying virtual machine creation with cloning  
+## Managing virtual machines via the command line    
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`
 
 #  [`Chapter 13. Containers`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 "..so now we have a Dockerfile, what do we do with it? Turn it into an image of course!  
 Use the docker build command from within the directory that contains the Dockerfile."
 ### $`docker build -t ubuntu:1804 .`
+## Chapter 13. Running Containers  
+## What is containerization?  
+## Understanding the differences between Docker and LXD  
+## Installing Docker  
+## Managing Docker containers  
+## Automating Docker image creation with Dockerfiles  
+## Managing LXD containers  
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`  
+
 [![Mastering Docker book cover](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/cover_DocMaster.png?raw=true "
 Mastering Docker - Third Edition
 By Russ McKendrick, Scott Gallagher
@@ -714,14 +873,87 @@ Master Docker and leverage its power in your day-to-day workflow")](https://www.
 [![Mastering DevOps video course](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/C08041_MockupCover_low.png?raw=true "
 Dockerising your own App: Building Docker Image the Imperative Way")](https://www.schoolofdevops.net/courses/enrolled/254048)
 
-#  [`Chapter 14. Networks`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-### TTY# `code samples...`
+#  [`Chapter 14. Ansible`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
+## Automating Server Configuration with Ansible  
+## Understanding the need for configuration management  
+## Why Ansible?  
+## Creating a Git repository  
+## Getting started with Ansible  
+## Making your servers do your bidding  
+## Putting it all together – Automating web server deployment  
+## Using Ansible's pull method  
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`
 
 #  [`Chapter 15. Securing`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-### TTY# `code samples...`
+## Chapter 15. Securing Your Server  
+## Lowering your attack surface  
+## Understanding and responding to CVEs  
+## Installing security updates  
+## Automatically installing patches with the Canonical Livepatch service  
+## Monitoring Ubuntu servers with Canonical's Landscape service  
+## Securing OpenSSH  
+## Installing and configuring Fail2ban  
+## MariaDB best practices for secure database servers  
+## Setting up a firewall  
+## Encrypting and decrypting disks with LUKS  
+## Locking down sudo  
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`
 
 #  [`Chapter 16. TroubleShooting`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-### TTY# `code samples...`
+## Chapter 16. Troubleshooting Ubuntu Servers  
+## Evaluating the problem space  
+## Conducting a root cause analysis  
+## Viewing system logs  
+## Tracing network issues  
+## Troubleshooting resource issues  
+## Diagnosing defective RAM    
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`
 
 #  [`Chapter 17. Distasters`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-### TTY# `code samples...`
+## Chapter 17. Preventing and Recovering from Disasters  
+## Preventing disasters  
+## Utilizing Git for configuration management  
+## Implementing a backup plan  
+## Replacing failed RAID disks  
+## Utilizing bootable recovery media  
+__Q__ & __A__
+1. $ `sudo`  
+1. $ `adduser, useradd`  
+1. $ `rm jane_doe`  
+1. $ `/etc/password & /etc/shadow`  
+1. $ `/etc/skel`  
+1. $ `su jane_doe`  
+1. $ `sudo groupadd accounting`  
+1. $ `visudo`  
+1. $ `sudo adduser jdoe`  
+1. $ `chmod, chown`
