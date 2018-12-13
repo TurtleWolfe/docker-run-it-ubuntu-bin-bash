@@ -1,3 +1,4 @@
+https://www.twitch.tv/videos/347820755
 [![leg lamp from A Christmas Story](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/xmasLAMP.jpg?raw=true?raw=true "Linux Administration Bootcamp: Go from Beginner to Advanced [ Video ]
 By Jason Cannon
 November 2018
@@ -53,13 +54,16 @@ root@u1804:/# `adduser jane_doe`
 root@u1804:/# `cat /etc/shadow | grep root`  
 ![preview screenshot](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/CaptureETCshadow.PNG?raw=true "asterix is like a wilde carde?")  
 __any password ?__  
-`user: * :password changed:7days between changes:max:warning:disable`  
+`user: * :password changed:7days between changes:max:warning:disable:8thN:9?`  
 
 __encrypted password__  
-`user: x :password changed:7days between changes:max:warning:disable`  
+`user: x :password changed:7days between changes:max:warning:disable:8thN:9?`  
 
 __lockout login__  
-`user: ! :password changed:7days between changes:max:warning:disable`  
+`user: ! :password changed:7days between changes:max:warning:disable:8thN:9?`  
+
+__add a user to `sudo` as a secondary group__  
+jane_doe@u1804:~$ `sudo usermod -aG sudo jane_doe`  
 
 __switch user__  
 root@u1804:/# `su - jane_doe`
@@ -96,6 +100,7 @@ __!__ (use a 2nd TTY to prevent lock out)
 
 __add a user to `sudo` as a secondary group__  
 jane_doe@u1804:~$ `sudo usermod -aG sudo <username>`  
+jane_doe@u1804:~$ `sudo usermod -aG sudo jane_doe`  
 may use another group (such as `wheel`)  
 
 __configure `sudo` group or user access__  
