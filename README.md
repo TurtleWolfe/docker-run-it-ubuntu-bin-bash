@@ -70,19 +70,19 @@ __lockout login__
 `user: ! :password changed:7days between changes:max:warning:disable:8thN:9?`  
 ...  
 __add a user to `sudo` as a secondary group__  
-jane_doe@u1804:~$ `sudo usermod -aG sudo jane_doe`  
+jane_doe@u1804:\~$ `sudo usermod -aG sudo jane_doe`  
 ...  
 __switch user__  
 root@u1804:/# `su - jane_doe`
 ...  
 __list all files in long form__  
-jane_doe@u1804:~$ `ls -al`  
+jane_doe@u1804:\~$ `ls -al`  
 ...  
 __add user group__  
-jane_doe@u1804:~$ `sudo groupadd admins`  
+jane_doe@u1804:\~$ `sudo groupadd admins`  
 ...  
 __modify secondary group to include user__  
-jane_doe@u1804:~$ `sudo usermod -aG admins jane_doe`  
+jane_doe@u1804:\~$ `sudo usermod -aG admins jane_doe`  
 ...  
 __lock password__ - will not affect SSH (see ch 15)   
 jane_doe@u1804:\~$ `sudo passwd -l root`  
@@ -90,36 +90,36 @@ jane_doe@u1804:\~$ `sudo cat /etc/shadow | grep root`
 root@u1804:/# `su - root`  
 ...  
 __unlock password__  
-jane_doe@u1804:~$ `sudo passwd -u <username>`  
+jane_doe@u1804:\~$ `sudo passwd -u <username>`  
 ...  
 __/etc/shadow__  
-jane_doe@u1804:~$ `sudo chage -l root`  
+jane_doe@u1804:\~$ `sudo chage -l root`  
 ...  
 ## Distributing default configuration files with `/etc/skel`  
 __force password change__ - should move this into `/etc/skel` __?__ , for default configuration (see ch 1)   
-jane_doe@u1804:~$ `sudo chage -d 0 <username>`  
+jane_doe@u1804:\~$ `sudo chage -d 0 <username>`  
 ...  
 ## Switching users  
 ...  
 __Pluggable Authentication Module (PAM):__  
-jane_doe@u1804:~$ `sudo apt install libpam-cracklib`  
+jane_doe@u1804:\~$ `sudo apt install libpam-cracklib`  
 ...  
 __install Nano__  
-jane_doe@u1804:~$ `sudo apt install nano`  
+jane_doe@u1804:\~$ `sudo apt install nano`  
 ...  
 __configure password requirements in PAM__  
-jane_doe@u1804:~$ `sudo nano /etc/pam.d/common-password`  
+jane_doe@u1804:\~$ `sudo nano /etc/pam.d/common-password`  
 __!__ (use a 2nd TTY to prevent lock out)  
 ...  
 ## Managing groups  
 ...  
 __add a user to `sudo` as a secondary group__  
-jane_doe@u1804:~$ `sudo usermod -aG sudo <username>`  
-jane_doe@u1804:~$ `sudo usermod -aG sudo jane_doe`  
+jane_doe@u1804:\~$ `sudo usermod -aG sudo <username>`  
+jane_doe@u1804:\~$ `sudo usermod -aG sudo jane_doe`  
 may use another group (such as `wheel`)  
 ...  
 __configure `sudo` group or user access__  
-jane_doe@u1804:~$ `sudo visudo`  
+jane_doe@u1804:\~$ `sudo visudo`  
 checks to make sure your changes follow the correct syntax `/etc/sudoers`
 `jane_doe    ALL=(ALL:ALL) ALL`  
 `charlie    ubuntu-server=(jane_doe:admins) /usr/bin/apt,/usr/sbin/reboot,/usr/sbin/shutdown`  
@@ -131,14 +131,14 @@ __!__ It's always a good idea to use full paths when editing `sudo` command perm
 ## Configuring administrator access with sudo  
 ...  
 __configure `visudo` default editor to `vim`__  
-jane_doe@u1804:~$ `sudo EDITOR=vim visudo`  
+jane_doe@u1804:\~$ `sudo EDITOR=vim visudo`  
 `Object type  :  User  :  Group  :  Other's`  
 ` -dl  :  rwx :  rwx  :  rwx`  
 ...  
 ## Setting permissions on files and directories   
 ...  
 __remove `read` from file permissions for `other's`__  
-jane_doe@u1804:~$ `sudo chmod o-r /home/sue/budget.txt`  
+jane_doe@u1804:\~$ `sudo chmod o-r /home/sue/budget.txt`  
 ...  
 __octal permission patterns__  
 ```
