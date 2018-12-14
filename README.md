@@ -1,4 +1,7 @@
-https://www.twitch.tv/videos/347820755
+## https://www.youtube.com/watch?v=Cvrqmq9A3tA&index=1&list=PLETG2T1KvnipSA8vKmzju_unzl44jeyCa  
+
+## https://www.twitch.tv/videos/347820755  
+
 [![leg lamp from A Christmas Story](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/xmasLAMP.jpg?raw=true?raw=true "Linux Administration Bootcamp: Go from Beginner to Advanced [ Video ]
 By Jason Cannon
 November 2018
@@ -50,88 +53,105 @@ By Jason Cannon
 November 2018
 Learn Red Hat Linux and CentOS: Use these in-demand skills to start a career as a Linux Server Admin or Linux Administrator!")](https://www.packtpub.com/mapt/video/application_development/9781789612189/87094/87095/the-linux-directory-structure)
 #  [`Chapter 2. Managing Users`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/2/ch02lvl1sec23/creating-and-removing-users "Creating and removing users")
+![preview screenshot](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/CaptureETCshadow.PNG?raw=true "asterix is like a wilde carde?")  
+## Managing Users  
+## Understanding when to use `root`  
+## Creating and removing `users`
+## Understanding the `/etc/passwd` & `/etc/shadow files`  
 root@u1804:/# `adduser jane_doe`  
 root@u1804:/# `cat /etc/shadow | grep root`  
-![preview screenshot](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/CaptureETCshadow.PNG?raw=true "asterix is like a wilde carde?")  
 __any password ?__  
 `user: * :password changed:7days between changes:max:warning:disable:8thN:9?`  
-
+...  
 __encrypted password__  
 `user: x :password changed:7days between changes:max:warning:disable:8thN:9?`  
-
+...  
 __lockout login__  
 `user: ! :password changed:7days between changes:max:warning:disable:8thN:9?`  
-
+...  
 __add a user to `sudo` as a secondary group__  
 jane_doe@u1804:~$ `sudo usermod -aG sudo jane_doe`  
-
+...  
 __switch user__  
 root@u1804:/# `su - jane_doe`
-
+...  
 __list all files in long form__  
 jane_doe@u1804:~$ `ls -al`  
-
+...  
 __add user group__  
 jane_doe@u1804:~$ `sudo groupadd admins`  
-
+...  
 __modify secondary group to include user__  
 jane_doe@u1804:~$ `sudo usermod -aG admins jane_doe`  
-
+...  
 __lock password__ - will not affect SSH (see ch 15)   
 jane_doe@u1804:\~$ `sudo passwd -l root`  
 jane_doe@u1804:\~$ `sudo cat /etc/shadow | grep root`  
 root@u1804:/# `su - root`  
-
+...  
 __unlock password__  
 jane_doe@u1804:~$ `sudo passwd -u <username>`  
-
+...  
 __/etc/shadow__  
 jane_doe@u1804:~$ `sudo chage -l root`  
-
+...  
+## Distributing default configuration files with `/etc/skel`  
 __force password change__ - should move this into `/etc/skel` __?__ , for default configuration (see ch 1)   
 jane_doe@u1804:~$ `sudo chage -d 0 <username>`  
-
+...  
+## Switching users  
+...  
 __Pluggable Authentication Module (PAM):__  
 jane_doe@u1804:~$ `sudo apt install libpam-cracklib`  
-
+...  
+__install Nano__  
+jane_doe@u1804:~$ `sudo apt install nano`  
+...  
 __configure password requirements in PAM__  
 jane_doe@u1804:~$ `sudo nano /etc/pam.d/common-password`  
 __!__ (use a 2nd TTY to prevent lock out)  
-
+...  
+## Managing groups  
+...  
 __add a user to `sudo` as a secondary group__  
 jane_doe@u1804:~$ `sudo usermod -aG sudo <username>`  
 jane_doe@u1804:~$ `sudo usermod -aG sudo jane_doe`  
 may use another group (such as `wheel`)  
-
+...  
 __configure `sudo` group or user access__  
-jane_doe@u1804:~$ `visudo`  
-checks to make sure your changes follow the correct syntax `/etc/sudoers`  
+jane_doe@u1804:~$ `sudo visudo`  
+checks to make sure your changes follow the correct syntax `/etc/sudoers`
 `jane_doe    ALL=(ALL:ALL) ALL`  
 `charlie    ubuntu-server=(jane_doe:admins) /usr/bin/apt,/usr/sbin/reboot,/usr/sbin/shutdown`  
 (root or username)    TTY IP=(USER:GROUP) COMMANDS  
 __!__ It's always a good idea to use full paths when editing `sudo` command permissions  
-
+...  
+## Managing passwords and password policies  
+...  
+## Configuring administrator access with sudo  
+...  
 __configure `visudo` default editor to `vim`__  
 jane_doe@u1804:~$ `sudo EDITOR=vim visudo`  
-
 `Object type  :  User  :  Group  :  Other's`  
 ` -dl  :  rwx :  rwx  :  rwx`  
-
+...  
+## Setting permissions on files and directories   
+...  
 __remove `read` from file permissions for `other's`__  
 jane_doe@u1804:~$ `sudo chmod o-r /home/sue/budget.txt`  
-
+...  
 __octal permission patterns__  
+```
 jane_doe@u1804:\~$ `chmod 600 filename.txt` (would be the same as) `chmod -rw------- filename.txt`  
 jane_doe@u1804:\~$ `chmod 740 filename.txt` (would be the same as) `chmod -rwxr----- filename.txt`  
 jane_doe@u1804:\~$ `chmod 770 filename.txt` (would be the same as) `chmod -rwxrwx--- filename.txt`  
 jane_doe@u1804:\~$ `chmod 770 -R dir_name` (recursive directories)  
-
+```
 __change ownership of directory recursively__  
-jane_doe@u1804:\~$ `sudo chown -R sue:sales dir_name`  
-
+jane_doe@u1804:\~$ `sudo chown -R jane_doe:admins dir_name`  
+...  
 __change group ownership__  
 jane_doe@u1804:\~$ `sudo chgrp sales myfile.txt`  
-
 __Q&A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
