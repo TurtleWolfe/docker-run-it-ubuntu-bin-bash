@@ -127,7 +127,38 @@ checks to make sure your changes follow the correct syntax `/etc/sudoers`
 __!__ It's always a good idea to use full paths when editing `sudo` command permissions  
 ...  
 ## Managing passwords and password policies  
+__`lock` password per `<username>`__  
+jane_doe@u1804:\~$ `sudo passwd -l jane_doe`  
 ...  
+__remove `read` from file permissions for `other's`__  
+jane_doe@u1804:\~$ `sudo passwd -u <username>`  
+...  
+__remove `read` from file permissions for `other's`__  
+jane_doe@u1804:\~$ `sudo chage -l <username>`  
+...  
+__remove `read` from file permissions for `other's`__  
+jane_doe@u1804:\~$ `sudo chage -d 0 <username> `  
+...  
+__remove `read` from file permissions for `other's`__  
+jane_doe@u1804:\~$ `sudo chage -l <username>`  
+...  
+__remove `read` from file permissions for `other's`__  
+jane_doe@u1804:\~$ `sudo chage -M 90 <username>>`  
+...  
+__remove `read` from file permissions for `other's`__  
+jane_doe@u1804:\~$ `sudo chage -m 5 dscully`  
+...  
+__remove `read` from file permissions for `other's`__  
+jane_doe@u1804:\~$ `sudo apt install libpam-cracklib`  
+...  
+__remove `read` from file permissions for `other's`__  
+jane_doe@u1804:\~$ `sudo nano /etc/pam.d/common-password`  
+...  
+```
+password        required                        pam_pwhistory.so
+remember=99 use_authok 
+```
+ 
 ## Configuring administrator access with sudo  
 ...  
 __configure `visudo` default editor to `vim`__  
