@@ -128,61 +128,81 @@ __!__ It's always a good idea to use full paths when editing `sudo` command perm
 ...  
 ## Managing passwords and password policies  
 __`lock` password per `<username>`__  
-jane_doe@u1804:\~$ `sudo passwd -l jane_doe`  
-...  
-__remove `read` from file permissions for `other's`__  
+jane_doe@u1804:\~$ `sudo passwd -l <username>`   
+__`unlock` password per `<username>`__  
 jane_doe@u1804:\~$ `sudo passwd -u <username>`  
 ...  
-__remove `read` from file permissions for `other's`__  
+__`list` expiration of a user's `password`__  
 jane_doe@u1804:\~$ `sudo chage -l <username>`  
-...  
-__remove `read` from file permissions for `other's`__  
+_( set to zero would force a password change )_  
 jane_doe@u1804:\~$ `sudo chage -d 0 <username> `  
-...  
-__remove `read` from file permissions for `other's`__  
+_( review changes )_  
 jane_doe@u1804:\~$ `sudo chage -l <username>`  
-...  
-__remove `read` from file permissions for `other's`__  
-jane_doe@u1804:\~$ `sudo chage -M 90 <username>>`  
-...  
-__remove `read` from file permissions for `other's`__  
+__`expiration` of a user's `password`__  _( Maximum days until a change is required)_  
+jane_doe@u1804:\~$ `sudo chage -M 90 <username>`  
+__`expiration` of a user's `password`__  _( minimum days until a change is required)_  
 jane_doe@u1804:\~$ `sudo chage -m 5 dscully`  
 ...  
-__remove `read` from file permissions for `other's`__  
+__`install` Pluggable Authentication Module ( `PAM` )__  
 jane_doe@u1804:\~$ `sudo apt install libpam-cracklib`  
 ...  
-__remove `read` from file permissions for `other's`__  
+__`edit`__    _..( __/__ `etc` __/__ `pam.d` __/__ `common-password` )_  
 jane_doe@u1804:\~$ `sudo nano /etc/pam.d/common-password`  
-...  
-```
-password        required                        pam_pwhistory.so
-remember=99 use_authok 
-```
- 
+`password      required      pam_pwhistory.so      remember=99    use_authok`  
+__`difference`__ _( at least three characters have to be different )_  
+`difok=3`  
+__`obscure`__ _( prevents simple passwords from being used )_  
+`obscure `  
+
 ## Configuring administrator access with sudo  
+__`modify` secondary `Group`__ _to include_ __`user`__  
+jane_doe@u1804:\~$ `sudo usermod -aG sudo <username>`  
 ...  
-__configure `visudo` default editor to `vim`__  
+__nano `save changes`__  
+`Ctrl + W`  
+__nano `exit editor`__  
+`Ctrl + X`  
+...  
+__configure `visudo`__ _default `Editor` to_ __`vim`__  
 jane_doe@u1804:\~$ `sudo EDITOR=vim visudo`  
+__`etc / sudoers`__  
 `Object type  :  User  :  Group  :  Other's`  
 ` -dl  :  rwx :  rwx  :  rwx`  
 ...  
-## Setting permissions on files and directories   
+__`sudo group`__  
+`%sudo   ALL=(ALL:ALL) ALL `  
+__`user`__  
+`root    ALL=(ALL:ALL) ALL `  
 ...  
+`TTY  :  User  :  Group  :  Command`   
+_note that it's best to use full paths_  
+charlie could run these : __`commands`__  
+`charlie    ALL=(ALL:ALL) /usr/sbin/reboot,/usr/sbin/shutdown`  
+_but not others_  
+`Sorry, user charlie is not allowed to execute '/usr/bin/apt install tmux' as root on ubuntu-server. `  
+_limited to certain_ __`terminal`__   
+`charlie    ubuntu-server=(ALL:ALL) /usr/bin/apt`  
+_restrict_ __`user`__ _&_ __`group`__ _options_    
+`charlie    ubuntu-server= /usr/bin/apt`  
+_restrict to certain_ __`( user : group )`__  
+`charlie    ubuntu-server=(dscully:admins) ALL`  
+
+## Setting permissions on files and directories    
 __remove `read` from file permissions for `other's`__  
 jane_doe@u1804:\~$ `sudo chmod o-r /home/sue/budget.txt`  
 ...  
 __octal permission patterns__  
-```
-jane_doe@u1804:\~$ `chmod 600 filename.txt` (would be the same as) `chmod -rw------- filename.txt`  
-jane_doe@u1804:\~$ `chmod 740 filename.txt` (would be the same as) `chmod -rwxr----- filename.txt`  
-jane_doe@u1804:\~$ `chmod 770 filename.txt` (would be the same as) `chmod -rwxrwx--- filename.txt`  
+jane_doe@u1804:\~$ `chmod 600 filename.txt` ( same as ) `chmod -rw------- filename.txt`  
+jane_doe@u1804:\~$ `chmod 740 filename.txt` ( same as ) `chmod -rwxr----- filename.txt`  
+jane_doe@u1804:\~$ `chmod 770 filename.txt` ( same as ) `chmod -rwxrwx--- filename.txt`  
 jane_doe@u1804:\~$ `chmod 770 -R dir_name` (recursive directories)  
-```
+...  
 __change ownership of directory recursively__  
 jane_doe@u1804:\~$ `sudo chown -R jane_doe:admins dir_name`  
 ...  
 __change group ownership__  
 jane_doe@u1804:\~$ `sudo chgrp sales myfile.txt`  
+
 __Q&A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
