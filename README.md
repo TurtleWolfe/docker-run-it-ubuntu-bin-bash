@@ -53,11 +53,28 @@ By Jason Cannon
 November 2018
 Learn Red Hat Linux and CentOS: Use these in-demand skills to start a career as a Linux Server Admin or Linux Administrator!")](https://www.packtpub.com/mapt/video/application_development/9781789612189/87094/87095/the-linux-directory-structure)
 #  [`Chapter 2. Managing Users`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/2/ch02lvl1sec23/creating-and-removing-users "Creating and removing users")
-![preview screenshot](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/CaptureETCshadow.PNG?raw=true "asterix is like a wilde carde?")  
-## [Managing Users](https://www.google.com "Managing Users")  
+![preview screenshot](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/CaptureETCshadow.PNG?raw=true "asterix is like a wilde carde ?")  
 ## [Understanding when to use `root`](https://www.google.com "Understanding when to use `root`")  
+`apt install tmux`  
+`E: Could not open lock file /var/lib/dpkg/lock - open (13: Permission denied)`  
+`E: Unable to lock the administration directory (/var/lib/dpkg/), are you root?`  
+`sudo apt install tmux`  
 ## [Creating and removing `users`](https://www.google.com "Creating and removing `users`")
+`sudo useradd -d /home/jdoe -m jdoe`  
+`ls -l /home`  
+`nano /usr/sbin/adduser`  
+`sudo userdel dscully`  
+`ls -l /home`  
+`sudo mv /home/dscully /store/file_archive`  
+`sudo mkdir -p /store/file_archive`  
+`sudo userdel -r dscully`  
+`sudo rm -r /home/dscully`  
+__sudo rm -r /__ _( space )_ __home/dscully__
 ## [Understanding the `/etc/passwd` & `/etc/shadow files`](https://www.google.com "Understanding the `/etc/passwd` & `/etc/shadow files`")  
+`cat /etc/passwd `  
+`sudo cat /etc/shadow`  
+`Example /etc...`  
+  
 root@u1804:/# `adduser jane_doe`  
 root@u1804:/# `cat /etc/shadow | grep root`  
 __any password ?__  
@@ -96,10 +113,15 @@ __/etc/shadow__
 jane_doe@u1804:\~$ `sudo chage -l root`  
 ...  
 ## [Distributing default configuration files with `/etc/skel`](https://www.google.com "Distributing default configuration files with `/etc/skel`")  
+`ls -la /etc/skel`    
 __force password change__ - should move this into `/etc/skel` __?__ , for default configuration (see ch 1)   
 jane_doe@u1804:\~$ `sudo chage -d 0 <username>`  
 ...  
 ## [Switching users](https://www.google.com "Switching users")  
+`sudo passwd`  
+`sudo su -`  
+`su - <username>`  
+`sudo su - <username>`  
 ...  
 __Pluggable Authentication Module (PAM):__  
 jane_doe@u1804:\~$ `sudo apt install libpam-cracklib`  
@@ -112,6 +134,19 @@ jane_doe@u1804:\~$ `sudo nano /etc/pam.d/common-password`
 __!__ (use a 2nd TTY to prevent lock out)  
 ...  
 ## [Managing groups](https://www.google.com "Managing groups")  
+`ls -l`  
+`-rw-r--r-- 1 root bind  490 2013-04-15 22:05 named.conf`  
+`cat /etc/group`  
+`sudo groupadd admins`  
+`sudo groupdel admins`  
+`sudo usermod -aG admins myuser`  
+`sudo usermod -g <group-name> <username>`  
+`man usermod`  
+`sudo usermod -d /home/jsmith jdoe -m`  
+`sudo usermod -l jsmith jdoe`  
+`sudo gpasswd -d <username> <grouptoremove>`  
+`sudo gpasswd -a <username> <group>`  
+
 ...  
 __add a user to `sudo` as a secondary group__  
 jane_doe@u1804:\~$ `sudo usermod -aG sudo <username>`  
@@ -281,7 +316,16 @@ Libraries
 
 `/var/log`  
 Log files
-
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __hard link file1 to file3__  
 jane_doe@u1804:~$ `ln file1 file3`  
 
@@ -391,6 +435,16 @@ __list everything that is mounted__
 jane_doe@u1804:\~$ `mount`  
 
 ## SWAP-file
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __swap volume__ (  with __`auto`__ )  
 jane_doe@u1804:\~$ `sudo swapon -a`  
 don't forget to edit `fstab`  
@@ -409,13 +463,21 @@ jane_doe@u1804:\~$ `sudo mkswap /swapfile`
 _makes it the swap file_  
 ...  
 _don't forget to edit_  __/__ `etc` __/__ `f stab`  
-```
-/swapfile   none   swap   sw   0 0
-```  
+`/swapfile   none   swap   sw   0 0`
 __Activate SwapFile__ (__ with __`auto` )__  
 jane_doe@u1804:\~$ `sudo swapon -a`  
 
 ## LVM
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 _check if_ __lvm2__  _is installed_  
 jane_doe@u1804:\~$ `dpkg -s lvm2 | grep status`  
 _should return_ `install ok installed` _if it is installed already_  
@@ -520,6 +582,16 @@ __remove logical group__
 jane_doe@u1804:\~$ `sudo vgremove vg-test`  
 
 ## RAID - Redundant Array of Inexpensive Disks
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __disk functions__ _-list_  
 jane_doe@u1804:\~$ `sudo fdisk -l`  
 _( one is hardware, multilple is software )_  
@@ -541,6 +613,16 @@ __Q__ & __A__
 
 #  [`Chapter 4. Networks`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ## Host Name
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __hostname__  
 jane_doe@u1804:\~$ `hostname`    
 ...  
@@ -559,6 +641,16 @@ __edit__ __/__ `etc` __/__ `hosts` )   _- ( edit maunually )_
 jane_doe@u1804:\~$ `edit /etc/hosts`  
 
 ## managing Network Interfaces
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __currently assigned IP address__  
 jane_doe@u1804:\~$ `ip addr show`  
 _( or shortened to )_  
@@ -599,6 +691,16 @@ _( ~~iproute2 replaces~~ net-tools )_
 ...  
 
 ## Assigning static IP addresses
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __concatenate__ __/__ `etc` __/__ `netplan` )  
 jane_doe@u1804:\~$ `cat /etc/netplan`  
 _( something.yaml )_
@@ -655,6 +757,16 @@ _show_ __IP addresses__
 jane_doe@u1804:\~$ `ip a`  
 
 ## NetworkManager
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ___NetworkManager___ _is a utility for managing network connectivity on your server, though it's largely been replaced with_ ___Netplan___.  
 
 ## Linux name resolution
@@ -671,6 +783,16 @@ __DNS nameservers__ _that the server is currently pointing to_
 jane_doe@u1804:\~$ `systemd-resolve --status |grep DNS\ Servers`  
 
 ## OpenSSH  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 _( confirm_ __SSH Daemon__  _installation )_  
 jane_doe@u1804:\~$ `which sshd`  
 _( should return )_ 
@@ -717,6 +839,16 @@ jane_doe@u1804:\~$ `exit`
 _or_ __`Ctrl+D`__  _, especially if you have processes to leave running in the background_
 
 ## SSH key management
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Generate SSH Key__  
 jane_doe@u1804:\~$ `ssh-keygen`  
 _( default location )_ 
@@ -743,6 +875,16 @@ jane_doe@u1804:\~$ `ssh-keygen -p`
 `Enter` _accepts default file_ `id_rsa`
 
 ## simplifying SSH connections with a `config file
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __edit__ __/__ `home` __/__ `<user>` __/__ `.ssh` __/__ `config` )    
 jane_doe@u1804:\~$ `nano /home/jane_doe/.ssh/config`  
 ```
@@ -775,16 +917,126 @@ __Q__ & __A__
 
 #  [`Chapter 5. Packages`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ## package management  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## hardware enablement updates  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Debian vs Snap   
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Installing & removing software  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Searching for packages  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## managing repositories  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Backing up & restoring Debian packages  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Cleaning up orphaned apt packages  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Making use of Aptitude  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## package management  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## package management  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -799,14 +1051,104 @@ __Q__ & __A__
 
 #  [`Chapter 6. Processes`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ## Monitor & Controll Processes  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## `PS` Command  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Managing jobs  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## misbehaving processes  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## htop  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## system processes  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Monitoring memory usage  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## scheduling Tasks with Cron  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## load average  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -821,12 +1163,82 @@ __Q__ & __A__
 
 #  [`Chapter 7. Services`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ## Setting Up Network Services  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Planning an IP address scheme  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Serving IP addresses with isc-dhcp-server  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Setting up DNS with bind  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Creating a secondary (slave) DNS server  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Setting up an internet gateway  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Keeping your clock in sync with NTP  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -841,12 +1253,82 @@ __Q__ & __A__
 
 #  [`Chapter 8. Files`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ## Sharing & Transferring Files  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## File server considerations  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Sharing files with Windows users via Samba  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Setting up NFS shares  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Transferring files with `Rsync`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Transferring files with `SCP`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Mounting remote directories with SSHFS  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -861,11 +1343,71 @@ __Q__ & __A__
 
 #  [`Chapter 9. Databases`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ## DataBase Management  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Preparations for setting up a database server  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Installing MariaDB  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## MariaDB configuration  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Managing MariaDB databases  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Setting up a slave database server  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -880,11 +1422,71 @@ __Q__ & __A__
 
 #  [`Chapter 10. Serving Web Content`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/10 "In this chapter, we'll take a look at Apache and NGINX, as well as securing it with SSL.")
 ## Installing and configuring Apache  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Installing additional Apache modules  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Securing Apache with SSL  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Installing and configuring NGINX  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Setting up failover with keepalived  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Setting up and configuring Nextcloud    
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -904,13 +1506,93 @@ Since the mainline release (currently 1.11.19) has all of the latest features, y
 
 #  [`Chapter 11. Shell Techniques`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ## Learning Advanced Shell Techniques  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Understanding the Linux shell  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Bash history  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## some useful command-line tricks  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Redirecting output  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Understanding variables  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Writing simple scripts  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Putting it all together: Writing an rsync backup script    
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -925,11 +1607,71 @@ __Q__ & __A__
 
 #  [`Chapter 12. Virtualization`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ## Chapter 12. Virtualization  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Setting up a virtual machine server  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Creating virtual machines  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Bridging the virtual machine network  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Simplifying virtual machine creation with cloning  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Managing virtual machines via the command line    
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -947,12 +1689,82 @@ __Q__ & __A__
 Use the docker build command from within the directory that contains the Dockerfile."
 ### $`docker build -t ubuntu:1804 .`
 ## Chapter 13. Running Containers  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## What is containerization?  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Understanding the differences between Docker and LXD  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Installing Docker  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Managing Docker containers  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Automating Docker image creation with Dockerfiles  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Managing LXD containers  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -975,13 +1787,93 @@ Dockerising your own App: Building Docker Image the Imperative Way")](https://ww
 
 #  [`Chapter 14. Ansible`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ## Automating Server Configuration with Ansible  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Understanding the need for configuration management  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Why Ansible?  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Creating a Git repository  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Getting started with Ansible  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Making your servers do your bidding  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Putting it all together – Automating web server deployment  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Using Ansible's pull method  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -996,17 +1888,137 @@ __Q__ & __A__
 
 #  [`Chapter 15. Securing`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ## Chapter 15. Securing Your Server  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Lowering your attack surface  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Understanding and responding to CVEs  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Installing security updates  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Automatically installing patches with the Canonical Livepatch service  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Monitoring Ubuntu servers with Canonical's Landscape service  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Securing OpenSSH  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Installing and configuring Fail2ban  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## MariaDB best practices for secure database servers  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Setting up a firewall  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Encrypting and decrypting disks with LUKS  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Locking down sudo  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -1021,12 +2033,82 @@ __Q__ & __A__
 
 #  [`Chapter 16. TroubleShooting`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ## Chapter 16. Troubleshooting Ubuntu Servers  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Evaluating the problem space  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Conducting a root cause analysis  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Viewing system logs  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Tracing network issues  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Troubleshooting resource issues  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Diagnosing defective RAM    
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -1041,11 +2123,71 @@ __Q__ & __A__
 
 #  [`Chapter 17. Distasters`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ## Chapter 17. Preventing and Recovering from Disasters  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Preventing disasters  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Utilizing Git for configuration management  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Implementing a backup plan  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Replacing failed RAID disks  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 ## Utilizing bootable recovery media  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
+`apt install tmux`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
