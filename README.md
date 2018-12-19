@@ -54,10 +54,10 @@ November 2018
 Learn Red Hat Linux and CentOS: Use these in-demand skills to start a career as a Linux Server Admin or Linux Administrator!")](https://www.packtpub.com/mapt/video/application_development/9781789612189/87094/87095/the-linux-directory-structure)
 #  [`Chapter 2. Managing Users`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/2/ch02lvl1sec23/creating-and-removing-users "Creating and removing users")
 ![preview screenshot](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/CaptureETCshadow.PNG?raw=true "asterix is like a wilde carde?")  
-## Managing Users  
-## Understanding when to use `root`  
-## Creating and removing `users`
-## Understanding the `/etc/passwd` & `/etc/shadow files`  
+## [Managing Users](https://www.google.com "Managing Users")  
+## [Understanding when to use `root`](https://www.google.com "Understanding when to use `root`")  
+## [Creating and removing `users`](https://www.google.com "Creating and removing `users`")
+## [Understanding the `/etc/passwd` & `/etc/shadow files`](https://www.google.com "Understanding the `/etc/passwd` & `/etc/shadow files`")  
 root@u1804:/# `adduser jane_doe`  
 root@u1804:/# `cat /etc/shadow | grep root`  
 __any password ?__  
@@ -95,11 +95,11 @@ jane_doe@u1804:\~$ `sudo passwd -u <username>`
 __/etc/shadow__  
 jane_doe@u1804:\~$ `sudo chage -l root`  
 ...  
-## Distributing default configuration files with `/etc/skel`  
+## [Distributing default configuration files with `/etc/skel`](https://www.google.com "Distributing default configuration files with `/etc/skel`")  
 __force password change__ - should move this into `/etc/skel` __?__ , for default configuration (see ch 1)   
 jane_doe@u1804:\~$ `sudo chage -d 0 <username>`  
 ...  
-## Switching users  
+## [Switching users](https://www.google.com "Switching users")  
 ...  
 __Pluggable Authentication Module (PAM):__  
 jane_doe@u1804:\~$ `sudo apt install libpam-cracklib`  
@@ -111,7 +111,7 @@ __configure password requirements in PAM__
 jane_doe@u1804:\~$ `sudo nano /etc/pam.d/common-password`  
 __!__ (use a 2nd TTY to prevent lock out)  
 ...  
-## Managing groups  
+## [Managing groups](https://www.google.com "Managing groups")  
 ...  
 __add a user to `sudo` as a secondary group__  
 jane_doe@u1804:\~$ `sudo usermod -aG sudo <username>`  
@@ -126,7 +126,7 @@ checks to make sure your changes follow the correct syntax `/etc/sudoers`
 (root or username)    TTY IP=(USER:GROUP) COMMANDS  
 __!__ It's always a good idea to use full paths when editing `sudo` command permissions  
 ...  
-## Managing passwords and password policies  
+## [Managing passwords and password policies](https://www.twitch.tv/videos/350713391 "Managing passwords and password policies")  
 __`lock` password per `<username>`__  
 jane_doe@u1804:\~$ `sudo passwd -l <username>`   
 __`unlock` password per `<username>`__  
@@ -154,7 +154,7 @@ __`difference`__ _( at least three characters have to be different )_
 __`obscure`__ _( prevents simple passwords from being used )_  
 `obscure `  
 
-## Configuring administrator access with sudo  
+## [Configuring administrator access with sudo](https://www.twitch.tv/videos/350870850 "Configuring administrator access with sudo")  
 __`modify` secondary `Group`__ _to include_ __`user`__  
 jane_doe@u1804:\~$ `sudo usermod -aG sudo <username>`  
 ...  
@@ -187,7 +187,31 @@ _restrict_ __`user`__ _&_ __`group`__ _options_
 _restrict to certain_ __`( user : group )`__  
 `charlie    ubuntu-server=(dscully:admins) ALL`  
 
-## Setting permissions on files and directories    
+## [Setting permissions on files and directories](https://www.google.com "Setting permissions on files and directories")    
+`ls -l`  
+```
+-rw-rw-rw- 1 doctor doctor   5          Jan 11   12:52 welcome 
+-rw-r--r--    1 root     root       665       Feb 19   2014 profile 
+-rwxr-xr-x 1 dalek   dalek      35125  Nov  7    2013 exterminate
+```  
+`-rw-rw-rw- 1 doctor doctor    5 Jan 11 12:52 welcome`  
+`-rwxr-xr-x 1 dalek dalek      35125 Nov  7  2013 exterminate`  
+```
+-rw-r--r-- 1   sue   accounting      35125  Nov  7  2013 budget.txt 
+drwxr-x--- 1   bob   sales           35125  Nov  7  2013 annual_projects
+```  
+`chmod o-r budget.txt`  
+`chmod o-r /home/sue/budget.txt`  
+`chmod 770 -R mydir`  
+```  
+`ls -l`  
+`-rw-rw-rw- 1 doctor doctor    5 Jan 11 12:52 welcome`  
+`-rwxr-xr-x 1 dalek dalek      35125 Nov  7  2013 exterminate`  
+```
+`sudo chown sue myfile.txt`  
+`sudo chown -R sue mydir`  
+`sudo chown sue:sales myfile.txt`  
+`# sudo chown sales myfile.txt`  
 __remove `read` from file permissions for `other's`__  
 jane_doe@u1804:\~$ `sudo chmod o-r /home/sue/budget.txt`  
 ...  
