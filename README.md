@@ -285,7 +285,7 @@ __Q&A__
 ### root@u1804:/# `exit` 
  
 #  [`Chapter 3. Storage Volumes`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "managing storage is more than just adding disks, Logical Volume Manager (LVM)")
-
+## [Understanding the Linux filesystem](https://www.google.com "Understanding the Linux filesystem")    
 `/`  
 The beginning of the __filesystem__, all directories are underneath this
 
@@ -321,124 +321,7 @@ Log files
 ## [Managing Storage Volumes](https://www.google.com "Managing Storage Volumes")    
 `apt install tmux`  
 `apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-## [Understanding the Linux filesystem](https://www.google.com "Understanding the Linux filesystem")    
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
 ## [Using symbolic and hard links](https://www.google.com "Using symbolic and hard links")    
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-## [Viewing disk usage](https://www.google.com "Viewing disk usage")    
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-## [Adding additional storage volumes](https://www.google.com "Adding additional storage volumes")    
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-## [Partitioning and formatting volumes](https://www.google.com "Partitioning and formatting volumes")    
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-## [Mounting and unmounting volumes](https://www.google.com "Setting permissions on files and directories")    
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-## [Understanding the /etc/fstab file](https://www.google.com "Understanding the /etc/fstab file")    
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-## [Managing swap](https://www.google.com "Managing swap")    
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-## [Utilizing LVM volumes](https://www.google.com "Utilizing LVM volumes")    
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-## [Understanding RAID](https://www.google.com "Understanding RAID")    
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
 __hard link file1 to file3__  
 jane_doe@u1804:~$ `ln file1 file3`  
 
@@ -451,6 +334,7 @@ jane_doe@u1804:~$ `rm file3`
 __symlink file1 to file3__  
 jane_doe@u1804:~$ `ln -s file1 file3`  
 
+## [Viewing disk usage](https://www.google.com "Viewing disk usage")    
 __disk filesystem__ in __human readable__  
 jane_doe@u1804:~$ `df -h`  
 will show available `cyber` space  
@@ -471,6 +355,7 @@ jane_doe@u1804:~$ `ncu -x`
 `-x` limit to the current filesystem  
 _during interface;_ `d` would delete 
 
+## [Adding additional storage volumes](https://www.google.com "Adding additional storage volumes")    
 __disk functions__ _-list_ 
 jane_doe@u1804:~$ `sudo fdisk -l`  
 utility for `listing`, `creating` or `deleting` disk partions 
@@ -496,6 +381,7 @@ __`enter`__ _default partion number_
 __`1G`__ _partion size_  
 __`w`__ _write changes_  
 __`enter`__ _save changes_  
+## [Partitioning and formatting volumes](https://www.google.com "Partitioning and formatting volumes")    
 
 __disk function__ _..( utility again )_   
 jane_doe@u1804:\~$ `sudo fdisk -l`  
@@ -515,6 +401,8 @@ __disk function__  _(review)_
 jane_doe@u1804:\~$ `sudo fdisk -l`  
 __make directory__  
 jane_doe@u1804:\~$ `sudo mkdir /mnt/vol1` _..(volume path)_  
+
+## [Mounting and unmounting volumes](https://www.google.com "Setting permissions on files and directories")    
 __mount device to directory__  
 jane_doe@u1804:\~$ `sudo mount /dev/sdb1 /mnt/vol1` _..(volume path)_  
 __mount device to directory with `type` option__  _..(usually un-necessary)_  
@@ -525,6 +413,7 @@ jane_doe@u1804:\~$ `sudo umount /mnt/vol1`
 __disk filesystem__ in __human readable__  _..(confirm unmounted)_  
 jane_doe@u1804:\~$ `df -h`  
 
+## [Understanding the /etc/fstab file](https://www.google.com "Understanding the /etc/fstab file")    
 __block identification, UUID__  _..( __/__ etc __/__ f stab )_  
 jane_doe@u1804:\~$ `blkid`  
 ...  
@@ -546,17 +435,10 @@ jane_doe@u1804:\~$ `sudo mount /mnt/ext_disk`
 ...  
 __list everything that is mounted__  
 jane_doe@u1804:\~$ `mount`  
+
+## [Managing swap](https://www.google.com "Managing swap")    
+
 ## [SWAP-file](https://www.google.com "SWAP-file")
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
 __swap volume__ (  with __`auto`__ )  
 jane_doe@u1804:\~$ `sudo swapon -a`  
 don't forget to edit `fstab`  
@@ -579,6 +461,7 @@ _don't forget to edit_  __/__ `etc` __/__ `f stab`
 __Activate SwapFile__ (__ with __`auto` )__  
 jane_doe@u1804:\~$ `sudo swapon -a`  
 ## [LVM](https://www.google.com "LVM")
+## [Utilizing LVM volumes](https://www.google.com "Utilizing LVM volumes")   
 `apt install tmux`  
 `apt install tmux`  
 `apt install tmux`  
@@ -691,6 +574,7 @@ jane_doe@u1804:\~$ `sudo lvremove vg-test/myvol1`
 ...  
 __remove logical group__  
 jane_doe@u1804:\~$ `sudo vgremove vg-test`  
+## [Understanding RAID](https://www.google.com "Understanding RAID")    
 ## [RAID - Redundant Array of Inexpensive Disks](https://www.google.com "RAID - Redundant Array of Inexpensive Disks")
 `apt install tmux`  
 `apt install tmux`  
