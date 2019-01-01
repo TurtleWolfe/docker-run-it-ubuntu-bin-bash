@@ -297,7 +297,8 @@ __Q&A__
 1. $ `sudo adduser jdoe`  
 1. $ `chmod, chown`  
 
-#  [`customize TTY prompt`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/2/ch02lvl1sec23/creating-and-removing-users "Creating and removing users")
+#  [`customize TTY prompt` ![preview screenshot](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/CH2/EZ000t.JPG?raw=true "customize TTY prompt")](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/2/ch02lvl1sec23/creating-and-removing-users "customize TTY prompt")
+  
 root@u1804:/# [`echo 'export PS1="[\u@\h \w]\$ "' >> ~/.bash_profile`](https://www.packtpub.com/mapt/video/application_development/9781789802610/79474/79509/customizing-the-shell-prompt "Customizing the Shell Prompt")  
 root@u1804:/# [`nano ~/.bash_profile`](https://vitux.com/how-to-customize-ubuntu-bash-prompt/ "How to Customize your Ubuntu Terminal Prompt")  
 jane_doe@0051cc98e23b:~$ [`nano .bashrc`](http://ezprompt.net/ "EzPrompt; Easy Bash PS1 Generator")  
@@ -316,7 +317,6 @@ PS1='${debian_chroot:+($debian_chroot)}\n\[\e[32;40m\]\@\[\e[m\]\[\e[33m\]:\[\e[
 ```
 export PS1="\n\[\e[32;40m\]\@\[\e[m\]\[\e[33m\]:\[\e[m\]\[\e[35;40m\]\H\[\e[m\]\n\[\e[31m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[36m\]u1804\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[33;40m\]\w\[\e[m\]\[\e[30m\]:\[\e[m\]\[\e[36m\]\\$\[\e[m\]\[\e[30m\]:\[\e[m\] "
 ```
-![preview screenshot](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/CaptureETCshadow.PNG?raw=true "asterix is like a wilde carde ?")  
 #  [`Chapter 3. Storage Volumes`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "managing storage is more than just adding disks, Logical Volume Manager (LVM)")
 ## [Understanding the Linux filesystem](https://www.google.com "Understanding the Linux filesystem")    
 `/`  
