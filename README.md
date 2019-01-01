@@ -136,8 +136,11 @@ jane_doe@u1804:\~$ `sudo nano /etc/pam.d/common-password`
 __!__ (use a 2nd TTY to prevent lock out)  
 
 ## [Managing groups](https://www.google.com "Managing groups")  
+```
+-rw-r--r-- 1 root bind  490 2013-04-15 22:05 named.conf
+```  
 `ls -l`  
-`-rw-r--r-- 1 root bind  490 2013-04-15 22:05 named.conf`  
+__`groups`__ `jane_doe`  
 `cat /etc/group`  
 `sudo groupadd admins`  
 `sudo groupdel admins`  
@@ -205,24 +208,22 @@ __`obscure`__ _( prevents simple passwords from being used )_
 ## [Configuring administrator access with sudo](https://www.twitch.tv/videos/350870850 "Configuring administrator access with sudo")  
 __`modify` secondary `Group`__ _to include_ __`user`__  
 jane_doe@u1804:\~$ `sudo usermod -aG sudo <username>`  
-...  
+#### __`visudo`__  
+if an  error return to __nano `edit`__  
+__`e`__  
 __nano `save changes`__  
 `Ctrl + W`  
 __nano `exit editor`__  
 `Ctrl + X`  
-...  
 __configure `visudo`__ _default `Editor` to_ __`vim`__  
 jane_doe@u1804:\~$ `sudo EDITOR=vim visudo`  
 __`etc / sudoers`__  
-`Object type  :  User  :  Group  :  Other's`  
-` -dl  :  rwx :  rwx  :  rwx`  
-...  
-__`sudo group`__  
-`%sudo   ALL=(ALL:ALL) ALL `  
-__`user`__  
-`root    ALL=(ALL:ALL) ALL `  
-...  
-`TTY  :  User  :  Group  :  Command`   
+```
+%sudo   ALL=(ALL:ALL) ALL
+            ...
+root    ALL=(ALL:ALL) ALL
+```    
+`TTY =( User : Group ) Command`   
 _note that it's best to use full paths_  
 charlie could run these : __`commands`__  
 ```
@@ -237,7 +238,7 @@ _limited to certain_ __`terminal`__
 ```
 charlie    ubuntu-server=(ALL:ALL) /usr/bin/apt
 ```  
-_restrict_ __`user`__ _&_ __`group`__ _options_    
+__exclude__ _( restrict )_ __`user`__ _&_ __`group`__ _options_    
 ```
 charlie    ubuntu-server= /usr/bin/apt
 ```  
@@ -247,7 +248,6 @@ charlie    ubuntu-server=(dscully:admins) ALL
 ```  
 
 ## [Setting permissions on files and directories](https://www.google.com "Setting permissions on files and directories")    
-`ls -l`  
 ```
 -rw-rw-rw- 1   doctor  doctor     5      Jan 11   12:52 welcome 
 -rw-r--r-- 1   root    root       665    Feb 19   2014  profile 
@@ -255,32 +255,36 @@ charlie    ubuntu-server=(dscully:admins) ALL
 -rw-r--r-- 1   sue     accounting 35125  Nov  7   2013  budget.txt 
 drwxr-x--- 1   bob     sales      35125  Nov  7   2013  annual_projects
 ```  
-`chmod o-r budget.txt`  
-`chmod o-r /home/sue/budget.txt`  
-`chmod 770 -R mydir`  
+`Object type  :  User  :  Group  :  Other's`  
+```
+ - ( file ), d (directory) or l ( link )  :  rwx :  rwx  :  rwx
 ```  
 `ls -l`  
-`-rw-rw-rw- 1 doctor doctor    5 Jan 11 12:52 welcome`  
-`-rwxr-xr-x 1 dalek dalek      35125 Nov  7  2013 exterminate`  
-```
-`sudo chown sue myfile.txt`  
-`sudo chown -R sue mydir`  
-`sudo chown sue:sales myfile.txt`  
-`# sudo chown sales myfile.txt`  
+### __`chmod`__ 
 __remove `read` from file permissions for `other's`__  
-jane_doe@u1804:\~$ `sudo chmod o-r /home/sue/budget.txt`  
-
-__octal permission patterns__  
-$ `chmod 600 filename.txt` ( same as ) `chmod -rw------- filename.txt`  
-$ `chmod 740 filename.txt` ( same as ) `chmod -rwxr----- filename.txt`  
-$ `chmod 770 filename.txt` ( same as ) `chmod -rwxrwx--- filename.txt`  
-$ `chmod 770 -R dir_name` (recursive directories)  
-
+jane_doe@u1804:\~$ `sudo` __`chmod`__ `o-r /home/sue/budget.txt`  
+__`chmod`__ `o-r budget.txt`  
+__`chmod`__ `o-r /home/sue/budget.txt`  
+__`chmod`__ `770 -R mydir`  
+`find /path/to/dir/ -type f -exec` __`chmod`__ `644 {} ;`  
+`find /path/to/dir/ -type d -exec` __`chmod`__ `755 {} ;`  
+`sudo` __`chown`__ `sue myfile.txt`  
+`sudo chown` __`-R`__ `sue mydir`  
+`sudo chown` __`sue:sales`__ `myfile.txt`  
+`sudo` __`chgrp`__  `sales myfile.txt`  
 __change ownership of directory recursively__  
-jane_doe@u1804:\~$ `sudo chown -R jane_doe:admins dir_name`  
+jane_doe@u1804:\~$ `sudo chown ` __`-R`__ `jane_doe:admins dir_name`  
 __change group ownership__  
 jane_doe@u1804:\~$ `sudo chgrp sales myfile.txt`  
 
+__octal permission patterns__  
+`Read: 4`  
+`Write: 2`  
+`Execute: 1`  
+$ `chmod 600 filename.txt` ( same as ) `chmod -rw------- filename.txt`  
+$ `chmod 740 filename.txt` ( same as ) `chmod -rwxr----- filename.txt`  
+$ `chmod 770 filename.txt` ( same as ) `chmod -rwxrwx--- filename.txt`  
+$ `chmod 770 -R dir_name`  (recursive directories)  
 __Q&A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -294,13 +298,25 @@ __Q&A__
 1. $ `chmod, chown`  
 
 #  [`customize TTY prompt`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/2/ch02lvl1sec23/creating-and-removing-users "Creating and removing users")
+root@u1804:/# [`echo 'export PS1="[\u@\h \w]\$ "' >> ~/.bash_profile`](https://www.packtpub.com/mapt/video/application_development/9781789802610/79474/79509/customizing-the-shell-prompt "Customizing the Shell Prompt")  
+root@u1804:/# [`nano ~/.bash_profile`](https://vitux.com/how-to-customize-ubuntu-bash-prompt/ "How to Customize your Ubuntu Terminal Prompt")  
+jane_doe@0051cc98e23b:~$ [`nano .bashrc`](http://ezprompt.net/ "EzPrompt; Easy Bash PS1 Generator")  
+root@u1804:/# [`nano etc/skel.bashrc`](http://ezprompt.net/ "EzPrompt; Easy Bash PS1 Generator") 
+```
+function nonzero_return() {
+	RETVAL=$?
+	[ $RETVAL -ne 0 ] && echo "$RETVAL"
+}
 
-root@u1804:/# [`echo 'export PS1="[\u@\h \w]\$ "' >> ~/.bash_profile`](https://www.packtpub.com/mapt/video/application_development/9781789802610/79474/79509/customizing-the-shell-prompt "Customizing the Shell Prompt")
-
-root@u1804:/# [`nano ~/.bash_profile`](https://vitux.com/how-to-customize-ubuntu-bash-prompt/ "How to Customize your Ubuntu Terminal Prompt")
- 
-root@u1804:/# `exit` 
- 
+PS1='${debian_chroot:+($debian_chroot)}\n\[\e[31m\]\`nonzero_return\`\[\e[m\]\[\e[33m\]:\[\e[m\]\[\e[32;40m\]\@\[\e[m\]\[\e[33m\]:\[\e[m\]\[\e[35;40m\]\H\[\e[m\]\n\[\e[31m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[36m\]u1804\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[33;40m\]\w\[\e[m\]\[\e[30m\]:\[\e[m\]\[\e[36m\]\\$\[\e[m\]\[\e[30m\]:\[\e[m\] '
+```
+```
+PS1='${debian_chroot:+($debian_chroot)}\n\[\e[32;40m\]\@\[\e[m\]\[\e[33m\]:\[\e[m\]\[\e[35;40m\]\H\[\e[m\]\n\[\e[31m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[36m\]u1804\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[33;40m\]\w\[\e[m\]\[\e[30m\]:\[\e[m\]\[\e[36m\]\\$\[\e[m\]\[\e[30m\]:\[\e[m\] '
+```
+```
+export PS1="\n\[\e[32;40m\]\@\[\e[m\]\[\e[33m\]:\[\e[m\]\[\e[35;40m\]\H\[\e[m\]\n\[\e[31m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[36m\]u1804\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[33;40m\]\w\[\e[m\]\[\e[30m\]:\[\e[m\]\[\e[36m\]\\$\[\e[m\]\[\e[30m\]:\[\e[m\] "
+```
+![preview screenshot](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/CaptureETCshadow.PNG?raw=true "asterix is like a wilde carde ?")  
 #  [`Chapter 3. Storage Volumes`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "managing storage is more than just adding disks, Logical Volume Manager (LVM)")
 ## [Understanding the Linux filesystem](https://www.google.com "Understanding the Linux filesystem")    
 `/`  
