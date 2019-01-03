@@ -86,11 +86,11 @@ __`groups`__ `jane_doe`
 `sudo usermod -l jsmith jdoe`  
 `sudo gpasswd -d <username> <grouptoremove>`  
 `sudo gpasswd -a <username> <group>`  
+
 __add a user to `sudo` as a secondary group__  
 jane_doe@u1804:\~$ `sudo usermod -aG sudo <username>`  
 jane_doe@u1804:\~$ `sudo usermod -aG sudo jane_doe`  
-may use another group (such as `wheel`)  
-...  
+_may use another group_ (such as `wheel`)    
 __configure `sudo` group or user access__  
 jane_doe@u1804:\~$ `sudo visudo`  
 checks to make sure your changes follow the correct syntax ___`/etc/sudoers`___  
