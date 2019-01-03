@@ -13,25 +13,18 @@ Learn Red Hat Linux and CentOS: Use these in-demand skills to start a career as 
 `MySQL` should be replaced with `MariaDB`  
 ##### Show info like number of containers, etc  
 $ `docker info`  
-
 ##### List all containers (Even if not running)
 $ `docker container ls -a`  
-
 ##### Get logs (Use name or ID)
 $ `docker container logs [NAME]`  
-
 ##### Stop all running containers
 $ `docker container stop $(docker ps -aq)`  
-
 ##### To remove a running container use force(-f)
 $ `docker container rm -f [ID]`  
-
 ##### Remove all containers
 $ `docker rm $(docker ps -aq)`  
-
 ##### Remove all images
 $ `docker rmi $(docker images -a -q)`  
-  
 ## $ [`docker run --name u1804 -dit -p 8080:80 ubuntu:18.04 //bin/bash`](https://stackoverflow.com/questions/39858121/how-can-i-resolve-the-error-oci-runtime-error-exec-no-such-file-or-directory-w "you might see this if you have installed Git for Windows with MSYS2 for example")
 detached interactive terminal on port 8080 named u1804  
 
@@ -52,6 +45,7 @@ Get up-to-date with the finer points of Ubuntu Server using this comprehensive g
 By Jason Cannon
 November 2018
 Learn Red Hat Linux and CentOS: Use these in-demand skills to start a career as a Linux Server Admin or Linux Administrator!")](https://www.packtpub.com/mapt/video/application_development/9781789612189/87094/87095/the-linux-directory-structure)
+
 #  [`Chapter 2. Managing Users`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/2/ch02lvl1sec23/creating-and-removing-users "Creating and removing users")
 ![preview screenshot](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/CaptureETCshadow.PNG?raw=true "asterix is like a wilde carde ?")  
 ## [Understanding when to use `root`](https://www.google.com "Understanding when to use `root`")  
@@ -134,7 +128,6 @@ jane_doe@u1804:\~$ `sudo apt install nano`
 __configure password requirements in PAM__  
 jane_doe@u1804:\~$ `sudo nano /etc/pam.d/common-password`  
 __!__ (use a 2nd TTY to prevent lock out)  
-
 ## [Managing groups](https://www.google.com "Managing groups")  
 ```
 -rw-r--r-- 1 root bind  490 2013-04-15 22:05 named.conf
@@ -165,7 +158,6 @@ jane_doe    ALL=(ALL:ALL) ALL
 `charlie    ubuntu-server=(jane_doe:admins) /usr/bin/apt,/usr/sbin/reboot,/usr/sbin/shutdown`  
 (root or username)    TTY IP=(USER:GROUP) COMMANDS  
 __!__ It's always a good idea to use full paths when editing `sudo` command permissions    
-
 ## [Managing passwords and password policies](https://www.twitch.tv/videos/350713391 "Managing passwords and password policies")  
 __`lock` password per `<username>`__  
 jane_doe@u1804:\~$ `sudo passwd -l <username>`   
@@ -204,7 +196,6 @@ __`difference`__ _( at least three characters have to be different )_
 `difok=3`  
 __`obscure`__ _( prevents simple passwords from being used )_  
 `obscure `  
-
 ## [Configuring administrator access with sudo](https://www.twitch.tv/videos/350870850 "Configuring administrator access with sudo")  
 __`modify` secondary `Group`__ _to include_ __`user`__  
 jane_doe@u1804:\~$ `sudo usermod -aG sudo <username>`  
@@ -246,7 +237,6 @@ _restrict to certain_ __`( user : group )`__
 ```
 charlie    ubuntu-server=(dscully:admins) ALL
 ```  
-
 ## [Setting permissions on files and directories](https://www.google.com "Setting permissions on files and directories")    
 ```
 -rw-rw-rw- 1   doctor  doctor     5      Jan 11   12:52 welcome 
@@ -296,7 +286,6 @@ __Q&A__
 1. $ `visudo`  
 1. $ `sudo adduser jdoe`  
 1. $ `chmod, chown`  
-
 #  [`customize TTY prompt` ![preview screenshot](https://github.com/TurtleWolf/docker-run-it-ubuntu-bin-bash/blob/master/captured_Images/CH2/EZ000t.JPG?raw=true "customize TTY prompt")](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/2/ch02lvl1sec23/creating-and-removing-users "customize TTY prompt")
   
 root@u1804:/# [`echo 'export PS1="[\u@\h \w]\$ "' >> ~/.bash_profile`](https://www.packtpub.com/mapt/video/application_development/9781789802610/79474/79509/customizing-the-shell-prompt "Customizing the Shell Prompt")  
@@ -317,6 +306,7 @@ PS1='${debian_chroot:+($debian_chroot)}\n\[\e[32;40m\]\@\[\e[m\]\[\e[33m\]:\[\e[
 ```
 export PS1="\n\[\e[32;40m\]\@\[\e[m\]\[\e[33m\]:\[\e[m\]\[\e[35;40m\]\H\[\e[m\]\n\[\e[31m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[36m\]u1804\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[33;40m\]\w\[\e[m\]\[\e[30m\]:\[\e[m\]\[\e[36m\]\\$\[\e[m\]\[\e[30m\]:\[\e[m\] "
 ```
+
 #  [`Chapter 3. Storage Volumes`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "managing storage is more than just adding disks, Logical Volume Manager (LVM)")
 ## [Understanding the Linux filesystem](https://www.google.com "Understanding the Linux filesystem")    
 `/`  
@@ -366,7 +356,6 @@ jane_doe@u1804:~$ `rm file3`
 
 __symlink file1 to file3__  
 jane_doe@u1804:~$ `ln -s file1 file3`  
-
 ## [Viewing disk usage](https://www.google.com "Viewing disk usage")    
 __disk filesystem__ in __human readable__  
 jane_doe@u1804:~$ `df -h`  
@@ -387,7 +376,6 @@ __disk usage__
 jane_doe@u1804:~$ `ncu -x`  
 `-x` limit to the current filesystem  
 _during interface;_ `d` would delete 
-
 ## [Adding additional storage volumes](https://www.google.com "Adding additional storage volumes")    
 __disk functions__ _-list_ 
 jane_doe@u1804:~$ `sudo fdisk -l`  
@@ -434,7 +422,6 @@ __disk function__  _(review)_
 jane_doe@u1804:\~$ `sudo fdisk -l`  
 __make directory__  
 jane_doe@u1804:\~$ `sudo mkdir /mnt/vol1` _..(volume path)_  
-
 ## [Mounting and unmounting volumes](https://www.google.com "Setting permissions on files and directories")    
 __mount device to directory__  
 jane_doe@u1804:\~$ `sudo mount /dev/sdb1 /mnt/vol1` _..(volume path)_  
@@ -445,7 +432,6 @@ __unmount device__
 jane_doe@u1804:\~$ `sudo umount /mnt/vol1`  
 __disk filesystem__ in __human readable__  _..(confirm unmounted)_  
 jane_doe@u1804:\~$ `df -h`  
-
 ## [Understanding the /etc/fstab file](https://www.google.com "Understanding the /etc/fstab file")    
 __block identification, UUID__  _..( __/__ etc __/__ f stab )_  
 jane_doe@u1804:\~$ `blkid`  
@@ -468,9 +454,7 @@ jane_doe@u1804:\~$ `sudo mount /mnt/ext_disk`
 ...  
 __list everything that is mounted__  
 jane_doe@u1804:\~$ `mount`  
-
 ## [Managing swap](https://www.google.com "Managing swap")    
-
 ## [SWAP-file](https://www.google.com "SWAP-file")
 __swap volume__ (  with __`auto`__ )  
 jane_doe@u1804:\~$ `sudo swapon -a`  
@@ -621,8 +605,7 @@ jane_doe@u1804:\~$ `sudo vgremove vg-test`
 `apt install tmux`  
 __disk functions__ _-list_  
 jane_doe@u1804:\~$ `sudo fdisk -l`  
-_( one is hardware, multilple is software )_  
-...  
+_( one is hardware, multilple is software )_   
 __Multiple Disk And Disk Administration__  
 jane_doe@u1804:\~$ `mdadm`  
 
