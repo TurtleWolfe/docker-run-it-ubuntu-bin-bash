@@ -31,6 +31,7 @@ __encrypted password__
 `user: x :password changed:7days between changes:max:warning:disable:8thN:9?`  
 __lockout login__  
 `user: ! :password changed:7days between changes:max:warning:disable:8thN:9?`  
+
 __add a user to `sudo` as a secondary group__  
 jane_doe@u1804:\~$ `sudo usermod -aG sudo jane_doe`  
 __switch user__  
