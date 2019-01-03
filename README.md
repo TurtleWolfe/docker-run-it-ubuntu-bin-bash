@@ -71,41 +71,30 @@ __sudo rm -r /__ _( space )_ __home/dscully__
 `sudo cat /etc/shadow | grep root`  
 `mulder:$6$TPxx8Z.:16809:0:99999:7::: `  
 `sudo passwd -S <username>`  
-
 root@u1804:/# `adduser jane_doe`  
 root@u1804:/# `cat /etc/shadow | grep root`  
 __any password ?__  
 `user: * :password changed:7days between changes:max:warning:disable:8thN:9?`  
-...  
 __encrypted password__  
 `user: x :password changed:7days between changes:max:warning:disable:8thN:9?`  
-...  
 __lockout login__  
 `user: ! :password changed:7days between changes:max:warning:disable:8thN:9?`  
-...  
 __add a user to `sudo` as a secondary group__  
 jane_doe@u1804:\~$ `sudo usermod -aG sudo jane_doe`  
-...  
 __switch user__  
 root@u1804:/# `su - jane_doe`
-...  
 __list all files in long form__  
 jane_doe@u1804:\~$ `ls -al`  
-...  
 __add user group__  
 jane_doe@u1804:\~$ `sudo groupadd admins`  
-...  
 __modify secondary group to include user__  
 jane_doe@u1804:\~$ `sudo usermod -aG admins jane_doe`  
-...  
 __lock password__ - will not affect SSH (see ch 15)   
 jane_doe@u1804:\~$ `sudo passwd -l root`  
 jane_doe@u1804:\~$ `sudo cat /etc/shadow | grep root`  
 root@u1804:/# `su - root`  
-...  
 __unlock password__  
 jane_doe@u1804:\~$ `sudo passwd -u <username>`  
-...  
 __/etc/shadow__  
 jane_doe@u1804:\~$ `sudo chage -l root`  
 ## [Distributing default configuration files with `/etc/skel`](https://www.google.com "Distributing default configuration files with `/etc/skel`")  
