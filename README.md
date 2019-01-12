@@ -302,7 +302,7 @@ export PS1="\n\[\e[32;40m\]\@\[\e[m\]\[\e[33m\]:\[\e[m\]\[\e[35;40m\]\H\[\e[m\]\
 `/`  
 The beginning of the __filesystem__, all directories are underneath this
 
-`/home`  
+`/home` _or tilda_ __`~`__  
 User home directories  
 
 `/root`  
@@ -336,47 +336,47 @@ Log files
 `apt install tmux`  
 ## [Using symbolic and hard links](https://www.google.com "Using symbolic and hard links")    
 __hard link file1 to file3__  
-jane_doe@u1804:~$ `ln file1 file3`  
+$ `ln file1 file3`  
 
 __list inode number__  
-jane_doe@u1804:~$ `ls -i`  
+$ `ls -i`  
 
 __remove file3__  
-jane_doe@u1804:~$ `rm file3`  
+$ `rm file3`  
 
 __symlink file1 to file3__  
-jane_doe@u1804:~$ `ln -s file1 file3`  
+$ `ln -s file1 file3`  
 ## [Viewing disk usage](https://www.google.com "Viewing disk usage")    
 __disk filesystem__ in __human readable__  
-jane_doe@u1804:~$ `df -h`  
+$ `df -h`  
 will show available `cyber` space  
 
 __disk filesystem inodes__  
-jane_doe@u1804:~$ `df -i`  
+$ `df -i`  
 shows available `inodes`  
 
 __disk usage__  
-jane_doe@u1804:~$ `du -hsc *`  
+$ `du -hsc *`  
 will show `disk usage` in `human` readable, `summary` of `current` working directory total  
 
 _install_ __NCurses Disk Usage__  
-jane_doe@u1804:~$ `sudo apt install ncdu`  
+$ `sudo apt install ncdu`  
 
 __disk usage__  
-jane_doe@u1804:~$ `ncu -x`  
+$ `ncu -x`  
 `-x` limit to the current filesystem  
 _during interface;_ `d` would delete 
 ## [Adding additional storage volumes](https://www.google.com "Adding additional storage volumes")    
 __disk functions__ _-list_ 
-jane_doe@u1804:~$ `sudo fdisk -l`  
+$ `sudo fdisk -l`  
 utility for `listing`, `creating` or `deleting` disk partions 
 
 __follow display messages__  
-jane_doe@u1804:~$ `dmesg --follow`  
+$ `dmesg --follow`  
 When done, press `Ctrl + C` on your keyboard: 
 
 __list block devices__  
-jane_doe@u1804:~$ `lsblk`  
+$ `lsblk`  
 `/dev/sda`  
 `/dev/sdb`  
 `/dev/sdc`  
@@ -395,103 +395,75 @@ __`enter`__ _save changes_
 ## [Partitioning and formatting volumes](https://www.google.com "Partitioning and formatting volumes")    
 
 __disk function__ _..( utility again )_   
-jane_doe@u1804:\~$ `sudo fdisk -l`  
+$ `sudo fdisk -l`  
 _review added disk partion_  
 __( _or to try again_ )__  
-jane_doe@u1804:\~$ `sudo fdisk`  
+$ `sudo fdisk`  
 `g` _new __GPT__ layout_  
 `o` _new MBR layout_  
 
 __disk format__  _(partition `ext4`)_  
-jane_doe@u1804:\~$ `sudo mkfs.ext4 /dev/sdb1` _..(volume path)_  
+$ `sudo mkfs.ext4 /dev/sdb1` _..(volume path)_  
 _or_  
 __disk format__  _(partition `xfs`)_  
-jane_doe@u1804:\~$ `sudo mfs.xfs /dev/sdb1` _..(volume path)_  
+$ `sudo mfs.xfs /dev/sdb1` _..(volume path)_  
 
 __disk function__  _(review)_   
-jane_doe@u1804:\~$ `sudo fdisk -l`  
+$ `sudo fdisk -l`  
 __make directory__  
-jane_doe@u1804:\~$ `sudo mkdir /mnt/vol1` _..(volume path)_  
+$ `sudo mkdir /mnt/vol1` _..(volume path)_  
 ## [Mounting and unmounting volumes](https://www.google.com "Setting permissions on files and directories")    
 __mount device to directory__  
-jane_doe@u1804:\~$ `sudo mount /dev/sdb1 /mnt/vol1` _..(volume path)_  
+$ `sudo mount /dev/sdb1 /mnt/vol1` _..(volume path)_  
 __mount device to directory with `type` option__  _..(usually un-necessary)_  
-jane_doe@u1804:\~$ `sudo mount /dev/sdb1 -t ext4 /mnt/vol1` _..(volume path)_  
-...  
+$ `sudo mount /dev/sdb1 -t ext4 /mnt/vol1` _..(volume path)_  
 __unmount device__  
-jane_doe@u1804:\~$ `sudo umount /mnt/vol1`  
+$ `sudo umount /mnt/vol1`  
 __disk filesystem__ in __human readable__  _..(confirm unmounted)_  
-jane_doe@u1804:\~$ `df -h`  
+$ `df -h`  
 ## [Understanding the /etc/fstab file](https://www.google.com "Understanding the /etc/fstab file")    
 __block identification, UUID__  _..( __/__ etc __/__ f stab )_  
-jane_doe@u1804:\~$ `blkid`  
-...  
+$ `blkid`  
 __make new directory for extra storage__  _..( __/__ mnt __/__ extra_storage )_  
-jane_doe@u1804:\~$ `sudo mkdir /mnt/extra_storage`  
-...  
+$ `sudo mkdir /mnt/extra_storage`  
 __edit `/etc/fstab`__  
-jane_doe@u1804:\~$ `sudo nano /etc/fstab`  
-...  
+$ `sudo nano /etc/` __`fstab`__  
 `UUID=e51bcc9e-45dd-45c7 /mnt/extra_storage  ext4  rw,auto 0 0`  
-...  
 __mounting volume (__ with __`auto` )__  
-jane_doe@u1804:\~$ `sudo mount -a`  
-...  
+$ `sudo mount` __`-a`__  
 `UUID=e51bcc9e-45dd-45c7 /mnt/ext_disk  ext4  rw,noauto 0 0`  
-...  
 __mounting an external disk__ (with __`noauto`__ ) perhaps per back-up  
-jane_doe@u1804:\~$ `sudo mount /mnt/ext_disk`  
-...  
+$ `sudo mount /mnt/ext_disk`  
 __list everything that is mounted__  
-jane_doe@u1804:\~$ `mount`  
-## [Managing swap](https://www.google.com "Managing swap")    
-## [SWAP-file](https://www.google.com "SWAP-file")
+$ `mount`  
+## [SWAP-file](https://www.google.com "Managing swap")
 __swap volume__ (  with __`auto`__ )  
-jane_doe@u1804:\~$ `sudo swapon -a`  
+$ `sudo swapon -a`  
 don't forget to edit `fstab`  
-...  
 `/swapfile   none   swap   sw   0 0`  
-...  
 __check memory__  
-jane_doe@u1804:\~$ `free -m`  
-...  
+$ `free -m`  
 __file allocate__  
-jane_doe@u1804:\~$ `sudo fallocate -l 4G /swapfile`  
+$ `sudo fallocate -l 4G /swapfile`  
 _creates a 4 gigabyte file_  
-...  
 __make swap__  
-jane_doe@u1804:\~$ `sudo mkswap /swapfile`  
+$ `sudo mkswap /swapfile`  
 _makes it the swap file_  
-...  
 _don't forget to edit_  __/__ `etc` __/__ `f stab`  
 `/swapfile   none   swap   sw   0 0`
 __Activate SwapFile__ (__ with __`auto` )__  
-jane_doe@u1804:\~$ `sudo swapon -a`  
-## [LVM](https://www.google.com "LVM")
+$ `sudo` __`swapon -a`__  
 ## [Utilizing LVM volumes](https://www.google.com "Utilizing LVM volumes")   
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
 _check if_ __lvm2__  _is installed_  
-jane_doe@u1804:\~$ `dpkg -s lvm2 | grep status`  
+$ `dpkg -s lvm2 | grep status`  
 _should return_ `install ok installed` _if it is installed already_  
-...  
 __install lvm2__  _( Logical Volume Management )_  
-jane_doe@u1804:\~$ `sudo apt install lvm2`  
-...  
+$ `sudo apt install lvm2`  
 __disk functions__  
-jane_doe@u1804:\~$ `sudo fdisk -l`  
+$ `sudo fdisk -l`  
 _should list partions_  
-...  
 __pvcreate__ _( create physical volumes )_  
-jane_doe@u1804:\~$  
+$  
 ```  
     sudo pvcreate /dev/sdb  
     sudo pvcreate /dev/sdc  
@@ -499,47 +471,35 @@ jane_doe@u1804:\~$
     sudo pvcreate /dev/sde  
 ```   
 __display Physical Volumes__  
-jane_doe@u1804:\~$ `sudo pvdisplay`  
-...  
+$ `sudo pvdisplay`  
 __create Volume Group__  
-jane_doe@u1804:\~$ `sudo vgcreate vg-test /dev/sdb1` _..(volume path)_   
-...  
+$ `sudo vgcreate vg-test /dev/sdb1` _..(volume path)_   
 __display Volume Groups__  
-jane_doe@u1804:\~$ `vgdisplay`  
-...  
+$ `vgdisplay`  
 __create Logical Volume__  `-n` _name_ , `-L` _size ?_ , _group name_ ,  
-jane_doe@u1804:\~$ `sudo lvcreate -n myvol1 -L 10g vg-test`  
-...  
+$ `sudo lvcreate -n myvol1 -L 10g vg-test`  
 __display Logical Volumes__  
-jane_doe@u1804:\~$ `sudo lvdisplay`  
-...  
+$ `sudo lvdisplay`  
 __make file system__ , _( format logical volume )_   
-jane_doe@u1804:\~$ `sudo mkfs.ext4 /dev/vg-test/myvol1`  
-...  
+$ `sudo mkfs.ext4 /dev/vg-test/myvol1`  
 __mount device__ _to_ __directory__  
-jane_doe@u1804:\~$ `sudo mount /dev/vg-test/myvol1 /mnt/lvm/myvol1`  
-...  
+$ `sudo mount /dev/vg-test/myvol1 /mnt/lvm/myvol1`  
 __disk filesystem__ in __human readable__  _..( confirm volume is mounted & it's size )_  
-jane_doe@u1804:\~$ `df -h`  
-...  
+$ `df -h`  
 __Extend Logical Volume__  _( use the remaining space )_  
-jane_doe@u1804:\~$ `sudo lvextend -n /dev/vg-test/myvol1 -l +100%FREE`  
+$ `sudo lvextend -n /dev/vg-test/myvol1 -l +100%FREE`  
   _( should return )_  
 `Logical volume vg-test/myvol1 successfully resized.`  
-...  
 __disk filesystem__ in __human readable__  _..( confirm, still need to resize file system )_  
-jane_doe@u1804:\~$ `df -h`  
-...  
+$ `df -h`  
 __Resize File-System__  _..( ext4 )_  
-jane_doe@u1804:\~$ `sudo resize2fs /dev/mapper/vg--test-myvol1`  
+$ `sudo resize2fs /dev/mapper/vg--test-myvol1`  
 _( should return )_  
 `The filesystem on /dev/mapper/vg--test-myvol1 is now 5241856 (4k) blocks long.`  
-...  
 __disk filesystem__ in __human readable__  _..( added space now usable )_  
-jane_doe@u1804:\~$ `df -h`  
-...  
+$ `df -h`  
 __Extend Volume Group__  _( add additonal volumes to group )_  
-jane_doe@u1804:\~$
+$
 ```
 sudo vgextend vg-test /dev/sdc
 sudo vgextend vg-test /dev/sdd
@@ -547,57 +507,38 @@ sudo vgextend vg-test /dev/sde
 ```  
 _( should return )_  
 `Volume group "vg-test" successfully extended`  
-...  
 __display Physical Volumes__ _( confirm additional physical volumes attached )_  
-jane_doe@u1804:\~$ `sudo pvdisplay`  
-...  
+$ `sudo pvdisplay`  
 __Extend Logical Volume__ _( extend logical volume 10 gigabytes )_  
-jane_doe@u1804:\~$ `sudo lvextend -L+10g /dev/vg-test/myvol1`  
-...  
+$ `sudo lvextend -L+10g /dev/vg-test/myvol1`  
 __resize file-system__ _( make free space available to filesystem )_  
-jane_doe@u1804:\~$ `sudo resize2fs /dev/vg-test/myvol1`  
+$ `sudo resize2fs /dev/vg-test/myvol1`  
 
 __create Logical Volume__  `-s` _snapshot_ , `-n` _name_ , `-L` _maximu size ?_ , _group name_ __/__ _volume_ ,  
-jane_doe@u1804:\~$ `sudo lvcreate -s -n mysnapshot -L 4g vg-test/myvol1`  
+$ `sudo lvcreate -s -n mysnapshot -L 4g vg-test/myvol1`  
 _( should return )_  
  `Logical volume "mysnapshot" created.`  
-...  
 __logical volume size__ _( monitor it's size )_  
-jane_doe@u1804:\~$ `lvs`  
-...  
+$ `lvs`  
 __logical volume convert__  
-jane_doe@u1804:\~$ `sudo lvconvert --merge vg-test/mysnapshot`  
+$ `sudo lvconvert --merge vg-test/mysnapshot`  
 _( should return )_
 ```
 Merging of volume mysnapshot started.
 myvol1: Merged: 100.0%`
 ```    
-...  
 __logical volume size__ _( recheck )_  
-jane_doe@u1804:\~$ `lvs`  
-...  
+$ `lvs`  
 __remove logical volume__  
-jane_doe@u1804:\~$ `sudo lvremove vg-test/myvol1`  
-...  
+$ `sudo lvremove vg-test/myvol1`  
 __remove logical group__  
-jane_doe@u1804:\~$ `sudo vgremove vg-test`  
-## [Understanding RAID](https://www.google.com "Understanding RAID")    
+$ `sudo vgremove vg-test`  
 ## [RAID - Redundant Array of Inexpensive Disks](https://www.google.com "RAID - Redundant Array of Inexpensive Disks")
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
 __disk functions__ _-list_  
-jane_doe@u1804:\~$ `sudo fdisk -l`  
+$ `sudo fdisk -l`  
 _( one is hardware, multilple is software )_   
 __Multiple Disk And Disk Administration__  
-jane_doe@u1804:\~$ `mdadm`  
+$ `mdadm`  
 
 __Q__ & __A__
 1. $ `sudo`  
@@ -613,19 +554,31 @@ __Q__ & __A__
 
 #  [`Chapter 4. Networks`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
 ## [Host Name](https://www.google.com "Host Name")  
-jane_doe@u1804:\~$ __`hostname`__  
+$ __`hostname`__  
+$ `sudo apt-get install` __`systemd`__  
+```
+debconf: falling back to frontend: Teletype
+PAM configuration
+-----------------
+
+One or more of the files /etc/pam.d/common-{auth,account,password,session} have been locally modified.  Please indicate whether these local changes should be overridden using the system-provided configuration.  If you decline this
+option, you will need to manage your system's authentication configuration by hand.
+
+Override local changes to /etc/pam.d/common-*? [yes/no]
+```  
+`apt-get install` __`dbus`__  
 __Host Name Control__ _- set host name_  
-jane_doe@u1804:\~$ `sudo ` __`hostnamectl set-hostname`__ ` u1804.mynetwork.org`  
+$ `sudo ` __`hostnamectl set-hostname`__ ` u1804.mynetwork.org`  
 __concatenate__ __/__ `etc` __/__ __`hostname`__ )  
-jane_doe@u1804:\~$ `cat /etc/` __`hostname`__  
+$ `cat /etc/` __`hostname`__  
 __edit__ __/__ `etc` __/__ `hostname` )   _- ( previous to 15.04, edit maunually )_  
-jane_doe@u1804:\~$ `edit /etc/hostname`  
+$ `nano /etc/hostname`  
 ```
 unable to resolve host u1804.mynetwork.org
 ```  
 __edit__ __/__ `etc` __/__ __`hosts`__ )   _- ( edit maunually )_  
 ~~$ `edit /etc/` __`hosts`__~~  
-$ `nano /etc/` __`hosts`__  
+$ `nano /etc/`__`hosts`__  
 ## [managing Network Interfaces](https://www.google.com "managing Network Interfaces")    
 __currently assigned IP address__  
 $ `ip addr show`  
