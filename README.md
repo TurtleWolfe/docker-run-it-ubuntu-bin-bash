@@ -1,3 +1,129 @@
+```
+eval `ssh-agent -s`
+```
+```$ ssh-add ~/.ssh/id_rsa_jane_doe```  
+```$ ssh-add ~/.ssh/id_rsa_jon_dough```  
+```$ ssh -p 65332 jane_doe@ doserver```  
+```$ ssh digitalOcean@ doserver```  
+```$ ssh digitalOcean jon_dough@ doserver```  
+82.99.220.212  
+`sudo shutdown -r now`
+## [SSH Cheat Sheet](https://www.youtube.com/watch?v=hQWRp-FdTpc&t=1270s)
+### Generate Keys (Local Machine)
+```$ ssh-keygen```
+
+### Add Key to server in one command
+```> cat ~/.ssh/id_rsa.pub | ssh jane_doe@192.168.1.29 "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >>  ~/.ssh/authorized_keys```
+
+### Create & copy a file to the server using SCP
+```$ touch test.txt```
+```$ scp ~/test.txt jane_doe@192.168.1.29:~```
+
+## DIGITAL OCEAN `25:00`
+```$ ssh-keygen -t rsa```
+> Add Key When Creating Droplet  
+```$ ssh root@doserver```
+### If it doesn't work `29:08`
+```$ ssh-add ~/.ssh/id_rsa```  
+```$ ssh-add ~/.ssh/id_rsa_do```  
+(or whatever name you used)  
+```
+eval `ssh-agent -s`
+```  
+back on local client  
+```$ ssh-add ~/.ssh/id_rsa_janeydough_digocn```  
+`Identity added: /home/turtlewolfe/.ssh/id_rsa_janeydough_digocn (/home/turtlewolfe/.ssh/id_rsa_janeydough_digocn)`
+```$ ssh root@doserver```  
+```$ sudo apt update```  
+```$ sudo apt upgrade```  
+### Create new user with sudo `32:00`
+```$ adduser jane_doe```  
+```$ id jane_doe```  
+```$ usermod -aG sudo jane_doe```  
+```$ id jane_doe```  
+### Login as jane_doe
+```> ssh jane_doe@server```
+### We need to add the key to jane_does .ssh on the server, log back in as root
+```$ ssh root@doserver```  
+```$ cd /home/jane_doe```  
+```$ mkdir .ssh```  
+```$ cd .ssh```  
+```$ touch authorized_keys```  
+```> sudo nano authorized_keys```  
+(paste in the id_rsa_do.pub key, exit and log in as jane_doe)
+
+```$ ssh jane_doe@doserver```  
+### Disable root password login `36:55`  
+```$ sudo nano /etc/ssh/sshd_config```
+### Set the following
+```PermitRootLogin no```  
+```PasswordAuthentication no```
+```
+Port 65332 
+Protocol 2 
+AllowGroups admins sshusers sudo 
+# AllowUsers jon_dough jane_dough
+PermitRootLogin no 
+PasswordAuthentication no 
+```
+### Reload sshd service
+```$ sudo systemctl reload sshd```  
+`ssh` __`-p 65332`__ `jane_doe@138.197.65.162`  
+
+```$ sudo usermod -aG sshusers jon_dough``` 
+### PAM
+`$ sudo apt install` __`libpam-cracklib`__  
+`$ sudo nano` __`/etc/pam.d/common-password`__  
+`$ sudo apt install` __`libpam-cracklib`__  
+`$ sudo nano` __`/etc/pam.d/common-password`__  
+`$ sudo apt install` __`libpam-cracklib`__  
+`$ sudo nano` __`/etc/pam.d/common-password`__  
+### Fail2Ban
+`$ sudo apt install` __`libpam-cracklib`__  
+`$ sudo nano` __`/etc/pam.d/common-password`__  
+`$ sudo apt install` __`libpam-cracklib`__  
+`$ sudo nano` __`/etc/pam.d/common-password`__  
+`$ sudo apt install` __`libpam-cracklib`__  
+`$ sudo nano` __`/etc/pam.d/common-password`__  
+
+
+### Change owner of /home/jane_doe/* jane_doe `43:17`
+```$ sudo chown -R jane_doe:jane_doe /home/jane_doe```
+### May need to set permission
+```$ chmod 700 /home/jane_doe/.ssh```
+### Install Apache and visit ip `40:00`
+``` $ sudo apt install apache2 -y```
+## Github
+
+### Generate Github Key(On Server)
+``` $ ssh-keygen -t rsa```
+(id_rsa_github or whatever you want)
+
+#### Add new key
+```$ ssh-add /home/jane_doe/.ssh/id_rsa_github```
+#### If you get a message about auth agent, run this and try again `46:00`
+```
+$ eval `ssh-agent -s`
+```
+#### Clone repo
+```$ git clone git@github.com:jane_doetraversy/react_otka_auth.git```
+
+#### Install Node
+```$ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -```
+
+```$ sudo apt-get install -y nodejs```
+
+#### Install Dependencies
+```  $ npm install ```
+
+#### Start Dev Server and visit ip:3000
+```$ npm start```
+
+#### Build Out React App
+``` $ npm run build```
+
+#### Move static build to web server root
+``` $ sudo mv -v /home/jane_doe/react_otka_auth/build/* /var/www/html```  
 https://www.youtube.com/watch?v=Cvrqmq9A3tA&index=1&list=PLETG2T1KvnipSA8vKmzju_unzl44jeyCa  
 
 https://www.twitch.tv/videos/347820755  
@@ -283,20 +409,8 @@ root@u1804:/# [`nano ~/.bash_profile`](https://vitux.com/how-to-customize-ubuntu
 jane_doe@0051cc98e23b:~$ [`nano .bashrc`](http://ezprompt.net/ "EzPrompt; Easy Bash PS1 Generator")  
 root@u1804:/# [`nano etc/skel.bashrc`](http://ezprompt.net/ "EzPrompt; Easy Bash PS1 Generator") 
 ```
-function nonzero_return() {
-	RETVAL=$?
-	[ $RETVAL -ne 0 ] && echo "$RETVAL"
-}
-
-PS1='${debian_chroot:+($debian_chroot)}\n\[\e[31m\]\`nonzero_return\`\[\e[m\]\[\e[33m\]:\[\e[m\]\[\e[32;40m\]\@\[\e[m\]\[\e[33m\]:\[\e[m\]\[\e[35;40m\]\H\[\e[m\]\n\[\e[31m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[36m\]u1804\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[33;40m\]\w\[\e[m\]\[\e[30m\]:\[\e[m\]\[\e[36m\]\\$\[\e[m\]\[\e[30m\]:\[\e[m\] '
+PS1='${debian_chroot:+($debian_chroot)}\n\@ \[\e[32;40m\]\u\[\e[m\] \[\e[32;40m\]@\[\e[m\]\n \[\e[32;40m\]\H\[\e[m\] \[\e[36;40m\]\w\[\e[m\] \[\e[33m\]\\$\[\e[m\] '
 ```
-```
-PS1='${debian_chroot:+($debian_chroot)}\n\[\e[32;40m\]\@\[\e[m\]\[\e[33m\]:\[\e[m\]\[\e[35;40m\]\H\[\e[m\]\n\[\e[31m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[36m\]u1804\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[33;40m\]\w\[\e[m\]\[\e[30m\]:\[\e[m\]\[\e[36m\]\\$\[\e[m\]\[\e[30m\]:\[\e[m\] '
-```
-```
-export PS1="\n\[\e[32;40m\]\@\[\e[m\]\[\e[33m\]:\[\e[m\]\[\e[35;40m\]\H\[\e[m\]\n\[\e[31m\]\u\[\e[m\]\[\e[36m\]@\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[36m\]u1804\[\e[m\]\[\e[30m\]-\[\e[m\]\[\e[33;40m\]\w\[\e[m\]\[\e[30m\]:\[\e[m\]\[\e[36m\]\\$\[\e[m\]\[\e[30m\]:\[\e[m\] "
-```
-
 #  [`Chapter 3. Storage Volumes`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "managing storage is more than just adding disks, Logical Volume Manager (LVM)")
 ## [Understanding the Linux filesystem](https://www.google.com "Understanding the Linux filesystem")    
 `/`  
@@ -570,14 +684,14 @@ Override local changes to /etc/pam.d/common-*? [yes/no]
 __Host Name Control__ _- set host name_  
 $ `sudo ` __`hostnamectl set-hostname`__ ` u1804.mynetwork.org`  
 __concatenate__ __/__ `etc` __/__ __`hostname`__ )  
-$ `cat /etc/` __`hostname`__  
+$ `cat /etc/`__`hostname`__  
 __edit__ __/__ `etc` __/__ `hostname` )   _- ( previous to 15.04, edit maunually )_  
-$ `nano /etc/hostname`  
+$ `nano /etc/`__`hostname`__  
 ```
 unable to resolve host u1804.mynetwork.org
 ```  
 __edit__ __/__ `etc` __/__ __`hosts`__ )   _- ( edit maunually )_  
-~~$ `edit /etc/` __`hosts`__~~  
+$ `cat /etc/`__`hosts`__  
 $ `nano /etc/`__`hosts`__  
 ## [managing Network Interfaces](https://www.google.com "managing Network Interfaces")    
 __currently assigned IP address__  
@@ -614,7 +728,8 @@ $ `sudo ifconfig enp0s3 up`
 _( ~~iproute2 replaces~~ net-tools )_  
 ## [Assigning static IP addresses](https://www.google.com "Assigning static IP addresses")  
 __concatenate__ __/__ `etc` __/__ `netplan` )  
-$ `cat /etc/netplan` _( something.yaml )_
+$ `cat /etc/netplan` _( something.yaml )_  
+$ `cat /etc/netplan/50-cloud-init.yaml`  
 ```
 # This file describes the network interfaces available on your system 
 # For more information, see netplan(5). 
@@ -747,27 +862,23 @@ $ `ssh nagios`
 $ `ssh -p 2222 nagiosuser@nagios.local.lan`  
 
 __Q__ & __A__
-1. $ `sudo`  
-1. $ `adduser, useradd`  
-1. $ `rm jane_doe`  
-1. $ `/etc/password & /etc/shadow`  
-1. $ `/etc/skel`  
-1. $ `su jane_doe`  
-1. $ `sudo groupadd accounting`  
-1. $ `visudo`  
-1. $ `sudo adduser jdoe`  
-1. $ `chmod, chown`
+1. $ `ip address`  __Hostname__  
+1. $ `ipa`  __ip ddr show__
+1. $ `netplan`  
+1. $ `SSH`  __OpenSSH__
+1. $ `Passphrase`  
+1. $ `Static`  
+1. $ `etc/`__nsswitch.conf__  
 
-#  [`Chapter 5. Packages`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
-## [package management](https://www.google.com "Understanding Linux package management")
-`apt install tmux`  
-`apt install tmux`  
-## [hardware enablement updates](https://www.google.com "Taking advantage of hardware enablement updates")
+#  [`Chapter 5. Packages`](https://subscription.packtpub.com/book/networking_and_servers/9781788997560/5 "Managing Software Packages")
+## [Managing Software Packages](https://www.twitch.tv/videos/391337823 "Chapter 5. Managing Software Packages")
+## [package management](https://www.twitch.tv/videos/391340603 "Understanding Linux package management")
+## [hardware enablement updates](https://www.twitch.tv/videos/391331225 "Taking advantage of hardware enablement updates")
 `sudo apt install --install-recommends linux-generic-hwe-16.04`  
-## [Debian vs Snap](https://www.google.com "Understanding the differences between Debian and Snap packages")
+## [Debian vs Snap](https://www.twitch.tv/videos/391333537 "Understanding the differences between Debian and Snap packages")
 `apt install tmux`  
 `apt install tmux`  
-## [Installing & removing software](https://www.google.com "Installing & removing software")
+## [Installing & removing software](https://www.twitch.tv/videos/391344588 "Installing & removing software")
 `sudo apt install openssh-server`  
 `sudo apt install <package1> <package2> <package3>`  
 `sudo apt-get install apache2`  
@@ -782,28 +893,33 @@ __Q__ & __A__
 `sudo snap remove nmap`  
 `sudo snap refresh nmap`  
 `sudo snap refresh`  
-## [Searching for packages](https://www.google.com "Searching for packages")
+## [Searching for packages](https://www.twitch.tv/videos/391350031 "Searching for packages")
 `apt search <search term>`  
 `apt search apache php`  
 `apt-cache show libapache2-mod-php `  
-## [managing repositories](https://www.google.com "Managing package repositories")
-`deb http://us.archive.ubuntu.com/ubuntu/ bionic main restricted `  
+## [managing repositories](https://www.twitch.tv/videos/391352473 "Managing package repositories")
+```
+deb http://us.archive.ubuntu.com/ubuntu/ bionic main restricted
+```  
 `sudo apt update`  
 `sudo apt-add-repository ppa:username/myawesomesoftware-1.0`  
-## [Backing up & restoring Debian packages](https://www.google.com "Backing up & restoring Debian packages")
+## [Backing up & restoring Debian packages](https://www.twitch.tv/videos/391358441 "Backing up & restoring Debian packages")
 `dpkg --get-selections > packages.list `  
-`tmux install`  
+```
+tmux install
+```  
 `sudo apt update`  
-`/usr/bin/dselect`  
+__`which dselect`__  
+```
+/usr/bin/dselect
+```  
 `sudo apt install dselect`  
 `sudo dselect update`  
 `sudo dpkg --set-selections < packages.list`  
 `sudo apt-get dselect-upgrade`  
-## [Cleaning up orphaned apt packages](https://www.google.com "Cleaning up orphaned apt packages")
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-## [Making use of Aptitude](https://www.google.com "Making use of Aptitude")
+## [Cleaning up orphaned apt packages](https://www.twitch.tv/videos/391360523 "Cleaning up orphaned apt packages")
+`apt autoremove`  
+## [Making use of Aptitude](https://www.twitch.tv/videos/391363112 "Making use of Aptitude")
 `sudo apt install aptitude`  
 `apt install tmux`  
 `apt install tmux`  
@@ -814,19 +930,22 @@ __Q__ & __A__
 `apt install tmux`  
 `sudo aptitude unmarkauto <packagename>`  
 `sudo aptitude`  
+## [Summary](https://www.twitch.tv/videos/391366264 "Summary")
 __Q__ & __A__
-1. $ `sudo`  
-1. $ `adduser, useradd`  
-1. $ `rm jane_doe`  
-1. $ `/etc/password & /etc/shadow`  
-1. $ `/etc/skel`  
-1. $ `su jane_doe`  
-1. $ `sudo groupadd accounting`  
-1. $ `visudo`  
-1. $ `sudo adduser jdoe`  
-1. $ `chmod, chown`
+1. $ `apt`  
+1. $ `HWE,security`  
+1. $ `apt & snap`  
+1. $ `sudo apt install <pckgname>`  
+1. $ `sudo apt remove <pckgname>`  
+1. $ `refreshes snap packaes`  
+1. $ `aptitude`  
+1. $ `app / program`  
+1. $ `mini repository, single file`  
+1. $ __`dpkg --get-selections > packages.list`__  
+1. $ `sudo autoremove`  
+1. $ `..., isolation`  
 
-#  [`Chapter 6. Processes`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Automating Docker image creation with Dockerfiles")
+#  [`Chapter 6. Processes`](https://www.packtpub.com/mapt/book/networking_and_servers/9781788997560/13/ch13lvl1sec136/automating-docker-image-creation-with-dockerfiles "Chapter 6. Controlling and Monitoring Processes")
 ## [Monitor & Controll Processes](https://www.google.com "Controlling & Monitoring Processes")
 `apt install tmux`  
 `apt install tmux`  
@@ -842,11 +961,17 @@ __Q__ & __A__
 `ps aux --sort=-pmem | head -n 5`  
 ## [Managing jobs](https://www.google.com "Managing jobs")
 `sudo apt install vim-nox`  
-`[1]+ Stopped nano`  
+```
+[1]+ Stopped nano
+```  
 `ps au |grep nano`  
-`jay 1070 0.0 0.9 39092 7320 pts/0 T 15:53 0:00 nano`  
-`[1]- Stopped nano file1.txt`  
-`[2]+ Stopped nano file2.txt`  
+```
+jay 1070 0.0 0.9 39092 7320 pts/0 T 15:53 0:00 nano
+```  
+```
+[1]- Stopped nano file1.txt
+[2]+ Stopped nano file2.txt`  
+```  
 `fg 1`  
 `sudo apt install htop`  
 `htop &`  
@@ -859,7 +984,8 @@ __Q__ & __A__
 ## [htop](https://www.google.com "Utilizing htop")  
 `sudo apt install htop`  
 `htop`  
-`apt install tmux`  
+`sudo htop`  
+`htop -d 70`  
 `apt install tmux`  
 ## [system processes](https://www.google.com "Managing system processes")
 `systemctl |grep ssh`  
@@ -870,11 +996,15 @@ __Q__ & __A__
 `sudo systemctl enable ssh`  
 `sudo systemctl disable ssh`  
 `service ssh status`  
-`ssh start/running, process 907`  
-`sudo service ssh stop`  
-`ssh stop/waiting`  
-`sudo service ssh start`  
-`ssh start/running, process 1304`  
+```
+ssh start/running, process 907
+```  
+```
+sudo service ssh stop  
+ssh stop/waiting  
+sudo service ssh start  
+ssh start/running, process 1304
+```  
 `/etc/init.d/ssh start`  
 `/etc/init.d/ssh stop`  
 `/etc/init.d/ssh restart`  
@@ -882,12 +1012,9 @@ __Q__ & __A__
 `/etc/init.d/ssh status`  
 `sudo systemctl enable myservice@myuser`  
 ## [Monitoring memory usage](https://www.google.com "Monitoring memory usage")
+`free`  
 `free -m`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
+`free -g`  
 `cat /proc/sys/vm/swappiness`  
 `sudo sysctl vm.swappiness=30`  
 `/etc/sysctl.conf`  
@@ -895,13 +1022,19 @@ __Q__ & __A__
 ## [scheduling Tasks with Cron](https://www.google.com "scheduling Tasks with Cron")
 `crontab -l`  
 `sudo crontab -u jdoe -l`  
-`no crontab for jdoe`  
+```
+no crontab for jdoe
+```  
 `crontab -e `  
 `EDITOR=vim crontab -e`  
-`m h dom mon dow command`  
-`3 0 * * 4 /usr/local/bin/cleanup.sh`  
-`* 0 * * * /usr/bin/apt-get update`  
-`0 1 1 * * /usr/local/bin/run_report.sh`  
+```
+m h dom mon dow command
+```  
+```
+3 0 * * 4 /usr/local/bin/cleanup.sh  
+* 0 * * * /usr/bin/apt-get update  
+0 1 1 * * /usr/local/bin/run_report.sh  
+```
 ## [load average](https://www.google.com "Understanding load average")
 `cat /proc/loadavg`  
 `0.36, 0.29, 0.31`  
@@ -933,16 +1066,6 @@ __Q__ & __A__
 `systemctl status isc-dhcp-server`  
 `sudo systemctl stop isc-dhcp-server`  
 `sudo mv /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.orig `  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
 ```
 default-lease-time 86400; 
 max-lease-time 86400; 
@@ -962,10 +1085,6 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
 `option broadcast-address 192.168.1.255; `  
 `option domain-name "local.lan"; `  
 `authoritative;`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
 ```
 subnet 192.168.1.0 netmask 255.255.255.0 { 
     range 192.168.1.100 192.168.1.240; 
@@ -978,16 +1097,10 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
 `sudo systemctl start isc-dhcp-server`  
 `sudo systemctl status isc-dhcp-server`  
 `sudo tail -f /var/log/syslog`  
-`May  5 22:07:36 hermes dhcpd: DHCPDISCOVER from 52:54:00:88:f8:bc via enp0s3`  
-`May  5 22:07:36 hermes dhcpd: DHCPOFFER on 192.168.1.103 to 51:52:01:87:f7:bc via enp0s3`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
+```
+May  5 22:07:36 hermes dhcpd: DHCPDISCOVER from 52:54:00:88:f8:bc via enp0s3  
+May  5 22:07:36 hermes dhcpd: DHCPOFFER on 192.168.1.103 to 51:52:01:87:f7:bc via enp0s3  
+```
 ```
 lease 192.168.1.138 { 
   starts 0 2016/05/06 16:37:30; 
@@ -1001,15 +1114,20 @@ lease 192.168.1.138 {
 ```
 ## [Setting up DNS with bind](https://www.google.com "Setting up DNS with bind")
 `sudo apt install bind9`  
+```
 `// forwarders {`  
 `//      0.0.0.0;`  
 `// };`  
+```
+```
 `forwarders {`  
 `8.8.8.8;`  
 `8.8.4.4;`  
 `};`  
+```
 `sudo systemctl restart bind9`  
 `systemctl status bind9`  
+
 `subnet 192.168.1.0 netmask 255.255.255.0 {`  
 `range 192.168.1.100 192.168.1.240;`  
 `option routers 192.168.1.1;`  
@@ -1022,38 +1140,21 @@ option domain-name-servers 192.168.1.1;
 } 
 ```
 `dig www.packtpub.com`  
-`;; Query time: 98 msec`  
+```
+;; Query time: 98 msec
+```  
 `;; Query time: 1 msec`  
+```
 `include "/etc/bind/named.conf.options";`  
 `include "/etc/bind/named.conf.local";`  
 `include "/etc/bind/named.conf.default-zones";`  
-`zone "local.lan" IN {`  
-`    type master;`  
-`    file "/etc/bind/net.local.lan";`  
-`};`  
+```  
 ```
 zone "local.lan" IN { 
     type master; 
     file "/etc/bind/net.local.lan"; 
 }; 
 ```  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
 ```
 $TTL 1D 
 @ IN SOA local.lan. hostmaster.local.lan. ( 
@@ -1082,11 +1183,6 @@ web01           IN  A   192.168.1.7
 `1D ) ; minimum`  
 `IN A 192.168.1.1`  
 `@ IN NS hermes.local.lan.`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
-`apt install tmux`  
 ```
 fileserv        IN  A   192.168.1.3 
 hermes        IN  A    192.168.1.1 
@@ -1099,10 +1195,6 @@ web01           IN  A   192.168.1.7
 `cat /var/log/syslog | grep bind9 `  
 `dig webserv.local.lan`  
 `dig www.packtpub.com`  
-`;; Query time: 1 msec`  
-`;; SERVER: 127.0.0.53#53(127.0.0.53)`  
-`;; WHEN: Sat Feb 10 10:00:59 EST 2018`  
-`;; MSG SIZE  rcvd: 83`  
 ```
 ;; Query time: 1 msec 
 ;; SERVER: 127.0.0.53#53(127.0.0.53) 
@@ -1183,8 +1275,11 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
  
 
 ## [Setting up an internet gateway](https://www.google.com "Setting up an internet gateway")
-`apt install tmux`  
-`apt install tmux`  
+`echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward`  
+`sudo nano /etc/sysctl.conf`  
+```
+#net.ipv4.ip_forward=1
+```  
 ## [Keeping your clock in sync with NTP](https://www.google.com "Keeping your clock in sync with NTP")
 `sudo apt install ntp`  
 `systemctl status ntp`  
@@ -2249,9 +2344,65 @@ __Q__ & __A__
 `apt install tmux`  
 `apt install tmux`  
 ## [Lowering your attack surface](https://www.google.com "Lowering your attack surface")
-`sudo netstat -tulpn`  
+
+### [`sudo` __`netstat`__ `-tulpn`](https://linuxconfig.org/learning-linux-commands-netstat "Frequently used netstat flags")
+[`sudo` __`netstat`__ `-tuelp`](https://linuxconfig.org/learning-linux-commands-netstat "Frequently used netstat flags")  
+~~[`sudo` __`netstat`__ `-vWeenNcCF`](https://linuxconfig.org/learning-linux-commands-netstat "Frequently used netstat flags")~~  
+[`sudo` __`netstat`__ `-vWnNcaeol`](https://linuxconfig.org/learning-linux-commands-netstat "Frequently used netstat flags")  
+[`sudo` __`netstat`__ `-vWeenNac`](https://linuxconfig.org/learning-linux-commands-netstat "Frequently used netstat flags")  
+`a` all  
+[`c` continuous](https://www.sitepoint.com/community/t/short-sheet-for-netstat-flags/321864/2?u=turtlewolf1 "Shows the statistics of the Network Buffer Cache.")  
+[`C` cache](https://www.sitepoint.com/community/t/short-sheet-for-netstat-flags/321864/2?u=turtlewolf1 "Shows the statistics of the Network Buffer Cache.")  
+`e` extend   
+`i` interface  
+`l` listening  
+`n` numbered  
+`p` process id  
+`r` routing  
+`s` statistics  
+`t` tcp  
+`u` udp  
+~~`~?~` add mores~~
+```
+usage: netstat [-vWeenNcCF] [<Af>] -r         netstat {-V|--version|-h|--help}
+       netstat [-vWnNcaeol] [<Socket> ...]
+       netstat { [-vWeenNac] -i | [-cnNe] -M | -s [-6tuw] }
+
+        -r, --route              display routing table
+        -i, --interfaces         display interface table
+        -g, --groups             display multicast group memberships
+        -s, --statistics         display networking statistics (like SNMP)
+        -M, --masquerade         display masqueraded connections
+
+        -v, --verbose            be verbose
+        -W, --wide               don't truncate IP addresses
+        -n, --numeric            don't resolve names
+        --numeric-hosts          don't resolve host names
+        --numeric-ports          don't resolve port names
+        --numeric-users          don't resolve user names
+        -N, --symbolic           resolve hardware names
+        -e, --extend             display other/more information
+        -p, --programs           display PID/Program name for sockets
+        -o, --timers             display timers
+        -c, --continuous         continuous listing
+
+        -l, --listening          display listening server sockets
+        -a, --all                display all sockets (default: connected)
+        -F, --fib                display Forwarding Information Base (default)
+        -C, --cache              display routing cache instead of FIB
+        -Z, --context            display SELinux security context for sockets
+
+  <Socket>={-t|--tcp} {-u|--udp} {-U|--udplite} {-S|--sctp} {-w|--raw}
+           {-x|--unix} --ax25 --ipx --netrom
+  <AF>=Use '-6|-4' or '-A <af>' or '--<af>'; default: inet
+  List of possible address families (which support routing):
+    inet (DARPA Internet) inet6 (IPv6) ax25 (AMPR AX.25)
+    netrom (AMPR NET/ROM) ipx (Novell IPX) ddp (Appletalk DDP)
+    x25 (CCITT X.25)
+```
 `sudo apt remove rpcbind`  
 `dpkg --get-selections > installed_packages.txt`  
+`cat installed_packages.txt`  
 ## [Understanding and responding to CVEs](https://www.google.com "Understanding and responding to CVEs")
 `apt install tmux`  
 `apt install tmux`  
@@ -2292,7 +2443,8 @@ sudo apt updatesudo apt install landscape-clientsudo landscape-config --computer
 `sudo usermod -aG sshusers myuser`  
 `AllowGroups admins sshusers gremlins`  
 `PermitRootLogin no`  
-`PasswordAuthentication no`
+`PasswordAuthentication no`  
+__`/etc/ssh/sshd_config`__  
 ```
 Port 65332 
 Protocol 2 
@@ -2302,17 +2454,50 @@ PermitRootLogin no
 PasswordAuthentication no 
 ```  
 ## [Installing and configuring Fail2ban](https://www.google.com "Installing and configuring Fail2ban")
-`sudo apt install fail2ban`  
+#### [18.04 (Bionic Beaver) Digital Ocean](https://www.tricksofthetrades.net/2018/05/18/fail2ban-installing-bionic/ "Installing Fail2ban on Ubuntu 18.04 (Bionic Beaver)")
+`sudo apt-get update -y`  
+`sudo apt-get install fail2ban sendmail`  
 `sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local`  
+`cat /etc/fail2ban/jail.local`  
+`sudo vim /etc/fail2ban/jail.local`  
+`sudo nano /etc/fail2ban/jail.local`  
+`sudo systemctl` ~~service~~ `enable fail2ban`  
+`sudo systemctl` ~~service~~ `start fail2ban`  
+`sudo fail2ban-client restart`  
+`sudo fail2ban-client status`  
+`sudo fail2ban-client status sshd`  
+#### [18.04 (Bionic Beaver) Linode](https://www.linode.com/docs/security/using-fail2ban-for-security/ "Use Fail2ban to Secure Your Server")
+`sudo apt-get update && sudo apt-get upgrade -y`  
+`sudo apt-get install fail2ban`  
+`sudo apt-get install sendmail`  
+`ufw allow ssh`  
+`ufw enable`  
+`cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local`  
+```
+ignoreip = 127.0.0.1/8 ::1
+maxretry = 7
+port    = 65332
+enabled = true
+``` 
+`sudo systemctl` ~~service~~ `start fail2ban`  
+`sudo fail2ban-client restart`  
+`sudo fail2ban-client status`  
+`sudo fail2ban-client status sshd`  
+#### [Installing and configuring Fail2ban](https://subscription.packtpub.com/book/networking_and_servers/9781788997560/15/ch15lvl1sec157/installing-and-configuring-fail2ban "Installing and configuring Fail2ban")
+`sudo apt install fail2ban`  
+`sudo cp /etc/fail2ban/jail.conf `  __`/etc/fail2ban/jail.local`__  
+`sudo nano /etc/fail2ban/jail.local`  
 `#ignoreip = 127.0.0.1/8 ::1`  
 `Ignoreip = 127.0.0.1/8 ::1 192.168.1.0/24 192.168.1.245/24`  
+`Ignoreip = 127.0.0.1/8 ::1 192.168.1.0`  
 `bantime  = 10m`  
-`maxretry = 5`  
+`maxretry = 7`  
+__`[sshd]`__ _and another underneath_ __`[sshd-ddos]`__  
 `port    = ssh`  
 `port    = 65332`  
-`sudo systemctl restart fail2ban`  
-`sudo systemctl status -l fail2ban`  
-`sudo fail2ban-client status`  
+`sudo systemctl` __`restart`__ `fail2ban`  
+`sudo systemctl` __`status -l`__ `fail2ban`  
+`sudo` __`fail2ban-client status`__  
 `enabled = true `  
 ```
 [apache-auth] 
@@ -2329,6 +2514,12 @@ Status
 
   `- Jail list:    apache-auth, sshd
 ```  
+#### [SELinux](https://youtu.be/HhydNtaLEK0 "Security Enhanced Linux")  
+`sudo` __`getenforce`__  
+`fail2ban-client status`  
+`fail2ban-client status`  
+`fail2ban-client status`  
+`fail2ban-client status`
 ## [MariaDB best practices for secure database servers](https://www.google.com "MariaDB best practices for secure database servers")
 `ALL: 192.168.1.50`  
 `ALL: 192.168.1.0/255.255.255.0`  
@@ -2341,6 +2532,44 @@ Status
 `GRANT SELECT ON mysampledb.* TO 'appuser'@'192.168.1.50' IDENTIFIED BY 'password';`  
 `GRANT SELECT ON mysampledb.* TO 'appuser'@'192.168.1.% IDENTIFIED BY 'password'`  
 ## [Setting up a firewall](https://www.google.com "Setting up a firewall")
+#### [Setting up a firewall](https://subscription.packtpub.com/book/networking_and_servers/9781788997560/15/ch15lvl1sec159/setting-up-a-firewall "Setting up a firewall")
+`sudo apt install ufw`  
+`sudo ufw status`  
+`sudo ufw allow from 192.168.1.156 to any port 22`  
+`sudo ufw allow proto tcp from 82.99.220.212 to any port 65332`  
+`sudo ufw allow from 82.99.220.212 to any port 65332/tcp`  
+`sudo ufw allow from 82.99.220.212 to any port 65332`  
+`sudo ufw allow from 192.168.1.0/24 to any port 22`  
+~~`sudo ufw allow from 192.168.1.50`~~  
+`sudo ufw allow 80`  
+`sudo ufw allow 443`  
+`sudo ufw enable`  
+`sudo iptables -L`  
+#### [How To Set Up a Firewall with UFW on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-18-04#step-3-%E2%80%94-allowing-ssh-connections "How To Set Up an Uncomplicated FireWall on Ubuntu 18.04")
+~~`sudo apt install ufw`~~  
+`sudo nano` __`/etc/default/ufw`__  
+`IPV6=yes`  
+`sudo iptables -L`  
+`sudo ufw default deny incoming`  
+`sudo ufw default allow outgoing`  
+`sudo ufw allow ssh`  
+`/etc/`__`services`__  
+`sudo ufw allow 2222`  
+`sudo ufw` __`enable`__  
+`sudo ufw status` __`verbose`__  
+`sudo iptables -L`  
+
+`sudo ufw allow http`  
+`sudo ufw allow https`  
+`sudo ufw allow from 203.0.113.4`  
+`sudo ufw allow from 203.0.113.4 to any port 22`  
+`ip addr`  
+`sudo ufw status numbered`  
+`sudo ufw status verbose`  
+`sudo ufw disable`  
+`sudo ufw reset`    
+
+#### [Setting up a firewall](https://www.google.com "Setting up a firewall")
 `sudo apt install ufw`  
 `sudo ufw status`  
 `sudo ufw allow from 192.168.1.156 to any port 22`  
