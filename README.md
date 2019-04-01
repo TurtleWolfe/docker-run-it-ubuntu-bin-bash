@@ -1,4 +1,7 @@
 ```
+eval $(ssh-agent)
+```
+```
 eval `ssh-agent -s`
 ```
 ```$ ssh-add ~/.ssh/id_rsa_jane_doe```  
@@ -1272,8 +1275,6 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
     option domain-name-servers 192.168.1.1, 192.168.1.2; 
 } 
 ```  
- 
-
 ## [Setting up an internet gateway](https://www.google.com "Setting up an internet gateway")
 `echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward`  
 `sudo nano /etc/sysctl.conf`  
@@ -1397,13 +1398,15 @@ force directory mode = 0777
 `sudo rsync -av --delete /src /target`  
 `sudo rsync -avb --delete /src /target `  
 `sudo rsync -avb --delete --backup-dir=/backup/incremental /src /target`  
-`CURDATE=$(date +%m-%d-%Y)`  
-`export $CURDATE`  
-`sudo rsync -avb --delete --backup-dir=/backup/incremental/$CURDATE /src /target`  
+```
+CURDATE=$(date +%m-%d-%Y)  
+export $CURDATE  
+sudo rsync -avb --delete --backup-dir=/backup/incremental/$CURDATE /src /target  
+```
 `sudo rsync -avb --delete --backup-dir=/backup/incremental/08-17-2018 /src /target `  
 ## [Transferring files with `SCP`](https://www.google.com "Transferring files with `SCP`")
+`which scp`  
 `/usr/bin/scp`  
-`apt install tmux`  
 `scp myfile.txt jdoe@192.168.1.50:/home/jdoe `  
 `scp myfile.txt jdoe@192.168.1.50:`  
 `scp jdoe@192.168.1.50:myfile.txt  .`  
@@ -1415,7 +1418,9 @@ force directory mode = 0777
 `sudo apt install sshfs`  
 `sshfs myuser@192.168.1.50:/share/myfiles /mnt/myfiles`  
 `sudo umount /mnt/myfiles `  
-`umount: /mnt/myfiles: Permission denied `  
+```
+umount: /mnt/myfiles: Permission denied  
+```
 `fusermount -u /mnt/myfiles`  
 `myuser@192.168.1.50:/share/myfiles    /mnt/myfiles    fuse.sshfs  rw,noauto,users,_netdev  0  0 `  
 `mount /mnt/myfiles`  
@@ -1492,6 +1497,7 @@ basedir  = /usr
 !includedir /etc/mysql/mariadb.conf.d/ 
 ```
 ## [Managing MariaDB databases](https://www.google.com "Managing MariaDB databases")
+`mariadb -u root -p`  
 `MariaDB [(none)]>`  
 `CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';`  
 `FLUSH PRIVILEGES;`  
@@ -1500,7 +1506,7 @@ basedir  = /usr
 `GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost';`  
 `FLUSH PRIVILEGES;`  
 `mariadb -u admin -p`  
-`mariadb -u admin -p<password> `  
+~~`mariadb -u admin -p<password> `~~  
 `GRANT SELECT ON *.* TO 'readonlyuser'@'localhost' IDENTIFIED BY 'password'; `  
 `CREATE DATABASE mysampledb;`  
 `SHOW DATABASES;`  
@@ -1511,6 +1517,7 @@ basedir  = /usr
 `DELETE FROM mysql.user WHERE user='myuser' AND host='localhost';`  
 `USE mysampledb;`  
 `CREATE TABLE Employees (Name char(15), Age int(3), Occupation char(15));`  
+`SHOW COLUMNS IN Employees;`  
 `INSERT INTO Employees VALUES ('Joe Smith', '26', 'Ninja');`  
 `SELECT * FROM Employees;`  
 `DELETE FROM Employees WHERE Name = 'Joe Smith';`  
@@ -1519,11 +1526,16 @@ basedir  = /usr
 `mysqldump -u admin -p --databases mysampledb > mysampledb.sql`  
 `sudo mariadb < mysampledb.sql`  
 ## [Setting up a slave database server](https://www.google.com "Setting up a slave database server")
-`[mysql]`  
-`[mysqld]`  
-`log-bin`  
-`binlog-do-db=mysampledb`  
-`server-id=1`  
+/etc/mysql/conf.d/__mysql.cnf__  
+```
+[mysql]  
+
+[mysqld]  
+log-bin  
+binlog-do-db=mysampledb  
+server-id=1  
+```
+/etc/mysql/mariadb.conf.d/__50-server.cnf__  
 `bind-address = 127.0.0.1`  
 `bind-address = 0.0.0.0`  
 `GRANT REPLICATION SLAVE ON *.* to 'replicate'@'192.168.1.204' identified by 'slavepassword';`  
@@ -1531,13 +1543,17 @@ basedir  = /usr
 `FLUSH TABLES WITH READ LOCK;`  
 `mysqldump -u admin -p --databases mysampledb > mysampledb.sql`  
 `mariadb -u root -p < mysampledb.sql`  
+
+/etc/mysql/conf.d/__mysql.cnf__  
 `[mysqld]`  
 `server-id=2`  
 `sudo systemctl restart mariadb`  
 `CHANGE MASTER TO MASTER_HOST="192.168.1.184", MASTER_USER='replicate', MASTER_PASSWORD='slavepassword';`  
 `UNLOCK TABLES;`  
 `SHOW SLAVE STATUSG;`  
-`Slave_IO_State: Waiting for master to send event`  
+```
+Slave_IO_State: Waiting for master to send event
+```  
 `START SLAVE;`  
 `SHOW SLAVE STATUSG;`  
 `USE mysampledb;`  
@@ -1545,10 +1561,14 @@ basedir  = /usr
 `USE mysampledb;`  
 `SELECT * FROM Employees;`  
 `sudo netstat -tulpn |grep mysql`  
-`tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      946/mysqld`  
+```
+tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      946/mysqld  
+```
 `GRANT REPLICATION SLAVE ON *.* to 'replicate'@'192.168.1.204' identified by 'slavepassword';`  
 `FLUSH PRIVILEGES`  
 `CHANGE MASTER TO MASTER_HOST="192.168.1.184", MASTER_USER='replicate', MASTER_PASSWORD='slavepassword';`  
+`STOP SLAVE;`  
+`START SLAVE;`  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -1565,12 +1585,19 @@ __Q__ & __A__
 ## [Installing and configuring Apache](https://www.google.com "Installing and configuring Apache")
 `sudo apt install apache2`  
 `systemctl status apache2`  
-`sudo a2ensite acmeconsulting.com.conf`  
+__/var/www/__ html  index.html  
+/etc/apache2/sites-available  __.conf__  
+`sudo` __`a2ensite`__ `acmeconsulting.com.conf`  
 `sudo systemctl reload apache2`  
-`sudo a2dissite acmeconsulting.com.conf`  
+`sudo` __`a2dissite`__ `acmeconsulting.com.conf`  
 `sudo systemctl reload apache2`  
-`# Include the virtual host configurations:`  
-`IncludeOptional sites-enabled/*.conf`  
+/etc/apache2/__sites-enabled__  
+/etc/apache2/__apache2.conf__  
+```
+# Include the virtual host configurations:  
+IncludeOptional sites-enabled/*.conf  
+```
+/etc/apache2/sites-available/__000-default.conf__  
 ```
 <VirtualHost *:80> 
     ServerAdmin webmaster@localhost 
@@ -1580,13 +1607,17 @@ __Q__ & __A__
     CustomLog ${APACHE_LOG_DIR}/access.log combined 
 </VirtualHost> 
 ```
+/etc/apache2/__envvars__  
 ```
 <VirtualHost 192.168.1.104:80> 
     ServerAdmin webmaster@localhost 
-    DocumentRoot /var/www/acmeconsultingErrorLog ${APACHE_LOG_DIR}/acmeconsulting.com-error.log 
+    DocumentRoot /var/www/acmeconsulting
+    
+    ErrorLog ${APACHE_LOG_DIR}/acmeconsulting.com-error.log 
     CustomLog ${APACHE_LOG_DIR}/acmeconsulting.com-access.log combined 
 </VirtualHost> 
 ```
+/etc/apache2/sites-available/__000-virtual-hosts.conf__
 ```
 <VirtualHost *:80> 
     ServerName acmeconsulting.com 
@@ -1596,30 +1627,45 @@ __Q__ & __A__
 <VirtualHost *:80> 
     ServerName acmesales.com 
     DocumentRoot /var/www/acmesales 
-</VirtualHost> v
+</VirtualHost>
 ```
 ## [Installing additional Apache modules](https://www.google.com "Installing additional Apache modules")
+__`a2enmod`__  
+`a2dismod`  
 `apt search libapache2-mod`  
 `sudo apt install libapache2-mod-php7.2`  
 `apache2 -l`  
-`Which module(s) do you want to enable (wildcards ok)?`  
-`sudo a2enmod php7.2`  
-`sudo a2enmod php7.2`  
-`Module php7.2 already enabled`  
-`Enabling module php7.2.`  
-`To activate the new configuration, you need to run:`  
-`service apache2 restart`  
-`sudo a2dismod php7.2`  
-`Module php7.2 disabled.`  
-`To activate the new configuration, you need to run:`  
+```
+Which module(s) do you want to enable (wildcards ok)?
+```  
+`sudo` __`a2enmod`__ `php7.2`  
+```
+Module php7.2 already enabled
+```  
+```
+Enabling module php7.2.
+To activate the new configuration, you need to run:  
+service apache2 restart  
+```  
+`sudo` __`a2dismod`__ `php7.2`  
+```
+Module php7.2 disabled.  
+To activate the new configuration, you need to run:  
+service apache2 restart
+```  
 `service apache2 restart`  
 ## [Securing Apache with SSL](https://www.google.com "Securing Apache with SSL")
 `sudo netstat -tulpn |grep apache`  
-`tcp6       0      0 :::80     :::*         LISTEN      2791/apache2`  
-`tcp6       0      0 :::80       :::*    LISTEN      3257/apache2`  
-`tcp6       0      0 :::443      :::*        LISTEN      3257/apache2`  
-`sudo a2enmod ssl`  
+```
+tcp6       0      0 :::80       :::*        LISTEN      2791/apache2  
+```
+```
+tcp6       0      0 :::80       :::*        LISTEN      3257/apache2  
+tcp6       0      0 :::443      :::*        LISTEN      3257/apache2
+```
+`sudo` __`a2enmod`__ `ssl`  
 `sudo systemctl restart apache2`  
+/etc/apache2/sites-available/__default-ssl.conf__  
 ```
 <IfModule mod_ssl.c> 
         <VirtualHost _default_:443> 
@@ -1645,8 +1691,8 @@ __Q__ & __A__
         </VirtualHost> 
 </IfModule> 
 ```
-`sudo a2ensite default-ssl.conf`  
-`sudo mkdir /etc/apache2/certs`  
+`sudo a2ensite` __`default-ssl.conf`__  
+`sudo mkdir /etc/apache2/`__`certs`__  
 `sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/certs/mysite.key -out /etc/apache2/certs/mysite.crt`  
 ```
 Country Name (2 letter code) [AU]:US 
@@ -1657,14 +1703,20 @@ Organizational Unit Name (eg, section) []:IT
 Common Name (e.g. server FQDN or YOUR name) []:myserver.mydomain.com 
 Email Address []:webmaster@mycompany.com
 ```
-`SSLCertificateFile       /etc/ssl/certs/ssl-cert-snakeoil.pem`  
-`SSLCertificateKeyFile  /etc/ssl/private/ssl-cert-snakeoil.key`  
-`# SSLCertificateFile      /etc/ssl/certs/ssl-cert-snakeoil.pem`  
-`# SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key`  
-`SSLCertificateFile      /etc/apache2/certs/mysite.crt`  
-`SSLCertificateKeyFile /etc/apache2/certs/mysite.key`  
+mysite.__crt__  
+mysite.__key__  
+/etc/apache2/sites-available/__default-ssl.conf__   
+```
+# SSLCertificateFile       /etc/ssl/certs/ssl-cert-snakeoil.pem  
+# SSLCertificateKeyFile    /etc/ssl/private/ssl-cert-snakeoil.key
+``` 
+```
+SSLCertificateFile      /etc/apache2/certs/mysite.crt  
+SSLCertificateKeyFile   /etc/apache2/certs/mysite.key
+```  
 `sudo systemctl reload apache2`  
 `openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr `  
+/etc/apache2/sites-available/__default-ssl.conf__   
 `ServerName mydomain.com:443`  
 ```
 <IfModule mod_ssl.c> 
@@ -1698,14 +1750,22 @@ Email Address []:webmaster@mycompany.com
 `/etc/nginx/sites-available/acmesales.com`  
 `sudo ln -s /etc/nginx/sites-available/acmesales.com /etc/nginx/sites-enabled/acmesales.com`  
 `sudo systemctl reload nginx`  
-`sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/acmesales.com`  
-`listen 80 default_server;`  
-`listen [::]:80 default_server;`  
-`listen 80;`  
-`listen [::]:80;`  
-`server_name acmesales.com www.acmesales.com;`  
-`root /var/www/html;`  
-`root /var/www/acmesales.com;`  
+`sudo cp /etc/nginx/sites-available/default` __`/etc/nginx/sites-available/acmesales.com`__  
+```
+listen 80 default_server;  
+listen [::]:80 default_server;  
+```
+```
+listen 80;  
+listen [::]:80;  
+```
+```
+server_name acmesales.com www.acmesales.com;
+```  
+`root /var/www/`~~`html`~~ `;` 
+```
+root /var/www/acmesales.com;
+```  
 ```
 server { 
         listen 80; 
@@ -1746,12 +1806,18 @@ server {
         } 
 } 
 ```
-`return 301 https://$host$request_uri; `  
+/etc/nginx/__sites-available/default__  
+```
+return 301 https://$host$request_uri; 
+```  
 ## [Setting up failover with keepalived](https://www.google.com "Setting up failover with keepalived")
 `nmap -sP 192.168.1.0/24`  
 `sudo apt install keepalived`  
-`Condition: start condition failed`  
-`sudo mkdir /etc/keepalived`  
+```
+Condition: start condition failed
+```  
+`sudo mkdir /etc/`__`keepalived`__  
+`nano /etc/keepalived/`__`keepalived.conf`__
 ```
 global_defs { 
     notification_email { 
@@ -1802,6 +1868,10 @@ vrrp_instance VI_1 {
 `sudo systemctl start keepalived`  
 `sudo systemctl status -l keepalived`  
 ```
+active (running)
+```
+`ip a`
+```
 <html> 
     <title>keepalived test</title> 
     <body> 
@@ -1817,7 +1887,7 @@ vrrp_instance VI_1 {
 `sudo apt install unzip`  
 `sudo mv nextcloud /var/www/html/nextcloud`  
 `sudo chown www-data:www-data -R /var/www/html/nextcloud`  
-`/etc/apache2/sites-available/nextcloud.conf`  
+`nano /etc/apache2/sites-available/nextcloud.conf`  
 ```
 Alias /nextcloud "/var/www/html/nextcloud/" 
  
@@ -1841,6 +1911,7 @@ Alias /nextcloud "/var/www/html/nextcloud/"
 `GRANT ALL ON nextcloud.* to 'nextcloud'@'localhost' IDENTIFIED BY 'super_secret_password';`  
 `http://192.168.1.100/nextcloud `  
 `http://nextcloud.yourdomain.com `  
+/var/www/html/nextcloud/__data__  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -1865,13 +1936,17 @@ Since the mainline release (currently 1.11.19) has all of the latest features, y
 ## [Understanding the Linux shell](https://www.google.com "Understanding the Linux shell")
 `cat /etc/passwd`  
 ## [Bash history](https://www.google.com "Bash history")
+`history`  
 `!100`  
 `systemctl status apache2`  
 `history -d 100`  
-`mariadb -u root -pSuperSecretPassword`  
+~~`mariadb -u root -pSuperSecretPassword`~~  
 ## [some useful command-line tricks](https://www.google.com "some useful command-line tricks")
 `sudo !!`  
+Ctrl R  
 `sudo apt update && sudo apt install apache2`  
+Ctrl x  
+Ctrl E  
 `sudo apt update; sudo apt install apache2`  
 `echo $?`  
 `alias install="sudo apt install"`  
@@ -1892,7 +1967,7 @@ alias lsmount='mount |column -t'
 ## [Redirecting output](https://www.google.com "Redirecting output")
 `cat /var/log/syslog | grep apache2`  
 `echo "this is a test" >> ~/myfile.txt`  
-`echo "this is a test" > ~/myfile.txt`  
+~~`echo "this is a test" > ~/myfile.txt`~~  
 `find /etc -name *apache*`  
 ```
 find: '/etc/lvm/backup': Permission denied 
@@ -1955,6 +2030,12 @@ else
     echo "The variable doesn't equal 1" 
 fi 
 ```
+`-eq`  (equal to)  
+`-ne`  (not equal to)  
+`-gt`  (greater than)  
+`-ge`  (greater than or equal to)  
+`-lt`  (less than)  
+`-le`  (less than or equal to)  
 ```
 #!/bin/bash 
 myvar=1 
@@ -2020,20 +2101,31 @@ __Q__ & __A__
 `sudo chown root:kvm /var/lib/libvirt/images`  
 `sudo chmod g+rw /var/lib/libvirt/images`  
 `sudo usermod -aG kvm <user>`  
-`sudo systemctl start libvirtd`  
-`sudo systemctl status libvirtd`  
-`sudo apt install ssh-askpass virt-manager `  
+log out and log in again  
+`sudo systemctl` __`start`__ `libvirtd`  
+`sudo systemctl` __`status`__ `libvirtd`  
+`sudo apt install` __`ssh-askpass virt-manager`__  
+/etc/__libvirt__/libvirtd.conf  
 `sudo cp /etc/libvirt/libvirtd.conf /etc/libvirt/libvirtd.conf.orig`  
-`unix_sock_group = "libvirtd" `  
-`unix_sock_group = "kvm" `  
-`unix_sock_ro_perms = "0777" `  
-`unix_sock_ro_perms = "077`__`0`__`"`  
+```
+unix_sock_group = "libvirtd"  
+
+unix_sock_group = "kvm"  
+```
+```
+unix_sock_ro_perms = "0777"
+
+unix_sock_ro_perms = "0770"  
+```
 `sudo systemctl restart libvirtd`  
+`virt-manager`  
+
 `sudo chown root:kvm /var/lib/libvirt/images/ISO`  
 `sudo chmod g+rw var/lib/libvirt/images/ISO`  
 ## [Creating virtual machines](https://www.google.com "Creating virtual machines")
 `apt install tmux`  
 ## [Bridging the virtual machine network](https://www.google.com "Bridging the virtual machine network")
+/etc/netplan/__01-netcfg.yaml__
 ```
 network: 
   version: 2 
@@ -2050,16 +2142,17 @@ network:
         forward-delay: 0 
 ```
 `sudo netplan apply`  
+`ip addr show`  
 ## [Simplifying virtual machine creation with cloning](https://www.google.com "Simplifying virtual machine creation with cloning")
 `sudo rm /etc/ssh/ssh_host_*`  
 `sudo dpkg-reconfigure openssh-server`  
 ## [Managing virtual machines via the command line](https://www.google.com "Managing virtual machines via the command line")
-`virsh list`  
-`virsh start my_vm`  
-`virsh shutdown my_vm`  
-`virsh suspend my_vm`  
-`virsh resume my_vm`  
-`virsh destroy my_vm`  
+`virsh` __`list`__  
+`virsh` __`start my_vm`__  
+`virsh` __`shutdown my_vm`__  
+`virsh` __`suspend my_vm`__  
+`virsh` __`resume my_vm`__  
+`virsh` __`destroy my_vm`__  
 __Q__ & __A__
 1. $ `sudo`  
 1. $ `adduser, useradd`  
@@ -2087,26 +2180,42 @@ Use the docker build command from within the directory that contains the Dockerf
 `apt install tmux`  
 ## [Installing Docker](https://www.google.com "Installing Docker")
 `sudo apt install docker.io`  
+`uname -m`  
+```
+x86_64
+```
 `systemctl status docker`  
 `sudo usermod -aG docker <yourusername>`  
+`groups`  
 ## [Managing Docker containers](https://www.google.com "Managing Docker containers")
 `docker search ubuntu`  
 `docker pull ubuntu`  
 `docker images`  
 `docker rmi 0458a4468cbc`  
 `docker run -it ubuntu:latest /bin/bash`  
+`docker ps`  
+`docker ps -a`  
+`Ctrl + P`  
+`Ctrl + Q`  
 `docker start 353c6fe0be4d`  
 `docker attach 353c6fe0be4d`  
 `docker run -dit ubuntu /bin/bash`  
 `docker run -dit -p 8080:80 ubuntu /bin/bash`  
 `docker attach dfb3e`  
-`sudo apt install apache2`  
+~~`sudo apt install apache2`~~  
 `apt update`  
 `apt install apache2`  
 `/etc/init.d/apache2 start`  
 `sudo apt install nano`  
-`/etc/init.d/apache2 start`  
+( very end of the ) __/etc/bash/rc__  
+```
+/etc/init.d/apache2 start
+```  
+`Ctrl + P`  
+`Ctrl + Q`  
+`docker ps`  
 `docker commit <Container ID> ubuntu/apache-server:1.0`  
+`docker images`  
 `docker run -dit -p 8080:80 ubuntu/apache-server:1.0 /bin/bash`  
 `docker stop <Container ID>`  
 ## [Automating Docker image creation with Dockerfiles](https://www.google.com "Automating Docker image creation with Dockerfiles")
@@ -2208,14 +2317,21 @@ Dockerising your own App: Building Docker Image the Imperative Way")](https://ww
 `sudo touch /etc/ansible/hosts`  
 `chown ansible /etc/ansible/hosts`  
 `chmod 600 /etc/ansible/hosts`  
-`192.168.1.145`  
-`192.168.1.125`  
-`192.168.1.166`  
-`myhost1.mydomain.com`  
-`myhost2.mydomain.com`  
-`myhost3.mydomain.com`  
-`[defaults]`  
-`inventory = /path/to/hosts`  
+```
+192.168.1.145  
+192.168.1.125  
+192.168.1.166  
+```
+```
+myhost1.mydomain.com  
+myhost2.mydomain.com  
+myhost3.mydomain.com  
+```
+`nano` /etc/ansible/__ansible.cfg__  
+```
+[defaults]  
+inventory = /path/to/hosts  
+```
 `ansible all -m ping`  
 ```
 192.168.1.145 | SUCCESS => {
@@ -2223,6 +2339,7 @@ Dockerising your own App: Building Docker Image the Imperative Way")](https://ww
   "ping": "pong"
 }
 ```
+/etc/ansible/__packages.yml__  
 ```
 ---
 - hosts: all
@@ -2232,11 +2349,6 @@ Dockerising your own App: Building Docker Image the Imperative Way")](https://ww
     apt: name=htop
 ```
 `ansible-playbook packages.yml`  
-`- hosts: all`  
-`become: true`  
-`tasks:`  
-`- name: Install htop`  
-`apt: name=htop`
 ```
 ---
 - hosts: all
