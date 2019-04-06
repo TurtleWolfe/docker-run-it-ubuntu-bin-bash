@@ -10,7 +10,7 @@ eval `ssh-agent -s`
 ```$ ssh -p 65332 jane_doe@ doserver```  
 ```$ ssh digitalOcean@ doserver```  
 ```$ ssh digitalOcean jon_dough@ doserver```  
-  
+82.99.220.212  
 `sudo shutdown -r now`
 ## [SSH Cheat Sheet](https://www.youtube.com/watch?v=hQWRp-FdTpc&t=1270s)
 ### Generate Keys (Local Machine)
