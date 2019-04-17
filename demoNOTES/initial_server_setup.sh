@@ -9,7 +9,7 @@ set -euo pipefail
 USERNAME=jane_doe
 
 # IP Address for accessing SSH
-IP_ADDRESS=98.76.543.210
+IP_ADDRESS=203.0.113.255
 
 # Port for accessing SSH
 SSH_PORT=22222
@@ -83,6 +83,28 @@ echo 'password required pam_pwhistory.so remember=99 use_authok' >> /etc/pam.d/c
 # obscure ( prevents simple passwords from being used )
 # obscure
 
+# Chapter 15, Securing SSH
+groupadd sshusers
+usermod -aG sshusers "${USERNAME}"
+echo "Port ${SSH_PORT}" >> /etc/ssh/sshd_config
+echo 'Protocol 2' >> /etc/ssh/sshd_config
+echo 'AllowGroups sudo sshusers' >> /etc/ssh/sshd_config
+# sed -i "s/#Port 22/Port ${SSH_PORT}/" /etc/ssh/sshd_config
+# Disable root SSH login with password (& key)
+sed --in-place 's/^PermitRootLogin.*/PermitRootLogin no/g' /etc/ssh/sshd_config
+if sshd -t -q; then
+    systemctl restart sshd
+fi
+
+# Add exception for SSH and then enable UFW firewall
+# ufw allow from "${IP_ADDRESS}" to any port "${SSH_PORT}"/tcp
+# ufw allow from "${IP_ADDRESS}" to any port "${SSH_PORT}"
+ufw allow proto tcp from "${IP_ADDRESS}" to any port "${SSH_PORT}"
+# ufw allow 80
+# ufw allow 443
+# ufw allow OpenSSH
+ufw --force enable
+
 # Chapter 15, Fail2Ban
 apt-get -y install fail2ban
 cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
@@ -100,19 +122,6 @@ sed -i "s/logpath = %(sshd_log)s/logpath = %(sshd_log)s\nenabled = true/" /etc/f
 # sed -i 's/…/…/' /etc/fail2ban/jail.local
 # sed -i 's/…/…/' /etc/fail2ban/jail.local
 
-# Chapter 15, Securing SSH
-groupadd sshusers
-usermod -aG sshusers "${USERNAME}"
-echo "Port ${SSH_PORT}" >> /etc/ssh/sshd_config
-echo 'Protocol 2' >> /etc/ssh/sshd_config
-echo 'AllowGroups sudo sshusers' >> /etc/ssh/sshd_config
-
-# Disable root SSH login with password (& key)
-sed --in-place 's/^PermitRootLogin.*/PermitRootLogin no/g' /etc/ssh/sshd_config
-if sshd -t -q; then
-    systemctl restart sshd
-fi
-
 # AppArmor
 # sed -i 's/…/…/' /etc/dir/file.txt
 
@@ -124,15 +133,6 @@ fi
 
 # Apache
 # sed -i 's/…/…/' /etc/dir/file.txt
-
-# Add exception for SSH and then enable UFW firewall
-# ufw allow proto tcp from "${IP_ADDRESS}" to any port "${SSH_PORT}"
-# ufw allow from "${IP_ADDRESS}" to any port "${SSH_PORT}"/tcp
-# ufw allow 80
-# ufw allow 443
-ufw allow OpenSSH
-ufw allow from "${IP_ADDRESS}" to any port "${SSH_PORT}"
-ufw --force enable
 
 # Update, Upgrade & AutoRemove
 apt-get update
