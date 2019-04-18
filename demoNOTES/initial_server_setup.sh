@@ -9,7 +9,7 @@ set -euo pipefail
 USERNAME=jane_doe
 
 # IP Address for accessing SSH
-IP_ADDRESS=203.0.113.255
+IP_ADDRESS=22.22.222.2222
 
 # Port for accessing SSH
 SSH_PORT=22222
