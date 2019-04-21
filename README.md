@@ -7,7 +7,7 @@ eval `ssh-agent -s`
 ```
 ```$ ssh-add ~/.ssh/id_rsa_jane_doe```  
 ```$ ssh-add ~/.ssh/id_rsa_jon_dough```  
-```$ ssh -p 65332 jane_doe@ doserver```  
+```$ ssh -p 22222 jane_doe@ doserver```  
 ```$ ssh digitalOcean@ doserver```  
 ```$ ssh digitalOcean jon_dough@ doserver```  
 203.0.113.255  
@@ -64,7 +64,7 @@ back on local client
 ```PermitRootLogin no```  
 ```PasswordAuthentication no```
 ```
-Port 65332 
+Port 22222 
 Protocol 2 
 AllowGroups admins sshusers sudo 
 # AllowUsers jon_dough jane_dough
@@ -73,7 +73,7 @@ PasswordAuthentication no
 ```
 ### Reload sshd service
 ```$ sudo systemctl reload sshd```  
-`ssh` __`-p 65332`__ `jane_doe@138.197.65.162`  
+`ssh` __`-p 22222`__ `jane_doe@138.197.65.162`  
 
 ```$ sudo usermod -aG sshusers jon_dough``` 
 ### PAM
@@ -1443,8 +1443,8 @@ __Q__ & __A__
 `apt install tmux`  
 `apt install tmux`  
 ## [Preparations for setting up a database server](https://www.google.com "Preparations for setting up a database server")
-`apt install tmux`  
-`apt install tmux`  
+[How To Use LVM To Manage Storage Devices on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-use-lvm-to-manage-storage-devices-on-ubuntu-18-04 "How To Use LVM To Manage Storage Devices on Ubuntu 18.04")  
+`sudo lvmdiskscan`  
 ## [Installing MariaDB](https://www.google.com "Installing MariaDB")
 `sudo apt install mariadb-server`  
 `sudo apt install mysql-server`  
@@ -2549,9 +2549,9 @@ sudo apt updatesudo apt install landscape-clientsudo landscape-config --computer
 ```  
 ## [Securing OpenSSH](https://www.google.com "Securing OpenSSH")
 `sudo systemctl restart ssh`  
-`Port 65332`  
-`ssh -p 65332 myhost`  
-`scp -P 65332 myfile myserver:/path/to/dir`  
+`Port 22222`  
+`ssh -p 22222 myhost`  
+`scp -P 22222 myfile myserver:/path/to/dir`  
 `AllowUsers larry moe curly`  
 `sudo groupadd sshusers`  
 `sudo usermod -aG sshusers myuser`  
@@ -2560,7 +2560,7 @@ sudo apt updatesudo apt install landscape-clientsudo landscape-config --computer
 `PasswordAuthentication no`  
 __`/etc/ssh/sshd_config`__  
 ```
-Port 65332 
+Port 22222 
 Protocol 2 
 AllowUsers larry moe curly 
 AllowGroups admins sshusers gremlins 
@@ -2590,7 +2590,7 @@ PasswordAuthentication no
 ```
 ignoreip = 127.0.0.1/8 ::1
 maxretry = 7
-port    = 65332
+port    = 22222
 enabled = true
 ``` 
 `sudo systemctl` ~~service~~ `start fail2ban`  
@@ -2608,7 +2608,7 @@ enabled = true
 `maxretry = 7`  
 __`[sshd]`__ _and another underneath_ __`[sshd-ddos]`__  
 `port    = ssh`  
-`port    = 65332`  
+`port    = 22222`  
 `sudo systemctl` __`restart`__ `fail2ban`  
 `sudo systemctl` __`status -l`__ `fail2ban`  
 `sudo` __`fail2ban-client status`__  
@@ -2650,9 +2650,9 @@ Status
 `sudo apt install ufw`  
 `sudo ufw status`  
 `sudo ufw allow from 192.168.1.156 to any port 22`  
-`sudo ufw allow proto tcp from 82.99.220.212 to any port 65332`  
-`sudo ufw allow from 82.99.220.212 to any port 65332/tcp`  
-`sudo ufw allow from 82.99.220.212 to any port 65332`  
+`sudo ufw allow proto tcp from 82.99.220.212 to any port 22222`  
+`sudo ufw allow from 82.99.220.212 to any port 22222/tcp`  
+`sudo ufw allow from 82.99.220.212 to any port 22222`  
 `sudo ufw allow from 192.168.1.0/24 to any port 22`  
 ~~`sudo ufw allow from 192.168.1.50`~~  
 `sudo ufw allow 80`  

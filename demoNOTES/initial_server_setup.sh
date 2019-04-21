@@ -9,7 +9,7 @@ set -euo pipefail
 USERNAME=jane_doe
 
 # IP Address for accessing SSH
-IP_ADDRESS=22.22.222.2222
+IP_ADDRESS=22.22.222.222
 
 # Port for accessing SSH
 SSH_PORT=22222
@@ -73,6 +73,12 @@ chmod 0700 "${home_directory}/.ssh"
 chmod 0600 "${home_directory}/.ssh/authorized_keys"
 chown --recursive "${USERNAME}":"${USERNAME}" "${home_directory}/.ssh"
 
+# Update, Upgrade & AutoRemove
+apt-get update
+apt-get -y upgrade
+apt-get -y autoremove
+# apt-get -y upgrade
+
 # Chapter 2, Users
 # install PAM (Pluggable Authentication Modules)
 apt-get -y install libpam-cracklib
@@ -89,6 +95,7 @@ usermod -aG sshusers "${USERNAME}"
 echo "Port ${SSH_PORT}" >> /etc/ssh/sshd_config
 echo 'Protocol 2' >> /etc/ssh/sshd_config
 echo 'AllowGroups sudo sshusers' >> /etc/ssh/sshd_config
+sed -i "s/#PrintLastLog yes/PrintLastLog no/" /etc/ssh/sshd_config
 # sed -i "s/#Port 22/Port ${SSH_PORT}/" /etc/ssh/sshd_config
 # Disable root SSH login with password (& key)
 sed --in-place 's/^PermitRootLogin.*/PermitRootLogin no/g' /etc/ssh/sshd_config
@@ -100,8 +107,8 @@ fi
 # ufw allow from "${IP_ADDRESS}" to any port "${SSH_PORT}"/tcp
 # ufw allow from "${IP_ADDRESS}" to any port "${SSH_PORT}"
 ufw allow proto tcp from "${IP_ADDRESS}" to any port "${SSH_PORT}"
-# ufw allow 80
-# ufw allow 443
+ufw allow 80
+ufw allow 443
 # ufw allow OpenSSH
 ufw --force enable
 
@@ -121,24 +128,16 @@ sed -i "s/logpath = %(sshd_log)s/logpath = %(sshd_log)s\nenabled = true/" /etc/f
 # sed -i 's/…/enabled = true/' /etc/fail2ban/jail.local
 # sed -i 's/…/…/' /etc/fail2ban/jail.local
 # sed -i 's/…/…/' /etc/fail2ban/jail.local
-
 # AppArmor
 # sed -i 's/…/…/' /etc/dir/file.txt
-
 # MariaDB over or MySQL
 # sed -i 's/…/…/' /etc/dir/file.txt
-
+apt install mariadb-server -y
+# mysql_secure_installation -y
 # NginX
 # sed -i 's/…/…/' /etc/dir/file.txt
-
 # Apache
 # sed -i 's/…/…/' /etc/dir/file.txt
-
-# Update, Upgrade & AutoRemove
-apt-get update
-apt-get -y upgrade
-apt-get -y autoremove
-
 #Reboot
 # shutdown -r now
 # reboot
