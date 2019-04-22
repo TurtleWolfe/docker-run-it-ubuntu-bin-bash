@@ -1498,6 +1498,7 @@ basedir  = /usr
 !includedir /etc/mysql/conf.d/ 
 !includedir /etc/mysql/mariadb.conf.d/ 
 ```
+/etc/mysql/conf.d/mysql.cnf
 ## [Managing MariaDB databases](https://www.google.com "Managing MariaDB databases")
 `mariadb -u root -p`  
 `MariaDB [(none)]>`  

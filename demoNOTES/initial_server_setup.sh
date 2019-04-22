@@ -133,7 +133,16 @@ sed -i "s/logpath = %(sshd_log)s/logpath = %(sshd_log)s\nenabled = true/" /etc/f
 # MariaDB over or MySQL
 # sed -i 's/…/…/' /etc/dir/file.txt
 apt install mariadb-server -y
-# mysql_secure_installation -y
+mysql_secure_installation <<EOF
+
+y
+secret
+secret
+y
+y
+y
+y
+EOF
 # NginX
 # sed -i 's/…/…/' /etc/dir/file.txt
 # Apache
