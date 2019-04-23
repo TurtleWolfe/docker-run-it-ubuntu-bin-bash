@@ -14,6 +14,12 @@ IP_ADDRESS=22.22.222.222
 # Port for accessing SSH
 SSH_PORT=22222
 
+# MariaDB password
+SECRET=secret
+
+# set TimeZone
+timedatectl set-timezone America/New_York
+
 # Whether to copy root user's `authorized_keys` file to the new sudo user.
 COPY_AUTHORIZED_KEYS_FROM_ROOT=true
 
@@ -21,9 +27,6 @@ COPY_AUTHORIZED_KEYS_FROM_ROOT=true
 OTHER_PUBLIC_KEYS_TO_ADD=(
 "ssh-rsa AAAAB..."
 )
-
-# set TimeZone
-timedatectl set-timezone America/New_York
 
 ####################
 ### SCRIPT LOGIC ###
@@ -104,6 +107,7 @@ if sshd -t -q; then
 fi
 
 # Add exception for SSH and then enable UFW firewall
+sed --in-place 's/IPV6=no/IPV6=yes/' /etc/default/ufw
 # ufw allow from "${IP_ADDRESS}" to any port "${SSH_PORT}"/tcp
 # ufw allow from "${IP_ADDRESS}" to any port "${SSH_PORT}"
 ufw allow proto tcp from "${IP_ADDRESS}" to any port "${SSH_PORT}"
@@ -136,8 +140,8 @@ apt install mariadb-server -y
 mysql_secure_installation <<EOF
 
 y
-secret
-secret
+$SECRET
+$SECRET
 y
 y
 y
