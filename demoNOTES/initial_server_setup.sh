@@ -136,7 +136,7 @@ sed -i "s/logpath = %(sshd_log)s/logpath = %(sshd_log)s\nenabled = true/" /etc/f
 # sed -i 's/…/…/' /etc/dir/file.txt
 # MariaDB over or MySQL
 # sed -i 's/…/…/' /etc/dir/file.txt
-apt install mariadb-server -y
+apt-get install mariadb-server -y
 mysql_secure_installation <<EOF
 
 y
@@ -150,6 +150,7 @@ EOF
 # NginX
 # sed -i 's/…/…/' /etc/dir/file.txt
 # Apache
+apt-get install apache2 -y
 # sed -i 's/…/…/' /etc/dir/file.txt
 #Reboot
 # shutdown -r now
